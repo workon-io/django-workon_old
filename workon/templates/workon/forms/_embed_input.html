@@ -1,0 +1,20 @@
+
+
+
+<div
+    class="contrib-media_input
+    {% if only_file %}contrib-media_input-only_file{% endif %}
+    {% if value %}active{% else %}empty{% endif %} embed
+    "
+    id="div_{{ id }}"
+    data-name="{{ name }}"
+    data-media-dropzone='{
+        "clickable": ".btn-wrapper"
+    }'>
+    <div class="contrib-media_input-media {% if value %}active{% endif %}">
+
+        <textarea class="form-control contrib-media_input-add-embed" {{ input_attrs|safe }
+            placeholder="Copiez collez une URL ou un code embed (youtube, dailymotion, soundcloud)"></textarea>
+
+    </div>
+</div>
