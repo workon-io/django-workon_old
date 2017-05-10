@@ -101,7 +101,7 @@ def workon_js(*names):
 
 PACKAGES_CSS = {
     'materialize': [
-        'http://fonts.googleapis.com/icon?family=Material+Icons',
+        'https://fonts.googleapis.com/icon?family=Material+Icons',
     ],
 }
 
