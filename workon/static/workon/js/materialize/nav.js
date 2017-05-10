@@ -5,30 +5,30 @@ $(document).ready(function(body, pushins, scrolled)
     body = $('boby');
     pushins = $('[data-pushpin-nav]');
 
-    $('[data-nav-collapse]').each(function()
+    $('[data-nav-collapse]').each(function(i, self)
     {
-        $(this).sideNav($.extend({
+        $(self).sideNav($.extend({
             //menuWidth: 300,
             edge: 'left',
             closeOnClick: true,
             draggable: true
-        }, $(this).data('nav-collapse')));
+        }, $(self).data('nav-collapse')));
     });
 
     $(window).on('resize.workon', function()
     {
         pushins.each(function(i, self)
         {
-            this._offsetTop = $(self).offset().top,
-            this._offsetHeight = $(self).outerHeight();
+            self._offsetTop = $(self).offset().top,
+            self._offsetHeight = $(self).outerHeight();
         });
     });
-    $(window).trigger('resize.workon');
 
     pushins.on('click', function() {
         $.smoothScroll(
         {
-            scrollTarget: $(this)
+            scrollTarget: $(this),
+            offset: 1
         });
         return false;
     });
@@ -83,6 +83,8 @@ $(document).ready(function(body, pushins, scrolled)
             $(prev).css('top',  next._offsetTop - prev._offsetTop - prev._offsetHeight );
         }
     });
+
     $(window).trigger('scroll.workon');
+    $(window).trigger('resize.workon');
 });
 
