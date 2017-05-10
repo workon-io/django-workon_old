@@ -110,7 +110,7 @@ class HtmlInput(forms.Textarea):
     class Media:
         js = [
             DEFAULT_TINYMCE_URL,
-            'js/forms/html.js',
+            'workon/js/forms/html.js',
         ]
         css = {
             'all': ('js/forms/html.css', )
