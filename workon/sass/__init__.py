@@ -41,6 +41,7 @@ def sass_compiler(config):
                 line = line.replace('components/variables', f'{cache_path}/sass/materialize_variables')
                 line = line.replace('components/', f'{path}/components/')
                 sass += line
+                sass += f'\n@import "{sass_path}/materialize/forms";'
 
             elif c == "materialize-backend":
                 sass += f'\n@import "{sass_path}/materialize/backend";'

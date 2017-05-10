@@ -1,10 +1,12 @@
-$(document).ready(function(pushins){
-
+$(document).ready(function(body, pushins, scrolled)
+{
+    scrolled = false;
     $("[data-collapse-nav]").sideNav();
 
+    body = $('boby');
     pushins = $('[data-pushpin-nav]');
 
-    $(window).on('resize.workon-pushpin', function()
+    $(window).on('resize.workon', function()
     {
         pushins.each(function(i, self)
         {
@@ -12,7 +14,7 @@ $(document).ready(function(pushins){
             this._offsetHeight = $(self).outerHeight();
         });
     });
-    $(window).trigger('resize.workon-pushpin');
+    $(window).trigger('resize.workon');
 
     pushins.on('click', function() {
         $.smoothScroll(
@@ -21,12 +23,26 @@ $(document).ready(function(pushins){
         });
         return false;
     });
-    $(window).on('scroll.workon-pushpin', function(scrollTop, prev, pinned, next)
+    $(window).on('scroll.workon', function(scrollTop, prev, pinned, next)
     {
         var scrollTop = $(this).scrollTop();
         prev = null;
         next = null;
         pinned = null;
+        if(scrollTop >= 0) {
+            if(!scrolled)
+            {
+                body.addClass('scrolled');
+                scrolled = true;
+            }
+        }
+        else {
+            if(!scrolled)
+            {
+                body.removeClass('scrolled');
+                scrolled = false;
+            }
+        }
         pushins.each(function(i, self)
         {
             var diff1 = scrollTop - this._offsetTop;
@@ -58,6 +74,6 @@ $(document).ready(function(pushins){
             $(prev).css('top',  next._offsetTop - prev._offsetTop - prev._offsetHeight );
         }
     });
-    $(window).trigger('scroll.workon-pushpin');
+    $(window).trigger('scroll.workon');
 });
 
