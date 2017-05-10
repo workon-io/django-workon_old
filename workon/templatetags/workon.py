@@ -72,7 +72,7 @@ PACKAGES_JS = {
     'scroll': 'workon/js/scroll.js',
 }
 
-@register.inclusion_tag('workon/workon_js.html')
+@register.inclusion_tag('workon/js.html')
 def workon_js(*names):
     internals = ''
     externals = ''
@@ -105,7 +105,7 @@ PACKAGES_CSS = {
     ],
 }
 
-@register.inclusion_tag('workon/workon_css.html')
+@register.inclusion_tag('workon/css.html')
 def workon_css(*names):
     internals = ''
     externals = ''
@@ -157,18 +157,6 @@ def absolute_url(url):
 @register.filter
 def static(url):
     return original_static(url)
-
-@register.filter
-def absolute_static(url):
-    return absolute_url(original_static(url))
-
-@register.filter
-def static_image(url):
-    storage_class = get_storage_class(settings.STATICFILES_STORAGE)
-    storage = storage_class()
-    image = ImageFile(storage.open(url))
-    image.storage = storage
-    return image, image.url
 
 @register.filter
 def absolute_static(url):

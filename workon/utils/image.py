@@ -1,8 +1,5 @@
-import os, datetime, re, base64, uuid
-try:
-    import cStringIO
-except ImportError:
-    from io import StringIO
+import os, datetime, re, base64, uuid, urllib
+from io import StringIO
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -39,17 +36,10 @@ def thumbnail_static(file_, geometry, **options):
 
     storage = SafeStaticFilesStorage()
     absolute_path = finders.find(file_)
-    if absolute_path:
-        try:
-            file_ = ImageFile(staticfiles_storage.open(file_))
-        except Exception as e:
-            try:
-                file_ = ImageFile(open(absolute_path))
-            except Exception as e:
-                return DummyImageFile(geometry)
+    try:
+        file_ = ImageFile(staticfiles_storage.open(file_))
+    except:
+        file_ = ImageFile(open(absolute_path))
+    file_.storage = storage
 
-        file_.storage = storage
-
-        return get_thumbnail(file_, geometry, **options)
-    else:
-        return DummyImageFile(geometry)
+    return get_thumbnail(file_, geometry, **options)

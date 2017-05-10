@@ -11,30 +11,30 @@ def get_config():
 class WorkonConfig(AppConfig):
 
     name = 'workon'
-    workon_path_name = ".workon"
+    path_name = ".workon"
 
-    def __init__(self, app_name, app_module):
-        super().__init__(app_name, app_module)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.app_path = workon.utils.get_project_root()
-        self.workon_path = os.path.join(self.app_path, self.workon_path_name)
-        self.workon_sass_path = os.path.join(self.workon_path, 'sass')
+        self.cache_path = os.path.join(self.app_path, self.path_name)
+        self.sass_path = os.path.join(self.cache_path, 'sass')
+        self.locker_path = os.path.join(self.sass_path, 'compiler.lock')
 
-    def ready(self):
-        super().ready()
 
-        if not os.path.isdir(self.workon_path):
-            os.mkdir(self.workon_path)
-        if not os.path.isdir(self.workon_sass_path):
-            os.mkdir(self.workon_sass_path)
+    def ready(self, *args, **kwargs):
+        super().ready(*args, **kwargs)
+
+        if not os.path.isdir(self.cache_path):
+            os.mkdir(self.cache_path)
+        if not os.path.isdir(self.sass_path):
+            os.mkdir(self.sass_path)
 
         config = get_config()
         self.STYLES = config.get('STYLES', {})
+        self.THEMES = config.get('THEMES', {})
         if self.STYLES:
             workon.sass.sass_compiler(self)
-
-
-
 
 
 

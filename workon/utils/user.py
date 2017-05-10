@@ -18,14 +18,15 @@ __all__ = [
 
 
 def get_activation_token(token, is_used=False):
-    from .models import ActivationToken
+    from apps.user.models import ActivationToken
     try:
         return ActivationToken.objects.get(token=token, is_used=is_used)
     except:
         return None
 
 def get_valid_activation_token(email, is_used=False):
-    from .models import ActivationToken
+    from apps.user.models import ActivationToken
+    User = get_user_model()
     email = workon.utils.is_valid_email(email)
     if email:
         return ActivationToken.objects.filter(
@@ -37,6 +38,7 @@ def get_valid_activation_token(email, is_used=False):
 
 def create_activation_token(email, expiration_date=None):
     from apps.user.models import ActivationToken
+    User = get_user_model()
     email = workon.utils.is_valid_email(email)
     if email:
         activation_token, created = ActivationToken.objects.get_or_create(
