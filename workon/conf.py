@@ -3,7 +3,7 @@ from django.conf import settings
 import os
 import workon.utils
 import workon.sass
-
+import sys
 
 def get_config():
     return getattr(settings, 'WORKON', {})
@@ -20,7 +20,7 @@ class WorkonConfig(AppConfig):
         self.cache_path = os.path.join(self.app_path, self.path_name)
         self.sass_path = os.path.join(self.cache_path, 'sass')
         self.locker_path = os.path.join(self.sass_path, 'compiler.lock')
-
+        self.is_runserver = (len(sys.argv) > 1 and sys.argv[1] == 'runserver')
 
     def ready(self, *args, **kwargs):
         super().ready(*args, **kwargs)
@@ -33,7 +33,7 @@ class WorkonConfig(AppConfig):
         config = get_config()
         self.STYLES = config.get('STYLES', {})
         self.THEMES = config.get('THEMES', {})
-        if self.STYLES:
+        if self.is_runserver and self.STYLES:
             workon.sass.sass_compiler(self)
 
 
