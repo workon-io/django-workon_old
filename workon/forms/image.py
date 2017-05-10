@@ -18,7 +18,7 @@ except:
 logger = logging.getLogger(__name__)
 
 class ImageInput(ClearableFileInput):
-    template_name = 'contrib/forms/_image_input.html'
+    template_name = 'workon/forms/_image_input.html'
     attrs = {'accept': 'image/*'}
 
 
@@ -60,11 +60,11 @@ class CroppedImageInput(base_forms.widgets.TextInput):
     class Media:
         css = {
             'all': (
-                settings.STATIC_URL + 'contrib/forms/image_cropped.css',
+                settings.STATIC_URL + 'workon/forms/image_cropped.css',
             )
         }
         js = (
-            settings.STATIC_URL + 'contrib/forms/image_cropped.js',
+            settings.STATIC_URL + 'workon/forms/image_cropped.js',
             # settings.STATIC_URL + 'js/cropper.js',
         )
 
@@ -90,7 +90,7 @@ class CroppedImageField(base_forms.CharField):
         # if widget == AdminFileWidget or isinstance(widget, AdminFileWidget):
         widget = CroppedImageInput( attrs={
             'class': 'image-croppable',
-            'data-contrib-croppedimage': self.image_field,
+            'data-workon-croppedimage': self.image_field,
             'style': 'display:none;',
         })
         kwargs['widget'] = widget
