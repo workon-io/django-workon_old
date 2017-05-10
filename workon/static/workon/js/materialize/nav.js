@@ -2,7 +2,7 @@ $(document).ready(function(body, pushins, scrolled)
 {
     scrolled = false;
 
-    body = $('boby');
+    body = $('body');
     pushins = $('[data-pushpin-nav]');
 
     $('[data-nav-collapse]').each(function(i, self)
@@ -10,9 +10,17 @@ $(document).ready(function(body, pushins, scrolled)
         $(self).sideNav($.extend({
             //menuWidth: 300,
             edge: 'left',
-            closeOnClick: true,
+            //closeOnClick: true,
             draggable: true
         }, $(self).data('nav-collapse')));
+    });
+    $(document).on('click', '[data-nav-top]', function(i, self)
+    {
+        $.smoothScroll(
+        {
+            direction: 'top',
+            offset: 0
+        });
     });
 
     $(window).on('resize.workon', function()
@@ -34,8 +42,7 @@ $(document).ready(function(body, pushins, scrolled)
     pushins.on('click', function() {
         $.smoothScroll(
         {
-            scrollTarget: $(this),
-            offset: 1
+            offset: this._offsetTop + 1
         });
         return false;
     });
@@ -45,15 +52,16 @@ $(document).ready(function(body, pushins, scrolled)
         prev = null;
         next = null;
         pinned = null;
-        if(scrollTop >= 0) {
-            if(!scrolled)
+        if(scrollTop > 0)
+        {
+            if(scrolled === false)
             {
                 body.addClass('scrolled');
                 scrolled = true;
             }
         }
         else {
-            if(!scrolled)
+            if(scrolled === true)
             {
                 body.removeClass('scrolled');
                 scrolled = false;

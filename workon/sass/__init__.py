@@ -21,7 +21,7 @@ def sass_compiler(config):
         name = os.path.basename(output)
         sass_file = open(f'{config.sass_path}/{name}.scss', 'w+b')
         sass = f'''@charset "UTF-8";'''
-        sass += f'\n@import "{sass_path}/workon/workon";'
+        sass += f'\n@import "{sass_path}/mixins";'
         for c in components:
 
             if c == "materialize":
@@ -42,6 +42,7 @@ def sass_compiler(config):
                 line = line.replace('components/', f'{path}/components/')
                 sass += line
                 sass += f'\n@import "{sass_path}/materialize/forms";'
+                sass += f'\n@import "{sass_path}/materialize/extra";'
 
             elif c == "materialize-backend":
                 sass += f'\n@import "{sass_path}/materialize/backend";'
