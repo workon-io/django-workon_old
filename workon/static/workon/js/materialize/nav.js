@@ -44,7 +44,6 @@ $(document).ready(function(body, pushins, scrolled)
         {
             offset: this._offsetTop + 1
         });
-        return false;
     });
     $(window).on('scroll.workon', function(scrollTop, prev, pinned, next)
     {
