@@ -1,10 +1,19 @@
 $(document).ready(function(body, pushins, scrolled)
 {
     scrolled = false;
-    $("[data-collapse-nav]").sideNav();
 
     body = $('boby');
     pushins = $('[data-pushpin-nav]');
+
+    $('[data-nav-collapse]').each(function()
+    {
+        $(this).sideNav($.extend({
+            //menuWidth: 300,
+            edge: 'left',
+            closeOnClick: true,
+            draggable: true
+        }, $(this).data('nav-collapse')));
+    });
 
     $(window).on('resize.workon', function()
     {
