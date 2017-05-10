@@ -19,9 +19,16 @@ $(document).ready(function(body, pushins, scrolled)
     {
         pushins.each(function(i, self)
         {
-            self._offsetTop = $(self).offset().top,
-            self._offsetHeight = $(self).outerHeight();
+            self._offsetTop = $(self).css('top', '').offset().top,
+            self._offsetHeight = $(self).css('top', '').outerHeight();
         });
+        $(window).trigger('scroll.workon');
+    });
+
+    pushins.each(function(i, self)
+    {
+        self._offsetTop = $(self).css('top', '').offset().top,
+        self._offsetHeight = $(self).css('top', '').outerHeight();
     });
 
     pushins.on('click', function() {
@@ -85,6 +92,5 @@ $(document).ready(function(body, pushins, scrolled)
     });
 
     $(window).trigger('scroll.workon');
-    $(window).trigger('resize.workon');
 });
 

@@ -63,8 +63,10 @@ PACKAGES_JS = {
         'workon/js/jquery.js',
         'workon/js/materialize/materialize.js',
         'workon/js/materialize/nav.js',
-        'workon/js/scroll.js',
+        'workon/js/materialize/modal.js',
+        'workon/js/materialize/scroll.js',
         'workon/js/materialize/carousel.js',
+        'workon/js/materialize/form.js',
     ],
     'form': 'workon/js/form.js',
     'slick': 'workon/js/slick.js',
@@ -100,7 +102,7 @@ def workon_js(*names):
 
 
 PACKAGES_CSS = {
-    'materialize': [
+    'materialize-icons': [
         'https://fonts.googleapis.com/icon?family=Material+Icons',
     ],
 }
