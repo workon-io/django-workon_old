@@ -37,13 +37,13 @@ standard_exclude_directories = ('.*', 'CVS', '_darcs', './build',
                                 './dist', 'EGG-INFO', '*.egg-info')
 
 setup(
-    name='django-workon2',
+    name='django-workon',
     version=find_version(),
     description='Django extensions packages',
     long_description=read('README.rst'),
     author='Autrusseau Damien',
     author_email='autrusseau.damien@gmail.com',
-    url='http://github.com/dalou/django-workon2',
+    url='http://github.com/workon-io/django-workon',
     packages=find_packages(exclude=('tests*',)),
     zip_safe=False,
     license='MIT',
