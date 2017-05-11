@@ -67,6 +67,7 @@ PACKAGES_JS = {
         'workon/js/materialize/scroll.js',
         'workon/js/materialize/carousel.js',
         'workon/js/materialize/form.js',
+        'workon/js/materialize/search.js',
     ],
     'form': 'workon/js/form.js',
     'slick': 'workon/js/slick.js',
@@ -397,8 +398,12 @@ def add_input_classes(field):
         if field.errors:
             field_classes+= ' invalid'
         field.field.widget.attrs['class'] = field_classes
+
         if hasattr(field.field, 'max_length'):
             field.field.widget.attrs['data-length'] = field.field.max_length
+
+    if is_select(field):
+        field.field.widget.attrs['data-select'] = '-'
 
 
 def materialize_render(element, markup_classes):

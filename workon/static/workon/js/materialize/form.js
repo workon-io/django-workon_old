@@ -1,8 +1,6 @@
-// $(document).ready(function(){
-//     $('ul.tabs').tabs({
-//         swipeable: true
-//     });
-// });
+$(document).ready(function(){
+    $('[data-select]').material_select();
+});
 
 $.fn.ajaxResponse = function(data, cb)
 {
