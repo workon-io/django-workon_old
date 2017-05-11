@@ -1,26 +1,30 @@
-$(document).ready(function(body, pushins, scrolled)
+$(document).ready(function(body, pushins, backgrounds, scrolled)
 {
     scrolled = false;
 
     body = $('body');
-    pushins = $('[data-pushpin-nav]');
+    pushins = $('[data-pushpin-nav]').each(function(i, self)
+    {
+        self._offsetTop = $(self).css('top', '').offset().top,
+        self._offsetHeight = $(self).css('top', '').outerHeight();
+    }).on('click', function() {
+        $.smoothScroll(
+        {
+            offset: this._offsetTop + 1
+        });
+    });
+    backgrounds = $('[data-background-absolute]').each(function(i, self)
+    {
+        self._offsetTop = $(self).css('top', '').offset().top;
+    });
 
     $('[data-nav-collapse]').each(function(i, self)
     {
-        $(self).sideNav($.extend({
-            //menuWidth: 300,
-            edge: 'left',
-            //closeOnClick: true,
-            draggable: true
-        }, $(self).data('nav-collapse')));
+        $(self).sideNav($.extend({ edge: 'left', draggable: true }, $(self).data('nav-collapse')));
     });
     $(document).on('click', '[data-nav-top]', function(i, self)
     {
-        $.smoothScroll(
-        {
-            direction: 'top',
-            offset: 0
-        });
+        $.smoothScroll({ direction: 'top', offset: 0 });
     });
 
     $(window).on('resize.workon', function()
@@ -33,18 +37,6 @@ $(document).ready(function(body, pushins, scrolled)
         $(window).trigger('scroll.workon');
     });
 
-    pushins.each(function(i, self)
-    {
-        self._offsetTop = $(self).css('top', '').offset().top,
-        self._offsetHeight = $(self).css('top', '').outerHeight();
-    });
-
-    pushins.on('click', function() {
-        $.smoothScroll(
-        {
-            offset: this._offsetTop + 1
-        });
-    });
     $(window).on('scroll.workon', function(scrollTop, prev, pinned, next)
     {
         var scrollTop = $(this).scrollTop();
@@ -66,6 +58,7 @@ $(document).ready(function(body, pushins, scrolled)
                 scrolled = false;
             }
         }
+
         pushins.each(function(i, self)
         {
             var diff1 = scrollTop - this._offsetTop;
@@ -96,6 +89,11 @@ $(document).ready(function(body, pushins, scrolled)
         {
             $(prev).css('top',  next._offsetTop - prev._offsetTop - prev._offsetHeight );
         }
+
+        backgrounds.each(function(i, self)
+        {
+            $(self).css('backgroundPositionY', Math.max(0, self._offsetTop + scrollTop))
+        });
     });
 
     $(window).trigger('scroll.workon');
