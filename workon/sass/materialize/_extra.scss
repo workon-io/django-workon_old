@@ -38,3 +38,10 @@ body.scrolled {
     background: #ff4081;
     color: #fff;
 }
+
+.pushpinned
+{
+    position: fixed !important;
+    z-index: 99999 !important;
+    top: 0px;
+}

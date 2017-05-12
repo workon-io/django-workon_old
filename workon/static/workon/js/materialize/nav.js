@@ -3,11 +3,14 @@ $(document).ready(function(body, pushins, backgrounds, scrolled)
     scrolled = false;
 
     body = $('body');
-    pushins = $('[data-pushpin-nav]').each(function(i, self)
+    pushpinsReset = function(i, self)
     {
-        self._offsetTop = $(self).css('top', '').offset().top,
-        self._offsetHeight = $(self).css('top', '').outerHeight();
-    }).on('click', function() {
+        self._offsetTop = $(self).removeClass('pushpinned').offset().top,
+        self._offsetHeight = $(self).outerHeight();
+        self._offsetWidth = $(self).width('auto').width();
+        $(self).width(self._offsetWidth);
+    }
+    pushins = $('[data-pushpin-nav]').each(pushpinsReset).on('click', function() {
         $.smoothScroll(
         {
             offset: this._offsetTop + 1
@@ -29,11 +32,7 @@ $(document).ready(function(body, pushins, backgrounds, scrolled)
 
     $(window).on('resize.workon', function()
     {
-        pushins.each(function(i, self)
-        {
-            self._offsetTop = $(self).css('top', '').offset().top,
-            self._offsetHeight = $(self).css('top', '').outerHeight();
-        });
+        pushins.each(pushpinsReset);
         $(window).trigger('scroll.workon');
     });
 
@@ -83,11 +82,11 @@ $(document).ready(function(body, pushins, backgrounds, scrolled)
         });
         if(pinned)
         {
-            $(pinned).css('top', pinned._pushOffset).addClass('pushpinned');
+            $(pinned).css('top', Math.min(0, pinned._pushOffset))/*.css('top', pinned._pushOffset)*/.addClass('pushpinned');
         }
         if(prev && next)
         {
-            $(prev).css('top',  next._offsetTop - prev._offsetTop - prev._offsetHeight );
+            $(prev).css('top',  next._offsetTop - prev._offsetTop - prev._offsetHeight ).removeClass('pushpinned');
         }
 
         backgrounds.each(function(i, self)
