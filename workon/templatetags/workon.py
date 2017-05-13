@@ -76,7 +76,7 @@ PACKAGES_JS = {
 }
 
 @register.inclusion_tag('workon/js.html')
-def workon_js(*names):
+def workon_js(*names, async=False):
     internals = ''
     externals = ''
     if not names:
@@ -93,9 +93,9 @@ def workon_js(*names):
             packages.append(name)
     for path in packages:
         if path.startswith('http') or path.startswith('//'):
-            externals += f'<script type="text/javascript" src="{path}""></script>'
+            externals += f'<script type="text/javascript" src="{path}"" {"async" if async else ""}></script>'
         else:
-            internals += f'<script type="text/javascript" src="{original_static(path)}"></script>'
+            internals += f'<script type="text/javascript" src="{original_static(path)}" {"async" if async else ""}></script>'
     return {
         'externals': mark_safe(externals),
         'internals': mark_safe(internals)
