@@ -13,10 +13,17 @@ import logging
 import collections
 from django.conf import settings
 from django.utils.module_loading import import_module, import_string
-from watchdog.observers import Observer
-from watchdog.events import LoggingEventHandler, FileSystemEventHandler
+
+try:
+    from watchdog.observers import Observer
+    from watchdog.events import LoggingEventHandler, FileSystemEventHandler
+    WATCHDOG_FOUND = True
+except:
+    WATCHDOG_FOUND = False
 
 def sass_compiler(config):
+    if not WATCHDOG_FOUND:
+        return
     for proc in psutil.process_iter():
         if proc.name() == "sass":
             proc.kill()
