@@ -18,8 +18,7 @@ class WorkonConfig(AppConfig):
 
         self.app_path = workon.utils.get_project_root()
         self.cache_path = os.path.join(self.app_path, self.path_name)
-        self.sass_path = os.path.join(self.cache_path, 'sass')
-        self.locker_path = os.path.join(self.sass_path, 'compiler.lock')
+        self.cache_sass_path = os.path.join(self.cache_path, 'sass')
         self.is_runserver = (len(sys.argv) > 1 and sys.argv[1] == 'runserver')
 
     def ready(self, *args, **kwargs):
@@ -27,8 +26,8 @@ class WorkonConfig(AppConfig):
 
         if not os.path.isdir(self.cache_path):
             os.mkdir(self.cache_path)
-        if not os.path.isdir(self.sass_path):
-            os.mkdir(self.sass_path)
+        if not os.path.isdir(self.cache_sass_path):
+            os.mkdir(self.cache_sass_path)
 
         config = get_config()
         self.STYLES = config.get('STYLES', {})

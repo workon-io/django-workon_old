@@ -1,0 +1,10 @@
+.navbar-fixed {
+    z-index: 996;
+}
+.nav-top {
+    position: fixed; right: 15px; bottom: 15px; z-index: 999999;
+    visibility: hidden; opacity: 0; @include tr1();
+}
+body.scrolled {
+    .nav-top { visibility: visible; opacity: 1; }
+}

@@ -1,0 +1,19 @@
+.modal {
+    overflow-y: visible;
+    .modal-close {
+        position: absolute;
+        right: -68px;
+        top: -45px;
+        i {
+            color: $primary-color;
+            font-size: 70px;
+            font-weight: bold;
+            opacity: 0.9;
+        }
+        &:hover {
+            i {
+                opacity: 1;
+            }
+        }
+    }
+}

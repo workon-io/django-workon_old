@@ -16,6 +16,7 @@ from workon.utils.string import *
 from workon.utils.urls import *
 from workon.utils.ip_address import *
 from workon.utils.user import *
+from workon.utils.logs import *
 # from workon.tree.utils import *
 from django.conf import settings
 

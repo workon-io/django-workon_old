@@ -46,14 +46,14 @@ $(document).ready(function(body, pushins, backgrounds, scrolled)
         {
             if(scrolled === false)
             {
-                body.addClass('scrolled');
+                body.addClass('on-scroll').removeClass('on-top');
                 scrolled = true;
             }
         }
         else {
             if(scrolled === true)
             {
-                body.removeClass('scrolled');
+                body.removeClass('on-scroll').addClass('on-top');
                 scrolled = false;
             }
         }

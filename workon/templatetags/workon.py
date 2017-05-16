@@ -68,6 +68,8 @@ PACKAGES_JS = {
         'workon/js/materialize/carousel.js',
         'workon/js/materialize/form.js',
         'workon/js/materialize/search.js',
+        'workon/js/materialize/tree.js',
+        'workon/js/materialize/tabs.js',
     ],
     'form': 'workon/js/form.js',
     'slick': 'workon/js/slick.js',
@@ -76,7 +78,8 @@ PACKAGES_JS = {
 }
 
 @register.inclusion_tag('workon/js.html')
-def workon_js(*names, async=False):
+def workon_js(*names, **kwargs):
+    global_async = kwargs.get('async', False)
     internals = ''
     externals = ''
     if not names:
@@ -92,10 +95,11 @@ def workon_js(*names, async=False):
         else:
             packages.append(name)
     for path in packages:
+        async = False
         if path.startswith('http') or path.startswith('//'):
-            externals += f'<script type="text/javascript" src="{path}"" {"async" if async else ""}></script>'
+            externals += f'<script type="text/javascript" src="{path}"" {"async" if async or global_async else ""}></script>'
         else:
-            internals += f'<script type="text/javascript" src="{original_static(path)}" {"async" if async else ""}></script>'
+            internals += f'<script type="text/javascript" src="{original_static(path)}" {"async" if async or global_async else ""}></script>'
     return {
         'externals': mark_safe(externals),
         'internals': mark_safe(internals)
@@ -380,7 +384,7 @@ def do_usemeta(parser, token, truncate=None):
 
 #################### BOOTSTRAP3
 @register.filter
-def materialize(element, label_cols={}, icon=None):
+def materialize(element, label_cols={}, icon=None, label=None):
     if not label_cols:
         label_cols = 's12'
 
