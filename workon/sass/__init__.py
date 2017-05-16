@@ -17,6 +17,14 @@ from django.utils.module_loading import import_module, import_string
 try:
     from watchdog.observers import Observer
     from watchdog.events import LoggingEventHandler, FileSystemEventHandler
+    class EventHandler(FileSystemEventHandler):
+
+        def __init__(self, watcher, *args, **kwargs):
+            self.watcher = watcher
+            super().__init__( *args, **kwargs)
+
+        def on_any_event(self, event):
+            self.watcher.process_changes(event)
     WATCHDOG_FOUND = True
 except:
     WATCHDOG_FOUND = False
@@ -36,14 +44,6 @@ def sass_watch(config):
     watcher = Watcher(config=config)
     watcher.lock_and_watch()
 
-class EventHandler(FileSystemEventHandler):
-
-    def __init__(self, watcher, *args, **kwargs):
-        self.watcher = watcher
-        super().__init__( *args, **kwargs)
-
-    def on_any_event(self, event):
-        self.watcher.process_changes(event)
 
 
 class Watcher(object):
