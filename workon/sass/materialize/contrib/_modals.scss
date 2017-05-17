@@ -1,9 +1,13 @@
 .modal {
-    overflow-y: visible;
+
+}
+.modal-overlay {
     .modal-close {
         position: absolute;
-        right: -68px;
-        top: -45px;
+        top: 11%;
+        left: 50%;
+        // right: -68px;
+        // top: -45px;
         i {
             color: $primary-color;
             font-size: 70px;
@@ -14,6 +18,11 @@
             i {
                 opacity: 1;
             }
+        }
+        @media #{$medium-and-down} {
+
+            right: 10%;
+            left: auto;
         }
     }
 }

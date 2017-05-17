@@ -15,7 +15,11 @@ $(document).on('click', '[data-modal]', function(e, trigger, target, ready, comp
         //$('body').addClass('has-modal')
         $(modal).on('click', '[data-modal-close]', function() {
             $(modal).modal('close');
-        })
+        });
+        $('.modal-overlay').empty().append(
+            $('<a class="modal-close" data-modal-close><i class="material-icons">close</i></a>')
+                .css('margin-left', ( $(modal).width() / 2  ) )
+        )
     }
     complete = function()
     {
@@ -36,16 +40,19 @@ $(document).on('click', '[data-modal]', function(e, trigger, target, ready, comp
     else
     {
         $('body').addClass('has-modal')
-        $.get(target, function(data)
+        $.get(target, function(data, modal)
         {
-            data = $(data).appendTo('body');
-            data.modal({
+            modal = $(data).appendTo('body');
+            modal.modal({
                 dismissible: true, // Modal can be dismissed by clicking outside of the modal
                 opacity: .9, // Opacity of modal background
                 inDuration: 300, // Transition in duration
                 outDuration: 200, // Transition out duration
                 startingTop: '4%', // Starting top style attribute
-                complete: complete,
+                complete: function() {
+                    complete();
+                    modal.remove();
+                },
                 ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
                     //alert("Ready");
                     ready(modal, trigger);
@@ -58,7 +65,7 @@ $(document).on('click', '[data-modal]', function(e, trigger, target, ready, comp
                     });
                 },
             });
-            data.modal('open');
+            modal.modal('open');
         });
     }
 

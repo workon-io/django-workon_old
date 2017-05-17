@@ -1,4 +1,5 @@
 import datetime
+import hashlib
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -14,8 +15,6 @@ import workon.fields
 __all__ = ['User']
 
 class User(AbstractBaseUser, PermissionsMixin):
-
-    old_pk = models.CharField(max_length=255, blank=True, null=True, db_index=True)
 
     email = models.EmailField(_('Email'), unique=True, db_index=True)
     username = models.CharField(_('username'), blank=True, null=True, max_length=254, db_index=True)
@@ -66,31 +65,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         swappable = 'AUTH_USER_MODEL'
 
     def save(self, *args, **kwargs):
-
-        flow = kwargs.pop('flow', True)
         super().save(*args, **kwargs)
-
-        if not self.is_activation_email_sent:
-            self.send_activation_token(*args, **kwargs)
-
-
-    def send_activation_token(self, *args, **kwargs):
-        activation_token  = workon.utils.create_activation_token(email=self.email)
-        workon.utils.send_email(
-            subject=u"Activation de votre compte",
-            sender="Workon.io <account@workon.io>",
-            receivers=[self.email],
-            template="user/email/activate.html",
-            clean_html=True,
-            context={
-                'user': self,
-                'absolute_uri': workon.utils.build_absolute_url(),
-                'activate_url': workon.utils.build_absolute_url(activation_token.get_absolute_activate_url())
-            }
-        )
-        self.is_activation_email_sent = True
-        super().save(*args, **kwargs)
-
 
     def authenticate(self, request, remember=False, backend=None):
         return workon.utils.authenticate_user(request, self, remember=remember, backend=backend)
@@ -117,11 +92,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         data.update(**kwargs)
         return data
 
-    def get_name_initials(self, *args, **kwargs):
-        if self.first_name and self.last_name:
-            return self.first_name[0]+self.last_name[0]
-        else:
-            return self.username[0:1]
 
     def set_last_seen_at_flag(self):
         if self.presence == User.PRESENCE_OFF and self.last_seen_at and self.last_seen_at > yesterday:
@@ -134,6 +104,14 @@ class User(AbstractBaseUser, PermissionsMixin):
                 self.last_seen_at_flag = self.last_seen_at
 
 
+    def set_public_key(self, hash_func=hashlib.sha256):
+        self.public_key = self.generate_random_token()
+
+    def set_private_key(self, hash_func=hashlib.sha256):
+        self.private_key = self.generate_random_token()
+
+    def generate_random_token(self, hash_func=hashlib.sha256):
+        return contrib.utils.random_token(extra=[self.id if self.id else self.email, self.email])
 
     def get_username(self):
         "Return the identifying username for this User"
@@ -168,6 +146,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         full_name = " ".join(names)
         return full_name.strip()
 
+    def get_name_initials(self, *args, **kwargs):
+        if self.first_name and self.last_name:
+            return self.first_name[0]+self.last_name[0]
+        else:
+            return self.username[0:1]
     @property
     def name_initials(self):
         return self.get_name_initials()
@@ -188,7 +171,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             else:
                 return self.avatar.url
         else:
-            return "/static/img/default_avatar.png"
+            return self.DEFAULT_AVATAR_URL
             return None#"/static/front/images/logo_small.png"
             gravatar_url = "https://www.gravatar.com/avatar/" + hashlib.md5(self.email.lower()).hexdigest() + "?"
             gravatar_url += urllib.urlencode({'d':default, 's':str(size)})
