@@ -1,4 +1,5 @@
 import re
+import os
 import random
 from django import forms
 from django import template
@@ -71,6 +72,13 @@ PACKAGES_JS = {
         'workon/js/materialize/tree.js',
         'workon/js/materialize/tabs.js',
     ],
+    'workon': [
+        'workon/js/jquery.js',
+    ] + [
+        f'workon/js/workon/date_picker/{name}' for name in sorted(os.listdir(os.path.join(os.path.dirname(__file__), '../static/workon/js/workon/date_picker/'))) if name.endswith('.js')
+    ] + [
+        f'workon/js/workon/{name}' for name in sorted(os.listdir(os.path.join(os.path.dirname(__file__), '../static/workon/js/workon/'))) if name.endswith('.js')
+    ],
     'form': 'workon/js/form.js',
     'slick': 'workon/js/slick.js',
     'modal': 'workon/js/modal.js',
@@ -96,6 +104,7 @@ def workon_js(*names, **kwargs):
             packages.append(name)
     for path in packages:
         async = False
+        print(path)
         if path.startswith('http') or path.startswith('//'):
             externals += f'<script type="text/javascript" src="{path}"" {"async" if async or global_async else ""}></script>'
         else:

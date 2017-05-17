@@ -1,0 +1,57 @@
+
+// .nav-extended {
+//     .brand-logo {
+
+//         font-family: Audiowide;
+//         color: white;
+//         font-size: 18px;
+//         margin-left: -10px;
+//         text-decoration: none !important;
+//         @include tr1();
+//         span {
+//             font-size: 15px;
+//             color: $secondary-color;
+//         }
+//     }
+
+//     ul {
+//         li {
+//             a {
+//                 position: relative;
+//                 span.counter {
+//                     position: absolute;
+//                     margin: 0px;
+//                     padding: 0px;
+//                     top: 5px;
+//                     right: 5px;
+//                     font-size: 12px;
+//                     width: 22px;
+//                     height: 22px;
+//                     border-radius: 50%;
+//                     background: color('red', 'base');
+//                     color: #fff;
+//                     display: block;
+//                     text-align: center;
+//                     line-height: 22px;
+
+//                 }
+//             }
+//         }
+//         &.right {
+//             margin-right: 15px;
+//         }
+//     }
+// }
+// @media #{$large-and-up} {
+//     .nav-extended {
+//         padding-left: 300px;
+//         .brand-logo {
+//             margin-left: 25px;
+//             font-size: 35px;
+//             span {
+//                 font-size: 20px;
+//             }
+//         }
+
+//     }
+// }

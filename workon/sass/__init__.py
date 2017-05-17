@@ -87,12 +87,12 @@ class Watcher(object):
             sass += f'\n@import "{self.sass_path}/mixins";'
             for c in components:
 
-                if c == "materialize":
-                    path = f'{self.sass_path}/materialize'
-                    variables_path = f'{self.cache_sass_path}/_materialize_variables.scss'
+                if c == "materialize" or c == "workon":
+                    path = f'{self.sass_path}/{c}'
+                    variables_path = f'{self.cache_sass_path}/_{c}_variables.scss'
                     variables_file = open(variables_path, 'w+b')
-                    variables = str(open(f'{self.sass_path}/materialize/components/_variables.scss', 'r+b').read(), 'utf-8')
-                    variables_settings = collections.OrderedDict(config.THEMES.get('materialize', {}).get('variables'))
+                    variables = str(open(f'{self.sass_path}/{c}/components/_variables.scss', 'r+b').read(), 'utf-8')
+                    variables_settings = collections.OrderedDict(config.THEMES.get(f'{c}', {}).get('variables'))
                     cursor = -1
                     for name, value in variables_settings.items():
                         reg = re.compile(r'\${}\:(.*)\;'.format(name))
@@ -106,18 +106,15 @@ class Watcher(object):
                             variables = variables[:cursor+1] + injection + variables[cursor+1:]
                     variables_file.write(bytes(variables, 'utf-8'))
                     variables_file.close()
-                    line = str(open(f'{path}/_materialize.scss', 'r+b').read(), 'utf-8')
-                    line = line.replace('components/variables', f'{self.cache_path}/sass/materialize_variables')
+                    line = str(open(f'{path}/_{c}.scss', 'r+b').read(), 'utf-8')
+                    line = line.replace('components/variables', f'{self.cache_path}/sass/{c}_variables')
                     line = line.replace('components/', f'{path}/components/')
                     sass += line
-                    sass += f'\n@import "{self.sass_path}/materialize/forms";'
-                    sass += f'\n@import "{self.sass_path}/materialize/contrib";'
+                    sass += f'\n@import "{self.sass_path}/{c}/forms";'
+                    sass += f'\n@import "{self.sass_path}/{c}/contrib";'
 
                 elif c == "materialize-backend":
-                    sass += f'\n@import "{self.sass_path}/materialize/backend";'
-
-                elif c == "slick":
-                    sass += f'\n@import "{self.sass_path}/workon/slick";'
+                    sass += f'\n@import "{self.sass_path}/{c}/backend";'
 
                 else:
                     files = []
