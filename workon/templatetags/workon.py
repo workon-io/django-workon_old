@@ -16,6 +16,9 @@ import workon.utils
 register = template.Library()
 
 
+@register.filter(name='range')
+def range_filter(x):
+    return range(x)
 
 @register.filter
 def jsonify(obj):
@@ -104,7 +107,6 @@ def workon_js(*names, **kwargs):
             packages.append(name)
     for path in packages:
         async = False
-        print(path)
         if path.startswith('http') or path.startswith('//'):
             externals += f'<script type="text/javascript" src="{path}"" {"async" if async or global_async else ""}></script>'
         else:
@@ -173,6 +175,10 @@ def absolute_url(url):
 @register.filter
 def static(url):
     return original_static(url)
+
+@register.filter
+def external_url(url):
+    return workon.utils.append_protocol(url)
 
 @register.filter
 def absolute_static(url):

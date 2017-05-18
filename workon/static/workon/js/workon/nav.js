@@ -11,10 +11,8 @@ $(document).ready(function(body, pushins, backgrounds, scrolled)
         $(self).width(self._offsetWidth);
     }
     pushins = $('[data-pushpin-nav]').each(pushpinsReset).on('click', function() {
-        $.smoothScroll(
-        {
-            offset: this._offsetTop + 1
-        });
+
+        $('body').stop().animate({ scrollTop: 1 }, 500);
     });
     backgrounds = $('[data-background-absolute]').each(function(i, self)
     {
@@ -27,7 +25,7 @@ $(document).ready(function(body, pushins, backgrounds, scrolled)
     });
     $(document).on('click', '[data-nav-top]', function(i, self)
     {
-        $.smoothScroll({ direction: 'top', offset: 0 });
+        $('body').stop().animate({ scrollTop: 0 }, 500);
     });
 
     $(window).on('resize.workon', function()

@@ -3,3 +3,16 @@
 //     -moz-box-shadow: $args1, $args2;
 //     box-shadow: $args1, $args2;
 // }
+
+@keyframes placeholder {
+    from { top:-8px; left:-8px; }
+    50% { top:-10px; left:-10px; }
+    to { top:-8px; left:-8px; }
+}
+
+/***** LOADINGS *****/
+@keyframes spin {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
