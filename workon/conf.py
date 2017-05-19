@@ -1,9 +1,10 @@
+import os
+import sys
 from django.apps import AppConfig
 from django.conf import settings
-import os
+from workon.cleanup import cache, handlers
 import workon.utils
 import workon.sass
-import sys
 
 def get_config():
     return getattr(settings, 'WORKON', {})
@@ -23,13 +24,17 @@ class WorkonConfig(AppConfig):
 
     def ready(self, *args, **kwargs):
         super().ready(*args, **kwargs)
+        config = get_config()
 
         if not os.path.isdir(self.cache_path):
             os.mkdir(self.cache_path)
         if not os.path.isdir(self.cache_sass_path):
             os.mkdir(self.cache_sass_path)
 
-        config = get_config()
+        cache.prepare()
+        handlers.connect()
+
+
         self.STYLES = config.get('STYLES', {})
         self.THEMES = config.get('THEMES', {})
         if self.is_runserver and self.STYLES:
