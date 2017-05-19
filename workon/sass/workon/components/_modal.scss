@@ -24,6 +24,21 @@ body.has-modal {
   top: 10%;
   left: 50%;
   @include ts(translateX(-50%));
+  .modal-head {
+    padding: 15px;
+  }
+  .modal-body {
+    padding: 15px;
+  }
+  .modal-foot {
+    padding: 15px;
+  }
+  @media #{$medium-and-down} {
+    width: 80%;
+  }
+  &.small {width: 400px;}
+  &.large {width: 1200px;}
+  &.medium {width: 700px;}
 }
 
 
