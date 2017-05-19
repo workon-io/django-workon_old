@@ -1,6 +1,5 @@
 {% load workon %}
 
-
     {% if field|is_checkbox %}
     <div class="col {{ classes.label }}">
         <div class="{{ classes.single_value }}">
@@ -125,7 +124,7 @@
         </div>
 
     {% elif field|is_file %}
-        <div class="col {{ classes.label }}">
+        <div class="_col _{{ classes.label }}">
 
             {% for error in field.errors %}
                 <p class="help-block orange-text {{ form.error_css_class }}">{{ error }}</p>
@@ -142,10 +141,9 @@
                 {% if not field.field.required %}
                     <input type="checkbox" name="{{ checkbox_name }}" id="{{ checkbox_id }}" />
                 {% endif %}
-                {% if is_initial %}
-                    <img class="img-responsive" src="{{ widget.value.url }}" alt="" style="max-width: 50%;" />
+                {% if field.value %}
+                    <img class="responsive-img" src="{{ field.value.url }}" alt=""  />
                 {% endif %}
-                </div>
             </div>
         </div>
     {% else %}

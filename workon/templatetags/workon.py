@@ -82,10 +82,6 @@ PACKAGES_JS = {
     ] + [
         f'workon/js/workon/{name}' for name in sorted(os.listdir(os.path.join(os.path.dirname(__file__), '../static/workon/js/workon/'))) if name.endswith('.js')
     ],
-    'form': 'workon/js/form.js',
-    'slick': 'workon/js/slick.js',
-    'modal': 'workon/js/modal.js',
-    'scroll': 'workon/js/scroll.js',
 }
 
 @register.inclusion_tag('workon/js.html')
@@ -430,7 +426,7 @@ def materialize_render(element, markup_classes):
 
     if element_type == 'boundfield':
         add_input_classes(element)
-        template = get_template("workon/forms/materialize/field.html")
+        template = get_template("workon/forms/field.html")
         context = {'field': element, 'classes': markup_classes}
     else:
         has_management = getattr(element, 'management_form', None)
@@ -439,14 +435,14 @@ def materialize_render(element, markup_classes):
                 for field in form.visible_fields():
                     add_input_classes(field)
 
-            template = get_template("workon/forms/materialize/formset.html")
+            template = get_template("workon/forms/formset.html")
             context = {'formset': element, 'classes': markup_classes}
         else:
             print(element)
             for field in element.visible_fields():
                 add_input_classes(field)
 
-            template = get_template("workon/forms/materialize/form.html")
+            template = get_template("workon/forms/form.html")
             context = {'form': element, 'classes': markup_classes}
 
     return template.render(context)
