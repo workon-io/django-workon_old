@@ -18,30 +18,30 @@ except:
 logger = logging.getLogger(__name__)
 
 class ImageInput(ClearableFileInput):
-    template_name = 'workon/forms/_image_input.html'
+    template_name = 'workon/forms/clearable_file_input.html'
     attrs = {'accept': 'image/*'}
 
 
-    def get_context(self, name, value, attrs):
+    # def get_context(self, name, value, attrs):
 
-        context = super().get_context(name, value, attrs)
-        image_url = self.format_value(value)
-        image_original_url = None
-        image_thumb = None
-        if image_url:
-            image_original_url = os.path.join(settings.MEDIA_URL, image_url.name)
-            try:
-                image_thumb = get_thumbnail(image_url, 'x150', crop='center', upscale=True, format='PNG')
-            except IOError as inst:
-                logger.error(inst)
-        context.update({
-            'image_thumb': image_thumb,
-            'image_url': image_url,
-            'image_original_url': image_original_url,
-            'image_id': f'{attrs["id"]}-image',
-            'name': f'{name}',
-        })
-        return context
+    #     context = super().get_context(name, value, attrs)
+    #     image_url = self.format_value(value)
+    #     image_original_url = None
+    #     image_thumb = None
+    #     if image_url:
+    #         image_original_url = os.path.join(settings.MEDIA_URL, image_url.name)
+    #         try:
+    #             image_thumb = get_thumbnail(image_url, 'x150', crop='center', upscale=True, format='PNG')
+    #         except IOError as inst:
+    #             logger.error(inst)
+    #     context.update({
+    #         'image_thumb': image_thumb,
+    #         'image_url': image_url,
+    #         'image_original_url': image_original_url,
+    #         'image_id': f'{attrs["id"]}-image',
+    #         'name': f'{name}',
+    #     })
+    #     return context
 
 
 

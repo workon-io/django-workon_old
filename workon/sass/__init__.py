@@ -113,8 +113,8 @@ class Watcher(object):
                     sass += f'\n@import "{self.sass_path}/{c}/forms";'
                     sass += f'\n@import "{self.sass_path}/{c}/contrib";'
 
-                elif c == "materialize-backend":
-                    sass += f'\n@import "{self.sass_path}/{c}/backend";'
+                elif c == "workon-backend":
+                    sass += f'\n@import "{self.sass_path}/workon/backend";'
 
                 else:
                     files = []

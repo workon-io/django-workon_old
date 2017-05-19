@@ -54,6 +54,9 @@
                                 // }
                             }
                         });
+                        editor.on('change', function (e) {
+                            editor.save();
+                        });
                         // editor.on('submit', function(e)
                         // {
                         //     var content = editor.getContent({ format : config.apply_format });

@@ -133,14 +133,20 @@
 
             <div class="file-field input-field">
                 <div class="btn">
-                    <span>{{ field.label }}</span>
+                    <span> {{ field.label }}</span>
                     {{ field }}
                 </div>
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
                 </div>
+                {% if not field.field.required %}
+                    <input type="checkbox" name="{{ checkbox_name }}" id="{{ checkbox_id }}" />
+                {% endif %}
+                {% if is_initial %}
+                    <img class="img-responsive" src="{{ widget.value.url }}" alt="" style="max-width: 50%;" />
+                {% endif %}
+                </div>
             </div>
-
         </div>
     {% else %}
 

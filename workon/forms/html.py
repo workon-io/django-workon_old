@@ -15,7 +15,7 @@ from django.utils.html import strip_tags, escape
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_text
 
-DEFAULT_TINYMCE_URL = getattr(settings, 'TINYMCE_URL', "js/tinymce/tinymce.min.js")
+DEFAULT_TINYMCE_URL = getattr(settings, 'TINYMCE_URL', "workon/js/tinymce/tinymce.min.js")
 DEFAULT_CONFIG = {
     'plugins': [
         "advlist autolink lists link image charmap print preview anchor \
@@ -28,12 +28,12 @@ DEFAULT_CONFIG = {
     "fontsize_formats": "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
     "external_plugins": {
         #"nanospell": STATIC_URL + "js/tinymce/plugins/nanospell/plugins.js",
-        "comments": "js/tinymce/plugins/comments/plugins.js",
-        "base64img": "js/tinymce/plugins/base64img/plugins.js",
-        "placeholder": "js/tinymce/plugins/placeholder/plugins.js",
+        "comments": "workon/js/tinymce/contrib/plugins/comments/plugins.js",
+        "base64img": "workon/js/tinymce/contrib/plugins/base64img/plugins.js",
+        "placeholder": "workon/js/tinymce/contrib/plugins/placeholder/plugins.js",
     },
     'content_css' : ",".join([
-        "https://fonts.googleapis.com/css?family=Rubik:300,400",
+        #"https://fonts.googleapis.com/css?family=Rubik:300,400",
         #"css/front.css",
     ]),
     # "gecko_spellcheck" : True,
@@ -158,7 +158,7 @@ class HtmlInput(forms.Textarea):
 
 
         config['language'] = None
-        config['language_url'] = settings.STATIC_URL + 'js/tinymce/langs/fr_FR.js'
+        config['language_url'] = settings.STATIC_URL + 'workon/js/tinymce/langs/fr_FR.js'
 
         if self.inline:
             config['inline'] = True

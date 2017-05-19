@@ -50,6 +50,9 @@
 @mixin tr1() {
    @include tr(all 0.10s ease-out);
 }
+.tr25 {
+    @include tr(all 0.25s ease-out);
+}
 .tr-100 {
     @include tr(all 0.10s ease-out);
 }
