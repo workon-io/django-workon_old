@@ -1,3 +1,10 @@
+.tabs-target {
+  display:none;
+  &.active {
+    display: block;
+  }
+}
+
 .tabs {
   &.tabs-transparent {
     background-color: transparent;

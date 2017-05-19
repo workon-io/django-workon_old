@@ -1,13 +1,13 @@
-(function ($) {
+(function ($, active, hashActive) {
 
-  function contrib_tabs_active(href)
+  active = function(href)
   {
-      contrib_tabs_hash_active(href);
+      hashActive(href);
   }
 
-  function contrib_tabs_hash_active(hash)
+  hashActive = function(hash, trigger)
   {
-      var trigger = $('[data-tabs] [href$="'+hash+'"]');
+      var trigger = trigger || $('[data-tabs] [href$="'+hash+'"]');
       if(trigger.length)
       {
           var target = $('[data-tabs-target="'+hash.replace( /^#/, '')+'"]');
@@ -17,16 +17,17 @@
 
           if(target.length)
           {
+            console.log(trigger.parents('[data-tabs]').eq(0))
               trigger.parents('[data-tabs]').eq(0).find('.active').removeClass('active');
               target.siblings("[id],[data-tabs-target]").removeClass('active');
               trigger.addClass('active');
               target.addClass('active');
-              trigger.trigger('contrib.tabs.changed', [ trigger, target ]);
+              trigger.trigger('tabs.changed', [ trigger, target ]);
 
               var parent = target.parents("[data-tabs-target]").eq(0);
               if(parent.length)
               {
-                  contrib_tabs_hash_active('#'+parent.data('tabs-target'));
+                  hashActive('#'+parent.data('tabs-target'));
               }
               return true;
           }
@@ -42,16 +43,15 @@
       {
           var hash = '#'+href[1];
           window.location.replace(('' + window.location).split('#')[0] + hash);
-          return !contrib_tabs_hash_active(hash);
+          return !hashActive(hash, self);
           //document.location.hash = hash;
       }
   })
   $(document).ready(function()
   {
-
       var hash = document.location.hash;
       if(hash) {
-          contrib_tabs_hash_active(hash);
+          hashActive(hash);
       }
   });
 
