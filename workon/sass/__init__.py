@@ -108,6 +108,7 @@ class Watcher(object):
                     variables_file.close()
                     line = str(open(f'{path}/_{c}.scss', 'r+b').read(), 'utf-8')
                     line = line.replace('components/variables', f'{self.cache_path}/sass/{c}_variables')
+                    line = line.replace('elements/', f'{path}/elements/')
                     line = line.replace('components/', f'{path}/components/')
                     sass += line
                     sass += f'\n@import "{self.sass_path}/{c}/forms";'

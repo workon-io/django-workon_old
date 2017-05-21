@@ -61,7 +61,6 @@ def settings_value(name):
 
 
 
-
 PACKAGES_JS = {
     'materialize': [
         'workon/js/jquery.js',
@@ -254,9 +253,17 @@ if "sorl.thumbnail" in settings.INSTALLED_APPS:
             return output
 
     @register.tag
+    def thumbnail(parser, token):
+        return ThumbnailNode(parser, token)
+
+    @register.tag
     def thumbnail_static(parser, token):
         return StaticThumbnailNode(parser, token)
 else:
+    @register.to_end_tag
+    def thumbnail(parser, token):
+        return parsed
+
     @register.to_end_tag
     def thumbnail_static(parsed, context, token):
         return parsed
@@ -402,7 +409,13 @@ def materialize(element, label_cols={}, icon=None, label=None):
     markup_classes = {'label': label_cols, 'value': '', 'single_value': ''}
     return materialize_render(element, markup_classes)
 
+@register.simple_tag
+def field(element, col=None, icon=None, label=None):
+    return render_field(element)
 
+@register.simple_tag
+def form(element, col=None, icon=None, label=None):
+    return render_form(element)
 
 def add_input_classes(field):
     if not is_checkbox(field) and not is_multiple_checkbox(field) and not is_radio(field) \
@@ -421,29 +434,30 @@ def add_input_classes(field):
         field.field.widget.attrs['data-select'] = '-'
 
 
-def materialize_render(element, markup_classes):
+def render_field(element):
     element_type = element.__class__.__name__.lower()
 
     if element_type == 'boundfield':
         add_input_classes(element)
         template = get_template("workon/forms/field.html")
-        context = {'field': element, 'classes': markup_classes}
-    else:
-        has_management = getattr(element, 'management_form', None)
-        if has_management:
-            for form in element.forms:
-                for field in form.visible_fields():
-                    add_input_classes(field)
+        context = {'field': element}
+    return template.render(context)
 
-            template = get_template("workon/forms/formset.html")
-            context = {'formset': element, 'classes': markup_classes}
-        else:
-            print(element)
-            for field in element.visible_fields():
+def render_form(element):
+    has_management = getattr(element, 'management_form', None)
+    if has_management:
+        for form in element.forms:
+            for field in form.visible_fields():
                 add_input_classes(field)
 
-            template = get_template("workon/forms/form.html")
-            context = {'form': element, 'classes': markup_classes}
+        template = get_template("workon/forms/formset.html")
+        context = {'formset': element, 'classes': markup_classes}
+    else:
+        for field in element.visible_fields():
+            add_input_classes(field)
+
+        template = get_template("workon/forms/form.html")
+        context = {'form': element}
 
     return template.render(context)
 

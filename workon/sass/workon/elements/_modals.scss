@@ -1,0 +1,60 @@
+
+.modalo {
+  visibility: hidden;
+  opacity: 0;
+  cursor: pointer;
+  overflow-y: scroll;
+  cursor: pointer;
+  position: fixed;
+  left: 0;
+  top:  0;
+  right: -15px;
+  bottom: 0;
+  z-index: 1001;
+  background: rgba($secondary-color, 0.5);
+  @include tr(all 0.25s linear);
+  &.loading:before {
+    position: fixed;
+    top: 10%;
+    background: transparent !important;
+  }
+  will-change: opacity;
+}
+body.has-modal {
+    .modalo {
+      visibility: visible;
+      opacity: 1;
+      @include tr(all 0.25s linear);
+      &.loading:after {
+        opacity: 0;
+      }
+    }
+}
+.modal {
+  z-index: 1003;
+  background: white;
+  animation: fadeIn 0.25s linear;
+  position: absolute;
+  margin: auto;
+  top: 10%;
+  margin-bottom: 30px;
+  left: 0;
+  right: 0px;
+  width: 800px;
+  .modalh {
+    padding: 15px;
+  }
+  .modalb {
+    padding: 15px;
+  }
+  .modalf {
+    padding: 15px;
+  }
+  @media #{$medium-and-down} {
+    width: 80%;
+  }
+  &.xs {width: 300px;}
+  &.sm {width: 400px;}
+  &.md {width: 1200px;}
+  &.lg {width: 700px;}
+}
