@@ -29,6 +29,12 @@
   .collapsible {
     margin: 0;
   }
+  ul.collapsible-accordion a.collapsible-header {
+      padding: 0 30px;
+  }
+  ul.collapsible-accordion .collapsible-body li a {
+      padding: 0 37.5px 0 45px;
+  }
 
 
   li {
