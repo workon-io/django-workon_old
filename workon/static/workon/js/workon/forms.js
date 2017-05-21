@@ -140,6 +140,7 @@
 
         // });
 
+    $('select').material_select();
 
 
     // Function to update labels of text fields
@@ -935,5 +936,6 @@
       select.siblings('input.select-dropdown').val(value);
     }
   };
+
 
 }( jQuery ));
