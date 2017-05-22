@@ -213,14 +213,14 @@ class HtmlInput(forms.Textarea):
         if self.inline:
 
             html = [u"""<div class="contrib-tinymce_inline">
-                <div id="div_inline_%s" placeholder="%s">%s</div>
-                <div style="display:none;">
+                <div style="height: 0px; overflow: hidden;">
                     <textarea%s>%s</textarea>
                 </div>
+                <div id="div_inline_%s" placeholder="%s">%s</div>
             </div>
             """ % (name, flatattrs.get('placeholder'), mark_safe(value), flatatt(flatattrs), escape(value))]
             return mark_safe('\n'.join(html))
 
         else:
-            html =  ['<textarea%s>%s</textarea>' % (flatatt(flatattrs), escape(value))]
+            html =  ['<textarea%s style="opacity: 0; height: 1px; position: relative; top: 10px; padding:0px; border:0px;">%s</textarea>' % (flatatt(flatattrs), escape(value))]
             return mark_safe('\n'.join(html))

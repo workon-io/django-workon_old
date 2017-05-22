@@ -74,9 +74,12 @@
                         // });
                         editor.on('init', function(e, placeholder)
                         {
+                            var textarea = editor.getElement();
+                            $(editor.editorContainer).before(textarea);
+                            textarea.style.display = "";
                             if(config.placeholder && !config.settings.placeholder_disabled)
                             {
-                                placeholder = editor.getElement().getAttribute("placeholder");
+                                placeholder = textarea.getAttribute("placeholder");
                                 if (typeof placeholder !== 'undefined' && placeholder !== false)
                                 {
                                     //var label = new Label;

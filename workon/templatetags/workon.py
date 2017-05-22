@@ -441,7 +441,7 @@ def render_field(element):
         add_input_classes(element)
         template = get_template("workon/forms/field.html")
         context = {'field': element}
-    return template.render(context)
+        return template.render(context)
 
 def render_form(element):
     has_management = getattr(element, 'management_form', None)
