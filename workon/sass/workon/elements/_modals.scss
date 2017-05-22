@@ -50,11 +50,11 @@ body.has-modal {
   .modalf {
     padding: 15px;
   }
-  @media #{$medium-and-down} {
-    width: 80%;
-  }
   &.xs {width: 300px;}
   &.sm {width: 400px;}
   &.md {width: 1200px;}
   &.lg {width: 700px;}
+  @media #{$medium-and-down} {
+    &.sm, &.lg, &.md, &.lg { width: 80%; }
+  }
 }

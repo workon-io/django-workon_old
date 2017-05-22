@@ -69,7 +69,7 @@ class TreeSelect(forms.SelectMultiple):
                 tree.append(node)
         tree = json.dumps(tree)
 
-        final_attrs = self.build_attrs(attrs, name=name)
+        final_attrs = self.build_attrs(attrs)
         output = [format_html('<select class="hidden" multiple="multiple"{}>', flatatt(final_attrs))]
         options = self.render_options(value)
         if options:

@@ -410,11 +410,11 @@ def materialize(element, label_cols={}, icon=None, label=None):
     return materialize_render(element, markup_classes)
 
 @register.simple_tag
-def field(element, col=None, icon=None, label=None):
+def field(element, col=None, icon=None, label=None, show_label=True):
     return render_field(element)
 
 @register.simple_tag
-def form(element, col=None, icon=None, label=None):
+def form(element, col=None, icon=None, label=None, show_label=True):
     return render_form(element)
 
 def add_input_classes(field):
