@@ -5,9 +5,9 @@
 
       // Defaults
       var defaults = {
-        delay: 350,
+        delay: 150,
         tooltip: '',
-        position: 'bottom',
+        position: 'top',
         html: false
       };
 
@@ -233,6 +233,6 @@
   };
 
   $(document).ready(function(){
-     $('.tooltipped').tooltip();
+     $('[data-tooltip]').tooltip();
    });
 }( jQuery ));

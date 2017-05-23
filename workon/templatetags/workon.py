@@ -526,4 +526,9 @@ def is_checkbox_select_multiple(field):
 
 
 
+@register.simple_tag
+def rating_stars(value, max=5):
+    return 'TEST'
+
+
 
