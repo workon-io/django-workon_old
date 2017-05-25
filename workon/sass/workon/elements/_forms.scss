@@ -1,6 +1,7 @@
 .input-field {
     // padding-bottom: 15px;
     // line-height: 3rem;
+    position: relative;
     label {
         //top: 0px;
         &.active {
@@ -15,6 +16,18 @@
         //display: block;
     }
     .help-block {
-        margin: 0px 0px 15px 0px;
+        margin-top: -20px;
+        font-style: italic;
+        font-size: 90%;
     }
+    // .character-counter {
+    //     position: absolute;
+    //     top: -15px;
+    //     left: 50%;
+    //     background: white;
+    //     padding: 5px;
+    //     border-radius: 5px;
+    //     border: 1px solid $secondary-color;
+    // }
+
 }

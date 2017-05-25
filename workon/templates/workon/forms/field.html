@@ -1,27 +1,7 @@
 {% load workon %}
 
     {% if field|is_checkbox %}
-    <div class="{{ field.classes }} {{ classes.label }}">
-        <div class="{{ classes.single_value }}">
-            <div class="checkbox">
-                {% if field.auto_id %}
-                    {{ field }}
-                    <label for="{{ field.id_for_label }}" {% if field.field.required and form.required_css_class %}class="{{ form.required_css_class }}"{% endif %}>
-                        <span>{{ field.label }}</span>
-                    </label>
-                {% endif %}
-                {% for error in field.errors %}
-                    <span class="help-block {{ form.error_css_class }}">{{ error }}</span>
-                {% endfor %}
-
-                {% if field.help_text %}
-                    <p class="help-block">
-                        {{ field.help_text|safe }}
-                    </p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+        {% include "workon/forms/fields/_checkbox.html" %}
     {% elif field|is_radio %}
     <div class="{{ field.classes }} {{ classes.label }}">
 
@@ -106,22 +86,6 @@
     </div>
 
     {% elif field|is_textarea %}
-        <div class="{{ field.classes }} {{ classes.label }}">
-            {{ field }}
-            {% if field.auto_id and field.label %}
-                <label class="{{ classes.label }} {% if field.field.required %}{{ form.required_css_class }}{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
-            {% endif %}
-
-            {% for error in field.errors %}
-                <p class="help-block orange-text {{ form.error_css_class }}">{{ error }}</p>
-                {% endfor %}
-
-            {% if field.help_text %}
-                <p>
-                    {{ field.help_text|safe }}
-                </p>
-            {% endif %}
-        </div>
 
     {% elif field|is_file %}
         <div class="{{ field.classes }} _{{ classes.label }}">

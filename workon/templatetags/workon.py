@@ -439,12 +439,13 @@ def add_input_classes(field, **kwargs):
     field.label = kwargs.get('label', field.label)
 
     placeholder = kwargs.pop('placeholder', None)
-    if placeholder:
+    if placeholder and not field.label:
         field.field.widget.attrs['placeholder'] = placeholder
     for name, value in kwargs.items():
         field.field.widget.attrs[name] = value
 
     field.classes = widget_classes
+    field.template = get_template(f'workon/forms/widgets/_{field.field.widget.__class__.__name__.lower()}.html')
 
 
 
@@ -452,9 +453,8 @@ def render_field(field, **kwargs):
     element_type = field.__class__.__name__.lower()
     if element_type == 'boundfield':
         add_input_classes(field, **kwargs)
-        template = get_template("workon/forms/field.html")
         kwargs['field'] = field
-        return template.render(kwargs)
+        return field.template.render(kwargs)
 
 def render_form(element, **kwargs):
     has_management = getattr(element, 'management_form', None)
