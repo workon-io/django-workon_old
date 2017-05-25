@@ -21,8 +21,9 @@
     z-index: 10000;
 
     @media #{$small-and-down} {
-        min-width: 100%;
-        bottom: 0%;
+        width: 90%;
+        // bottom: 1%;
+        // top: auto;
     }
     @media #{$medium-only} {
         left: 3%;
@@ -40,21 +41,17 @@
         overflow: visible;
         width: auto;
         clear: both;
-        margin-top: 10px;
+        margin-bottom: 10px;
         position: relative;
         max-width:100%;
         height: auto;
         line-height: 1.5em;
-        word-break: break-all;
         background-color: white;
-        padding: 10px 25px;
+        padding: 15px 25px;
         font-size: 1.1rem;
         font-weight: 300;
         animation: noticeIn 0.25s ease-out;
         will-change: top opacity;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
 
         &.off {
             animation: noticeOut 0.25s ease-in;

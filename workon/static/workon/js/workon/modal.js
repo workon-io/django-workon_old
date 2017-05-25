@@ -13,7 +13,7 @@
             {
                 if($(e.target).is(modalo))
                 {
-                    body.removeClass('has-modal');
+                    body.removeClass('has-modal loading');
                 }
             });
         }

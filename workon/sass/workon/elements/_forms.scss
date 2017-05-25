@@ -1,15 +1,18 @@
 .input-field {
-    padding-bottom: 15px;
-    line-height: 3rem;
+    // padding-bottom: 15px;
+    // line-height: 3rem;
     label {
-        top: 0px;
+        //top: 0px;
         &.active {
-            top: -5px;
+            //opacity: 0;
+            // @include tf(translateY(-100%));
+            // background: white;
+            // @extend .z-depth-1;
         }
     }
     input {
-        margin: 0px;
-        display: block;
+        //margin: 0px;
+        //display: block;
     }
     .help-block {
         margin: 0px 0px 15px 0px;

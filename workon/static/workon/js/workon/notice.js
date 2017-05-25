@@ -59,6 +59,7 @@
         notice.addClass('pulse1')
         setTimeout(function() { notice.removeClass('pulse1') }, 2000);
         body.addClass('has-notice');
+        return notice;
     };
     $(document).on('click', '[data-notice]', function(e)
     {

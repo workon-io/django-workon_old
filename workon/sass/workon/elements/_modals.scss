@@ -67,8 +67,9 @@ body.has-modal {
     }
     &.xs {width: 300px;}
     &.sm {width: 400px;}
-    &.md {width: 1200px;}
-    &.lg {width: 700px;}
+    &.md {width: 600px;}
+    &.lg {width: 1000px;}
+    &.xl {width: 1200px;}
     @media #{$medium-and-down} {
         &.sm, &.lg, &.md, &.lg { width: 80%; }
     }
