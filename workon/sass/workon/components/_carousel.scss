@@ -100,7 +100,7 @@
         vertical-align: top;
     }
     > .carousel {
-        @include tr(transform 500ms ease);
+        @include tf(transform 500ms ease);
     }
     // .carousel-inner {
     //     overflow: hidden;
@@ -110,7 +110,7 @@
     > .carousel-prev, > .carousel-next {
         position: absolute;
         top: 50%;
-        @include ts(translateY(-50%));
+        @include tf(translateY(-50%));
         &.disabled {
             opacity: 0.5;
         }

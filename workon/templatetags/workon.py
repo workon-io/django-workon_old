@@ -410,17 +410,21 @@ def materialize(element, label_cols={}, icon=None, label=None):
     return materialize_render(element, markup_classes)
 
 @register.simple_tag
-def field(element, col=None, icon=None, label=None, show_label=True, placeholder=None):
-    return render_field(element)
+def field(field, **kwargs):
+    return render_field(field, **kwargs)
 
 @register.simple_tag
-def form(element, col=None, icon=None, label=None, show_label=True, placeholder=None):
-    return render_form(element)
+def form(field, **kwargs):
+    return render_form(field, **kwargs)
 
-def add_input_classes(field):
+def add_input_classes(field, **kwargs):
+    widget_classes = "input-field"
     if not is_checkbox(field) and not is_multiple_checkbox(field) and not is_radio(field) \
         and not is_file(field):
-        field_classes = field.field.widget.attrs.get('class', '')
+        classes = ""
+        if is_textarea(field):
+            classes = "materialize-textarea"
+        field_classes = field.field.widget.attrs.get('class', classes)
         if getattr(settings, 'MATERIALIZECSS_VALIDATION', True):
             field_classes += ' validate'
         if field.errors:
@@ -432,18 +436,27 @@ def add_input_classes(field):
 
     if is_select(field):
         field.field.widget.attrs['data-select'] = '-'
+    field.label = kwargs.get('label', field.label)
+
+    placeholder = kwargs.pop('placeholder', None)
+    if placeholder:
+        field.field.widget.attrs['placeholder'] = placeholder
+    for name, value in kwargs.items():
+        field.field.widget.attrs[name] = value
+
+    field.classes = widget_classes
 
 
-def render_field(element):
-    element_type = element.__class__.__name__.lower()
 
+def render_field(field, **kwargs):
+    element_type = field.__class__.__name__.lower()
     if element_type == 'boundfield':
-        add_input_classes(element)
+        add_input_classes(field, **kwargs)
         template = get_template("workon/forms/field.html")
-        context = {'field': element}
-        return template.render(context)
+        kwargs['field'] = field
+        return template.render(kwargs)
 
-def render_form(element):
+def render_form(element, **kwargs):
     has_management = getattr(element, 'management_form', None)
     if has_management:
         for form in element.forms:

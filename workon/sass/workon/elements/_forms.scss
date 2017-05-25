@@ -1,0 +1,17 @@
+.input-field {
+    padding-bottom: 15px;
+    line-height: 3rem;
+    label {
+        top: 0px;
+        &.active {
+            top: -5px;
+        }
+    }
+    input {
+        margin: 0px;
+        display: block;
+    }
+    .help-block {
+        margin: 0px 0px 15px 0px;
+    }
+}

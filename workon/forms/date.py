@@ -71,16 +71,16 @@ class BaseDateInput(forms.DateTimeInput):
     #     }
     #     js = ('contrib/vendors/datetimepicker/jquery.datetimepicker.js',)
 
-    input_type = 'date'
-    @property
-    def media(self):
-        return forms.Media(
-            js=[
-                # 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/fr.js',
-                'contrib/packages/datetime.js'
-            ],
-            css={'all': ["contrib/vendors/datetimepicker/jquery.datetimepicker.css"]}
-        )
+    input_type = 'text'
+    # @property
+    # def media(self):
+    #     return forms.Media(
+    #         # js=[
+    #         #     # 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/fr.js',
+    #         #     'contrib/packages/datetime.js'
+    #         # ],
+    #         # css={'all': ["contrib/vendors/datetimepicker/jquery.datetimepicker.css"]}
+    #     )
 
     def __init__(self, *args, **kwargs):
         include_seconds = kwargs.pop('include_seconds', False)
@@ -107,7 +107,7 @@ class BaseDateInput(forms.DateTimeInput):
 
 
         attrs = {
-            'data-contrib-date-input': json.dumps(options),
+            'data-datetime-widget': json.dumps(options),
             'type': 'text'
         }
         self.attrs.update(attrs)

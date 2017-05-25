@@ -232,7 +232,7 @@
     return {x: newX, y: newY};
   };
 
-  $(document).ready(function(){
-     $('[data-tooltip]').tooltip();
-   });
+  // $(document).ready(function(){
+  //    $('[data-tooltip]').tooltip();
+  //  });
 }( jQuery ));

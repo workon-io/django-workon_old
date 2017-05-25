@@ -1,25 +1,24 @@
-(function ($, formSelector)
+(function ($, modalFormSelector, formSelector)
 {
 
-  formSelector = '[data-modal-form], [data-form-modal]'
+  modalFormSelector = '[data-modal-form]'
+  formSelector = '[data-form]'
 
-  $.fn.ajaxResponse = function(data, cb)
+  $.fn.ajaxResponse = function(data, form, cb)
   {
       if(typeof(data) == "object")
       {
-          if(data.notify) {
-              data.toast = data.notify;
-          }
+
           if(data.callback)
           {
               window[data.callback](data);
-              $(formSelector).modal('close');
-              return
+              $(modalFormSelector).modal('close');
+              return;
           }
           if(data.redirect)
           {
               document.location.href = data.redirect;
-              return
+              return;
           }
           if(data.replace)
           {
@@ -42,29 +41,25 @@
                   }
               }
           }
-          if(data.toast)
-          {
-              if(typeof(data.toast) == "object")
-              {
-                  Materialize.toast(data.toast.title, 3000, data.toast.type ? data.toast.type : 'green');
-              }
-              else {
-                  Materialize.toast(data.toast, 3000, 'green');
-              }
-          }
-          $(formSelector).modal('close');
+          if(data.permanotice) { $.fn.notice(data.permanotice, { delay:0 }); }
+          if(data.notice) { $.fn.notice(data.notice); }
+          $(modalFormSelector).modal('close');
       }
       else
       {
           var $data = $(data);
-          if($data.is(formSelector))
+          if($data.is(modalFormSelector))
           {
-              $(formSelector).html($data.html());
+              $(modalFormSelector).html($data.html());
+          }
+          else if($data.is(formSelector) && form)
+          {
+              form.html($data.html());
           }
           else if($data.attr('id'))
           {
               $('#'+$data.attr('id')).replaceWith($data);
-              $(formSelector).modal('close');
+              $(modalFormSelector).modal('close');
           }
           else {
               var nd = document.open("text/html", "replace");
@@ -72,9 +67,10 @@
               nd.close();
           }
       }
+      Materialize.updateTextFields();
   }
 
-  $(document).on('submit', formSelector, function(e, form)
+  $(document).on('submit', formSelector + ', '+modalFormSelector, function(e, form)
   {
       form = $(this);
       form.addClass('loading');
@@ -83,7 +79,7 @@
           url: form.attr('action'),
           success: function(data)
           {
-              $.fn.ajaxResponse(data);
+              $.fn.ajaxResponse(data, form);
               form.removeClass('loading');
           }
       };

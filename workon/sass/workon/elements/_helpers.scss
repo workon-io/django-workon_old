@@ -1,12 +1,74 @@
-.tac {
-    text-align: center;
+@mixin cl() {
+    zoom: 1;
+    &:before, &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
 }
-.tal {
-    text-align: left;
+
+@mixin lg($n...) {
+  background: -webkit-linear-gradient($n);
+  background: linear-gradient($n);
 }
-.tar {
-    text-align: right;
+// @mixin lg__old($direction, $color-stops...) {
+//   background: nth(nth($color-stops, 1), 1);
+//   background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+//   background: linear-gradient($direction, $color-stops);
+// }
+@mixin bs($n...) {
+    box-shadow: $n;
+    -webkit-box-shadow: $n; // iOS <4.3 & Android <4.1
 }
-.vam {
-    vertical-align: middle;
+@mixin tf($n) {
+    -ms-transform: $n; /* Internet Explorer */
+    -moz-transform: $n; /* Firefox */
+    -webkit-transform: $n; /* Safari et Chrome */
+    -o-transform: $n; /* Opera */
+    transform: $n; /* Opera */
 }
+@mixin tr($n...) {
+    -ms-transition: $n;
+    -moz-transition: $n;
+    -webkit-transition: $n;
+    -o-transition: $n;
+    transition: $n;
+}
+
+.hidden { display:none; }
+.tac { text-align: center; }
+.tal { text-align: left; }
+.tar { text-align: right; }
+.vam { vertical-align: middle; }
+.vat { vertical-align: top; }
+.vab { vertical-align: bottom; }
+.cen {
+    position: absolute;
+    top: 50%; left: 50%;
+    @include tf(translateY(-50%) translateX(-50%));
+}
+.fix {
+    position: fixed;
+    &.top { top: 15px; }
+    &.right { right: 15px; }
+    &.left { left: 15px; }
+    &.bottom { bottom: 15px; }
+}
+.fac {
+    display: flex;
+    align-items: center;
+}
+.clf { clear: both; }
+.cl, .clear {
+    @include cl();
+}
+.bs-1 { @include bs(0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2)); }
+
+.ts-r90 { @include tf(rotate(90deg)); }
+.tr-050 { @include tr(all 0.05s ease-out); }
+.tr-100 { @include tr(all 0.10s ease-out); }
+.tr-200 { @include tr(all 0.20s ease-out); }
+.tr-250 { @include tr(all 0.25s ease-out); }
+.tr-500 { @include tr(all 0.50s ease-out); }

@@ -34,7 +34,7 @@
         font-weight: bold;
     }
     [type="checkbox"]:checked ~ i {
-        @include ts(rotate(90deg));
+        @include tf(rotate(90deg));
     }
     [type="checkbox"]:checked ~ ul {
         display: block;

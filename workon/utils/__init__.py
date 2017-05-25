@@ -4,6 +4,7 @@ from workon.utils.crypt import *
 from workon.utils.date import *
 from workon.utils.debug import *
 from workon.utils.email import *
+from workon.utils.embed import *
 from workon.utils.geo import *
 from workon.utils.image import *
 from workon.utils.price import *
