@@ -1,11 +1,6 @@
-(function ($, noticec, defaults, offNotice, notices)
+(function ($, noticec, offNotice, notices)
 {
     notices = {};
-    defaults = {
-        delay: 3000,
-        classes: '',
-        removeOthers: false
-    };
     offNotice = function(notice)
     {
         if(notice) {
@@ -13,8 +8,13 @@
             setTimeout(function() { delete notices[notice[0].workon_notice_html]; notice.remove(); }, 5000);
         }
     };
-    $.fn.notice = function (options, options2, notice)
+    $.fn.notice = function (options, options2, defaults, notice)
     {
+        defaults = {
+            delay: 3000,
+            classes: '',
+            removeOthers: false
+        };
         var body = $('body');
         if(!noticec) {
             noticec = $('<div class="noticec"></div>').appendTo(body);

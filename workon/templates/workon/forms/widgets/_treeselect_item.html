@@ -1,0 +1,13 @@
+
+<li id="domain_tree_{{ domain.id }}">
+
+    <label>{{ choice }} </label>
+    <span class="right">@</span>
+    {% if domain.domains %}
+    <ul>
+        {% for domain in domain.domains %}
+            {% include "ad/domain/_preview.html" %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>

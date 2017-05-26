@@ -21,7 +21,20 @@ class TreeModelChoiceIterator(forms.models.ModelChoiceIterator):
 
 class TreeSelect(forms.SelectMultiple):
 
-    template_name = "workon/forms/widgets/tree.html"
+    template_name = "workon/forms/widgets/_tree.html"
+
+    def get_context(self, name, value, attrs):
+        context = {}
+        print(self.choices)
+        context['widget'] = {
+            'name': name,
+            'is_hidden': self.is_hidden,
+            'required': self.is_required,
+            'value': self.format_value(value),
+            'attrs': self.build_attrs(self.attrs, attrs),
+            'template_name': self.template_name,
+        }
+        return context
 
     # def render_options(self, selected_choices):
     #     # Normalize to strings.
