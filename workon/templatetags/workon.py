@@ -418,7 +418,7 @@ def form(field, **kwargs):
     return render_form(field, **kwargs)
 
 def add_input_classes(field, **kwargs):
-    widget_classes = "input-field"
+    widget_classes = f"input-field {kwargs.pop('classes', '')}"
     if not is_checkbox(field) and not is_multiple_checkbox(field) and not is_radio(field) \
         and not is_file(field):
         classes = ""

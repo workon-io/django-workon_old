@@ -17,12 +17,37 @@
 
           if(target.length)
           {
-            console.log(trigger.parents('[data-tabs]').eq(0))
               trigger.parents('[data-tabs]').eq(0).find('.active').removeClass('active');
               target.siblings("[id],[data-tabs-target]").removeClass('active');
               trigger.addClass('active');
               target.addClass('active');
               trigger.trigger('tabs.changed', [ trigger, target ]);
+
+
+      // // Finds right attribute for indicator based on active tab.
+      // // el: jQuery Object
+      // var calcRightPos = function(el) {
+      //   return Math.ceil($tabs_width - el.position().left - el.outerWidth() - $this.scrollLeft());
+      // };
+
+      // // Finds left attribute for indicator based on active tab.
+      // // el: jQuery Object
+      // var calcLeftPos = function(el) {
+      //   return Math.floor(el.position().left + $this.scrollLeft());
+      // };
+
+      // // Animates Indicator to active tab.
+      // // prev_index: Number
+      // var animateIndicator = function(prev_index) {
+      //   if ((index - prev_index) >= 0) {
+      //     $indicator.velocity({"right": calcRightPos($active) }, { duration: transition, queue: false, easing: 'easeOutQuad'});
+      //     $indicator.velocity({"left": calcLeftPos($active) }, {duration: transition, queue: false, easing: 'easeOutQuad', delay: 90});
+
+      //   } else {
+      //     $indicator.velocity({"left": calcLeftPos($active) }, { duration: transition, queue: false, easing: 'easeOutQuad'});
+      //     $indicator.velocity({"right": calcRightPos($active) }, {duration: transition, queue: false, easing: 'easeOutQuad', delay: 90});
+      //   }
+      // };
 
               var parent = target.parents("[data-tabs-target]").eq(0);
               if(parent.length)
