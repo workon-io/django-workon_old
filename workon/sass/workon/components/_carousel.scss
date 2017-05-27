@@ -90,35 +90,35 @@
 //   }
 // }
 
-.carousel {
-    @extend .clear;
-    white-space: nowrap !important;
-    position: relative;
-    > *:not(.carousel-prev):not(.carousel-next) {
-        display: inline-block;
-        white-space: initial;
-        vertical-align: top;
-    }
-    > .carousel {
-        @include tf(transform 500ms ease);
-    }
-    // .carousel-inner {
-    //     overflow: hidden;
-    //     white-space: nowrap;
-    //     @extend .clear;
-    // }
-    > .carousel-prev, > .carousel-next {
-        position: absolute;
-        top: 50%;
-        @include tf(translateY(-50%));
-        &.disabled {
-            opacity: 0.5;
-        }
-    }
-    > .carousel-prev {
-        left: 0px;
-    }
-    > .carousel-next {
-        right: 0px;
-    }
-}
+// .carousel {
+//     @extend .clear;
+//     white-space: nowrap !important;
+//     position: relative;
+//     > *:not(.carousel-prev):not(.carousel-next) {
+//         display: inline-block;
+//         white-space: initial;
+//         vertical-align: top;
+//     }
+//     > .carousel {
+//         @include tf(transform 500ms ease);
+//     }
+//     // .carousel-inner {
+//     //     overflow: hidden;
+//     //     white-space: nowrap;
+//     //     @extend .clear;
+//     // }
+//     > .carousel-prev, > .carousel-next {
+//         position: absolute;
+//         top: 50%;
+//         @include tf(translateY(-50%));
+//         &.disabled {
+//             opacity: 0.5;
+//         }
+//     }
+//     > .carousel-prev {
+//         left: 0px;
+//     }
+//     > .carousel-next {
+//         right: 0px;
+//     }
+// }

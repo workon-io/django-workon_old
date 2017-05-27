@@ -14,7 +14,6 @@
 @import "elements/helpers";
 // components
 @import "components/global";
-@import "components/loading";
 @import "components/badges";
 @import "components/icons-material-design";
 @import "components/grid";
@@ -41,7 +40,6 @@
 @import "components/carousel";
 @import "components/tapTarget";
 @import "components/pulse";
-@import "components/tree";
 @import "components/date_picker/default";
 @import "components/date_picker/default.date";
 @import "components/date_picker/default.time";
@@ -55,6 +53,7 @@
 @import "elements/modals";
 @import "elements/tabs";
 @import "elements/slick";
-@import "elements/notice";
+@import "elements/trees";
+@import "elements/notices";
 @import "elements/tooltips";
 
