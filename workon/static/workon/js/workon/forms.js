@@ -8,17 +8,21 @@
   {
       if(typeof(data) == "object")
       {
-
           if(data.callback)
           {
               window[data.callback](data);
               $(modalFormSelector).modal('close');
               return;
           }
-          if(data.redirect)
+          if(data.remove)
           {
-              document.location.href = data.redirect;
-              return;
+              if(typeof(data.remove) == "object")
+              {
+                  for(var id in data.remove) { $(id).remove(); }
+              }
+              else {
+                  $(data.remove).remove();
+              }
           }
           if(data.replace)
           {
@@ -43,6 +47,11 @@
           }
           if(data.permanotice) { $.fn.notice(data.permanotice, { delay:0 }); }
           if(data.notice) { $.fn.notice(data.notice); }
+          if(data.redirect)
+          {
+              document.location.href = data.redirect;
+              return;
+          }
           $(modalFormSelector).modal('close');
       }
       else
