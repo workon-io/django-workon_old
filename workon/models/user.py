@@ -7,15 +7,14 @@ from django.core.validators import MaxLengthValidator
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils import formats
-from django.contrib.auth.models import AbstractUser, AbstractBaseUser, User as BaseUser, UserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, UserManager, PermissionsMixin
 from sorl.thumbnail import get_thumbnail
 import workon.utils
 import workon.fields
 
-__all__ = ['User']
+__all__ = ['UsernameUser', 'EmailUser']
 
-class User(AbstractBaseUser, PermissionsMixin):
-
+class BaseUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('Email'), unique=True, db_index=True)
     username = models.CharField(_('username'), blank=True, null=True, max_length=254, db_index=True)
     first_name = models.CharField(_('first name'), max_length=254, blank=True, null=True, db_index=True)
@@ -74,10 +73,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not self.is_active:
             self.is_active = True
             self.save()
-
-    # IMPORTANT override since 1.10 stupid normalize username (email=username problem)
-    def clean(self):
-        self.username = self.normalize_username(self.username)
 
     def to_json(self, **kwargs):
         data = {
@@ -180,4 +175,32 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 
+class UsernameUser(BaseUser):
+    email = models.EmailField(_('Email'), db_index=True)
+    username = models.CharField(_('username'), unique=True, max_length=254, db_index=True)
+
+    EMAIL_FIELD = 'email'
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
+
+    class Meta(AbstractUser.Meta):
+        abstract = True
+        swappable = 'AUTH_USER_MODEL'
+
+class EmailUser(BaseUser):
+
+    email = models.EmailField(_('Email'), unique=True, db_index=True)
+    username = models.CharField(_('username'), blank=True, null=True, max_length=254, db_index=True)
+
+
+    EMAIL_FIELD = 'email'
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    class Meta(AbstractUser.Meta):
+        abstract = True
+        swappable = 'AUTH_USER_MODEL'
+
+    def clean(self):
+        self.username = self.normalize_username(self.username)
 

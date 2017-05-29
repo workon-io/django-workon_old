@@ -1,12 +1,10 @@
-
-<li id="domain_tree_{{ domain.id }}">
-
-    <label>{{ choice }} </label>
-    <span class="right">@</span>
-    {% if domain.domains %}
+<li  data-value="{{ item.value }}">
+    <input {% if item.is_selected %}checked="checked"{% endif %} type="checkbox" name="{{ name }}" value="{{ item.value }}" id="{{ item.name }}_tree_item_{{ item.value }}">
+    <label for="{{ item.name }}_tree_item_{{ item.value }}">{{ item.label }} </label>
+    {% if item.items %}
     <ul>
-        {% for domain in domain.domains %}
-            {% include "ad/domain/_preview.html" %}
+        {% for item in item.items %}
+            {% include "workon/forms/widgets/_treeselect_item.html" %}
         {% endfor %}
     </ul>
     {% endif %}

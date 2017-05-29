@@ -2,6 +2,8 @@ import json
 import six
 import django
 
+__all__ = []
+
 def get_filtered_selection_from_tree(tree, selection=[], include_level=-1, exclude_parent=True, final_selection=None, filter={}, exclude={}):
 
     # print 'get_filtered_selection TREE', tree

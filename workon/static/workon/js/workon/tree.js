@@ -7,12 +7,18 @@ $.fn.workonTree = function(index, self, options, _li)
         li = $(li);
         var id = 'tree_' + index + '_' + li.attr('id');
         var html = li.html()//.empty()
-        var label = li.find('label').eq(0);
+        var label = li.find('>label').eq(0);
         if(!label.length) {
             label = $('<label></label>').prependTo(li);
         }
-        label.attr('for', id);
-        li.prepend($('<input type="checkbox" id="'+id+'" />').change(function(selected, values)
+        if(!label.attr('for')) {
+            label.attr('for', id);
+        }
+        var input = li.find('>input').eq(0);
+        if(!input.length) {
+            input = $('<input type="checkbox" id="'+id+'" />').prependTo(li);
+        }
+        input.change(function(selected, values)
         {
             values = []
             selected = []
@@ -25,7 +31,10 @@ $.fn.workonTree = function(index, self, options, _li)
                 selected: selected,
                 values: values,
             });
-        }));
+            if(!$(this).is(':checked')) {
+                $(this).parent().find('ul input').prop('checked', false);
+            }
+        });
         ul = li.find('> ul');
         if(ul.length) {
             ul.before('<i class="material-icons">play_arrow</i>');

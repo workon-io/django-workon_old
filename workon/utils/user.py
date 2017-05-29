@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-
 import workon.utils
 
 __all__ = [
@@ -18,14 +17,14 @@ __all__ = [
 
 
 def get_activation_token(token, is_used=False):
-    from apps.user.models import ActivationToken
+    from workon.models import ActivationToken
     try:
         return ActivationToken.objects.get(token=token, is_used=is_used)
     except:
         return None
 
 def get_valid_activation_token(email, is_used=False):
-    from apps.user.models import ActivationToken
+    from workon.models import ActivationToken
     User = get_user_model()
     email = workon.utils.is_valid_email(email)
     if email:
@@ -37,7 +36,7 @@ def get_valid_activation_token(email, is_used=False):
     return None
 
 def create_activation_token(email, expiration_date=None):
-    from apps.user.models import ActivationToken
+    from workon.models import ActivationToken
     User = get_user_model()
     email = workon.utils.is_valid_email(email)
     if email:
@@ -77,22 +76,19 @@ def get_user_or_none(email):
     return None
 
 
-def get_or_create_user(email, username=None, first_name=None, last_name=None,
-                        is_active=False, expiration_date=None, set_names_from_email=False,
+def get_or_create_user(unique_field, expiration_date=None, set_names_from_email=False,
                         password=None, save=True, **kwargs):
     User = get_user_model()
-    email = workon.utils.is_valid_email(email)
-    if email:
+    attr_name = User.USERNAME_FIELD
+    if attr_name == "email":
+        unique_field = workon.utils.is_valid_email(unique_field)
+    if unique_field:
         try:
-            user = User.objects.get(email__iexact=email)
+            user = User.objects.get(**{f'{attr_name}__iexact': unique_field })
             user._created = False
         except User.DoesNotExist:
+            kwargs[attr_name] = unique_field
             user = User(
-                email = email,
-                username = username.strip() if username else None,
-                first_name = first_name.strip() if first_name else None,
-                last_name = last_name.strip() if last_name else None,
-                is_active = is_active,
                 **kwargs
                 # expiration_date = expiration_date
             )
@@ -102,7 +98,7 @@ def get_or_create_user(email, username=None, first_name=None, last_name=None,
                 user.set_unusable_password()
             if set_names_from_email:
 
-                if not user.username:
+                if attr_name == "email" and not user.username:
                     user.username = email.split('@')[0][0:254]
 
                 if not user.first_name and not user.last_name:

@@ -445,7 +445,7 @@ def add_input_classes(field, **kwargs):
         field.field.widget.attrs[name] = value
 
     field.classes = widget_classes
-    field.template = get_template(f'workon/forms/widgets/_{field.field.widget.__class__.__name__.lower()}.html')
+    field.template = get_template(f'workon/forms/fields/_{field.field.widget.__class__.__name__.lower()}.html')
 
 
 

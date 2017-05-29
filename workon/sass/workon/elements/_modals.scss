@@ -1,5 +1,6 @@
-@mixin modals() {
-    .modalo {
+@mixin modals($class:'modal', $overlay-class:'modalo')
+{
+    .#{$overlay-class} {
         visibility: hidden;
         opacity: 0;
         cursor: pointer;
@@ -30,7 +31,7 @@
             }
         }
     }
-    .modal {
+    .#{$class} {
         z-index: 1003;
         background: white;
         animation: fadeIn 0.25s linear;

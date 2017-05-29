@@ -18,7 +18,6 @@ class ActivationToken(models.Model):
     activation_date = models.DateTimeField('date d\'activation', blank=True, null=True)
 
     class Meta:
-        abstract = True
         unique_together = (('email', 'token'),)
         verbose_name = 'Clé d\'activation'
         verbose_name_plural = 'Clés d\'activation'

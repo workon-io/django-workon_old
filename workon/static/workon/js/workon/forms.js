@@ -69,6 +69,18 @@
       }
       Materialize.updateTextFields();
   }
+  $(document).on('click', '[data-ajax-href]', function(e)
+  {
+    var target = $(this).data('ajax-href');
+    var options = {
+        type: "GET",
+        url: target,
+        success: function(data) { $.fn.ajaxResponse(data); }
+    };
+    $.ajax(options);
+    e.stopPropagation();
+    return false;
+  });
 
   $(document).on('submit', formSelector + ', '+modalFormSelector, function(e, form)
   {
@@ -94,7 +106,7 @@
       {
           options.data = form.serializeArray();
       }
-      $.post(options);
+      $.ajax(options);
       e.stopPropagation();
       return false;
   });
