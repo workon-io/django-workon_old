@@ -5,7 +5,7 @@
     {
         if(notice) {
             clearTimeout(notice[0].workon_notice_to);
-            notice.addClass('off').stop().animate({ marginTop: -notice.outerHeight() }, 250);
+            notice.addClass('off').stop().animate({ marginTop: -notice.outerHeight() -parseInt(notice.css('paddingTop')) -parseInt(notice.css('paddingBottom')) }, 250);
             notice[0].workon_notice_to = setTimeout(function() { delete notices[notice[0].workon_notice_html]; notice.remove(); }, 5000);
         }
     };
@@ -17,7 +17,7 @@
         }
         else {
                 defaults = {
-                delay: null,
+                delay: 3000,
                 classes: '',
                 removeOthers: false,
                 pulse: 'pulse1'
