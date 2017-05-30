@@ -16,7 +16,7 @@ $.fn.workonTree = function(index, self, options, _li)
         }
         var input = li.find('>input').eq(0);
         if(!input.length) {
-            input = $('<input type="checkbox" id="'+id+'" />').prependTo(li);
+            input = $('<input type="checkbox" id="'+id+'" value="'+li.data('tree-value')+'" />').prependTo(li);
         }
         input.change(function(selected, values)
         {
@@ -25,7 +25,7 @@ $.fn.workonTree = function(index, self, options, _li)
             self.find('input:checked').each(function()
             {
                 selected.push($(this).parent());
-                values.push($(this).find('label').text())
+                values.push($(this).val())
             })
             $(this).trigger('changed.tree', {
                 selected: selected,
