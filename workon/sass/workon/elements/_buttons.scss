@@ -77,7 +77,7 @@
             width: 100%;
             display: block;
         }
-        &.float, &.round {
+        &.fl, &.ro {
             display: inline-block;
             color: $button-floating-color;
             //position: relative;
@@ -126,7 +126,7 @@
             }
         }
     }
-    button.btn.float {
+    button.btn.fl {
         border: $button-border;
     }
 }

@@ -24,7 +24,7 @@ nav {
 
   i,
   [class^="mdi-"], [class*="mdi-"],
-  i.material-icons {
+  i.icon {
     display: block;
     font-size: 24px;
     height: $navbar-height-mobile;
@@ -93,7 +93,7 @@ nav {
 
     i,
     [class^="mdi-"], [class*="mdi-"],
-    i.material-icons {
+    i.icon {
       float: left;
       margin-right: 15px;
     }
@@ -134,7 +134,7 @@ nav {
         margin-left: 15px;
         margin-right: 15px;
 
-        & > .material-icons {
+        & > .icon {
           height: inherit;
           line-height: inherit;
         }

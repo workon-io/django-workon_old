@@ -10,7 +10,7 @@
                     data-page="{{ objects.previous_page_number }}"
                     href="{% url_replace_param request.build_absolute_uri page_param|default:'page' objects.previous_page_number %}">
                     {% endif %}
-                    <i class="material-icons">chevron_left</i>
+                    <i class="icon">chevron_left</i>
                 </a>
             </li>
             {% for page in objects.page_range %}
@@ -30,7 +30,7 @@
                     data-page="{{ objects.next_page_number }}"
                     href="{% url_replace_param request.build_absolute_uri page_param|default:'page' objects.next_page_number %}">
                     {% endif %}
-                    <i class="material-icons">chevron_right</i>
+                    <i class="icon">chevron_right</i>
                 </a>
             </li>
         {% else %}

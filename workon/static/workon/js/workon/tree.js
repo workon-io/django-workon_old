@@ -37,7 +37,7 @@ $.fn.workonTree = function(index, self, options, _li)
         });
         ul = li.find('> ul');
         if(ul.length) {
-            ul.before('<i class="material-icons">play_arrow</i>');
+            ul.before('<i class="icon">play_arrow</i>');
             li.addClass('tree-contains')
         }
         //li.append('')

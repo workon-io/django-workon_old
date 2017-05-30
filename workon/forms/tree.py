@@ -27,6 +27,9 @@ class TreeSelect(forms.SelectMultiple):
         for pk, item in by_ids.items():
             if item['parent_id']:
                 by_ids[item['parent_id']]['items'].append(item)
+                if item['is_selected']:
+                    by_ids[item['parent_id']]['is_selected'] = True
+
             else:
                 tree[pk] = item
 
