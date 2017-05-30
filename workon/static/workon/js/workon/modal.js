@@ -24,7 +24,7 @@
             oldContainer = content.parent();
             if( !content.find('>[data-modal-close]').length )
             {
-                content.prepend('<a class="modalc" data-modal-close><i class="material-icons">close</i></a>');
+                content.prepend('<a class="modalc" data-modal-close><i class="icon">close</i></a>');
             }
             modalo.empty().append(content);
             body.addClass('has-modal');
@@ -44,7 +44,7 @@
             $.get(target, function(data)
             {
                 content = $(data);
-                content.prepend('<a class="modalc" data-modal-close><i class="material-icons">close</i></a>');
+                content.prepend('<a class="modalc" data-modal-close><i class="icon">close</i></a>');
                 modalo.html(content);
                 body.addClass('has-modal').removeClass('loading');
                 Materialize.updateTextFields();

@@ -25,7 +25,7 @@
       CHIPS: '.chips',
       CHIP: '.chip',
       INPUT: 'input',
-      DELETE: '.material-icons',
+      DELETE: '.icon',
       SELECTED_CHIP: '.selected',
     };
 
@@ -235,7 +235,7 @@
 
       var $renderedChip = $('<div class="chip"></div>');
       $renderedChip.text(elem.tag);
-      $renderedChip.append($('<i class="material-icons close">close</i>'));
+      $renderedChip.append($('<i class="icon close">close</i>'));
       return $renderedChip;
     };
 

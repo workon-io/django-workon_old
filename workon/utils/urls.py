@@ -33,7 +33,7 @@ __all__ = [
 def append_protocol(url):
     if url:
         if not (url.startswith('http://') or url.startswith('https://')):
-            url = "http://%s" % url
+            url = f"http://{url}"
     return url
 
 def extract_urls(text):
