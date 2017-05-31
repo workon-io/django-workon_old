@@ -5,7 +5,7 @@
     //         $('[data-modal]').modal();
     //     });
 
-    open = function(options, trigger, target, body)
+    open = function(options, trigger, target, content, body)
     {
         body = $('body');
         if(!modalo) {
@@ -32,6 +32,9 @@
         }
         else if(target_lower.endsWith('.png') || target_lower.endsWith('.jpg') || target_lower.endsWith('.gif'))
         {
+
+            modalo.empty().append('<img class="modal lg" src="'+target+'"/>');
+            body.addClass('has-modal');
             //$('body').addClass('has-modal')
             // $(trigger).modal({ complete: complete,ready: ready });
             // $(trigger).modal('open');

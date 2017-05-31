@@ -8,13 +8,10 @@
                 </label>
             {% endif %}
             {% for error in field.errors %}
-                <span class="help-block {{ form.error_css_class }}">{{ error }}</span>
+                <p class="{{ field.error_classes }}">{{ error }}</p>
             {% endfor %}
-
             {% if field.help_text %}
-                <p class="help-block">
-                    {{ field.help_text|safe }}
-                </p>
+                <p class="{{ field.help_classes }}">{{ field.help_text|safe }}</p>
             {% endif %}
         </div>
     </div>

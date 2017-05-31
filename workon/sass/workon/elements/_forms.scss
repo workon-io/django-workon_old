@@ -1,4 +1,4 @@
-.input-field {
+.field {
     // padding-bottom: 15px;
     // line-height: 3rem;
     position: relative;
@@ -15,10 +15,16 @@
         //margin: 0px;
         //display: block;
     }
-    .help-block {
+    .field-help {
         margin-top: -20px;
         font-style: italic;
         font-size: 75%;
+    }
+    .field-error {
+        margin-top: -20px;
+        font-style: italic;
+        font-size: 75%;
+        color: red;
     }
     // .character-counter {
     //     position: absolute;
