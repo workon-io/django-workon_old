@@ -1,53 +1,14 @@
-
-from urllib.parse import urlparse
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth import get_user_model
-from django.utils import timezone
 import workon.utils
 
 __all__ = [
-    "get_activation_token",
-    "get_valid_activation_token",
-    "create_activation_token",
     "authenticate_user",
     "get_user_or_none",
     "get_or_create_user"
 ]
 
-
-def get_activation_token(token, is_used=False):
-    from workon.models import ActivationToken
-    try:
-        return ActivationToken.objects.get(token=token, is_used=is_used)
-    except:
-        return None
-
-def get_valid_activation_token(email, is_used=False):
-    from workon.models import ActivationToken
-    User = get_user_model()
-    email = workon.utils.is_valid_email(email)
-    if email:
-        return ActivationToken.objects.filter(
-            email=email,
-            is_used=is_used,
-            expiration_date__gt=timezone.now()
-        ).first()
-    return None
-
-def create_activation_token(email, expiration_date=None):
-    from workon.models import ActivationToken
-    User = get_user_model()
-    email = workon.utils.is_valid_email(email)
-    if email:
-        activation_token, created = ActivationToken.objects.get_or_create(
-            email=email,
-            is_used=False,
-        )
-        activation_token.expiration_date = expiration_date
-        activation_token.save()
-        return activation_token
-    return None
 
 def authenticate_user(request, user, remember=True, backend=None, expiry=60 * 60 * 24 * 365 * 10):
     if user:
@@ -76,10 +37,11 @@ def get_user_or_none(email):
     return None
 
 
-def get_or_create_user(unique_field, expiration_date=None, set_names_from_email=False,
+def get_or_create_user(expiration_date=None, set_names_from_email=False,
                         password=None, save=True, **kwargs):
     User = get_user_model()
     attr_name = User.USERNAME_FIELD
+    unique_field = kwargs.get(attr_name, None)
     if attr_name == "email":
         unique_field = workon.utils.is_valid_email(unique_field)
     if unique_field:

@@ -2,7 +2,6 @@ import os
 import sys
 from django.apps import AppConfig
 from django.conf import settings
-from workon.cleanup import cache, handlers
 import workon.utils
 import workon.sass
 
@@ -30,10 +29,6 @@ class WorkonConfig(AppConfig):
             os.mkdir(self.cache_path)
         if not os.path.isdir(self.cache_sass_path):
             os.mkdir(self.cache_sass_path)
-
-        cache.prepare()
-        handlers.connect()
-
 
         self.STYLES = config.get('STYLES', {})
         self.THEMES = config.get('THEMES', {})

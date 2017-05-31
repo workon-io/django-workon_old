@@ -9,8 +9,8 @@ except ImportError:
         func()
 from django.db.models.signals import post_init, pre_save, post_save, post_delete
 
-from . import cache
-from .signals import cleanup_pre_delete, cleanup_post_delete
+from workon.contrib.cleanup import cache
+from workon.contrib.cleanup.signals import cleanup_pre_delete, cleanup_post_delete
 
 
 class FakeInstance(object):

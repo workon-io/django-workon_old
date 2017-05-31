@@ -41,3 +41,10 @@ class ActivationToken(models.Model):
 
     def authenticate_user(self, request, user, remember=False, backend=None):
         return workon.utils.authenticate_user(request, user, remember=remember, backend=backend)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('workon:auth-activate', (self.token, ), {})
+
+
+

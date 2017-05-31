@@ -1,5 +1,5 @@
 '''Public utilities'''
-from .cache import make_cleanup_cache as _make_cleanup_cache
+from workon.contrib.cleanup.cache import make_cleanup_cache as _make_cleanup_cache
 
 
 def refresh(instance):

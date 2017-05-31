@@ -22,6 +22,9 @@ from workon.utils.logs import *
 # from workon.tree.utils import *
 from django.conf import settings
 
+from workon.contrib.auth.utils import *
+from workon.contrib.tree.utils import *
+
 def get_project_title(default=""):
     for attr in ['PROJECT_NAME', 'APP_NAME', 'BASE_DIR', 'SITE_NAME', 'SITE_ROOT']:
         if hasattr(settings, attr):

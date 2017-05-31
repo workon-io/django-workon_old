@@ -1,4 +1,3 @@
-# coding: utf-8
 ''' Our local cache of filefields and some workarounds, everything is private to
     this package.'''
 from collections import defaultdict
