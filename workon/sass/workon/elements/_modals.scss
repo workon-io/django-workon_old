@@ -72,6 +72,7 @@
         &.lg {width: 1000px;}
         &.xl {width: 1200px;}
         @media #{$medium-and-down} {
+            width: 80%;
             &.sm, &.lg, &.md, &.lg { width: 80%; }
         }
     }
