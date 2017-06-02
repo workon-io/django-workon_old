@@ -25,6 +25,7 @@ __all__ = [
     'external_url',
     'canonical_url',
     'canonical_url_static',
+    'absolute_url',
     'url_signature',
     'default_redirect',
     'ensure_safe_url'
@@ -134,6 +135,9 @@ def canonical_url(url, domain_check=False):
                 "current Site one '%s'" % (url_parts.domain(), current_site_parts.domain()))
 
     return url
+
+def absolute_url(*args, **kwargs):
+    return canonical_url(*args, **kwargs)
 
 def canonical_url_static(url, domain_check=False):# False because of S3
     """

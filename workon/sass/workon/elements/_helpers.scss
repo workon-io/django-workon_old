@@ -37,7 +37,9 @@
     transition: $n;
 }
 
-.dn { display:none; }
+.nm { margin: 0px !important; }
+.np { padding: 0px !important; }
+.dn { display:none !important; }
 .tac { text-align: center; }
 .tal { text-align: left; }
 .tar { text-align: right; }

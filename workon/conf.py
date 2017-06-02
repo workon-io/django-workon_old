@@ -21,6 +21,7 @@ class WorkonConfig(AppConfig):
         self.cache_sass_path = os.path.join(self.cache_path, 'sass')
         self.is_runserver = (len(sys.argv) > 1 and sys.argv[1] == 'runserver')
 
+
     def ready(self, *args, **kwargs):
         super().ready(*args, **kwargs)
         config = get_config()

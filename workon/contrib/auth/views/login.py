@@ -9,12 +9,11 @@ from django.shortcuts import redirect
 
 import workon.forms
 import workon.utils
-import workon.signals
 
 class Login(generic.FormView):
     template_name = "auth/login.html"
     template_name_ajax = "auth/_login.html"
-    form_class = workon.forms.Login
+    # form_class = workon.forms.Login
     form_kwargs = {}
     redirect_field_name = "next"
 

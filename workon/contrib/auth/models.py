@@ -8,36 +8,35 @@ __all__ = ['ActivationToken']
 
 class ActivationToken(models.Model):
 
-    created_date = models.DateTimeField('Créé le', auto_now_add=True)
-    updated_date = models.DateTimeField('Modifié le', auto_now=True, db_index=True)
+    created_at = models.DateTimeField('Créé le', auto_now_add=True)
+    updated_at = models.DateTimeField('Modifié le', auto_now=True, db_index=True)
 
-    email = models.EmailField('Adresse email', max_length=254, db_index=True)
-    token = models.CharField('Token d\'activation', max_length=64, unique=True, db_index=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=u'Utilisateur', db_index=True)
+
+    token = models.CharField('Token d\'activation', max_length=64, db_index=True)
     is_used = models.BooleanField(u'Utilisé ?', default=False)
-    expiration_date = models.DateTimeField('date d\'expiration', blank=True, null=True, db_index=True)
-    activation_date = models.DateTimeField('date d\'activation', blank=True, null=True)
+    expire_at = models.DateTimeField('Expire le', blank=True, null=True, db_index=True)
+    actived_at = models.DateTimeField('Activé le', blank=True, null=True)
 
     class Meta:
-        unique_together = (('email', 'token'),)
+        unique_together = (('user', 'token'),)
         verbose_name = 'Clé d\'activation'
         verbose_name_plural = 'Clés d\'activation'
-        ordering = ('created_date', 'activation_date',)
+        ordering = ('created_at', 'actived_at',)
 
     def save(self, **kwargs):
-        if not self.token:
-            self.token = workon.utils.random_token(extra=[self.email])
-        super(ActivationToken, self).save(**kwargs)
+        if self.user or self.email:
+            if not self.token:
+                self.token = workon.utils.random_token(extra=[self.email])
+            super(ActivationToken, self).save(**kwargs)
 
     def activate_user(self, **kwargs):
-        user = workon.utils.get_or_create_user(self.email, **kwargs)
-        if user:
-            user.is_active = True
-            user.save()
-            self.is_used = user.has_usable_password()
-            self.activation_date = timezone.now()
-            self.save()
-            return user
-        return None
+        self.user.is_active = True
+        self.user.save()
+        self.is_used = user.has_usable_password()
+        self.actived_at = timezone.now()
+        self.save()
+        return user
 
     def authenticate_user(self, request, user, remember=False, backend=None):
         return workon.utils.authenticate_user(request, user, remember=remember, backend=backend)

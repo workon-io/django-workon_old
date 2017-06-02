@@ -9,7 +9,7 @@ from django.conf import settings
 from math import floor
 from urllib.parse import urlparse, urlencode, parse_qs, urlsplit, urlunsplit
 from django.utils.safestring import mark_safe
-from django.templatetags.static import static as original_static
+from django.templatetags.static import static as original_static, do_static as original_do_static
 from django.core.files.storage import get_storage_class, FileSystemStorage
 import workon.utils
 
@@ -164,20 +164,19 @@ def workon_css(*names):
 
 #################### URLS
 @register.filter
-def absolute_url(url):
-    return workon.utils.canonical_url(url)
+def absolute_url(url): return workon.utils.canonical_url(url)
 
 @register.filter
-def static(url):
-    return original_static(url)
+def static(url): return original_static(url)
 
 @register.filter
-def external_url(url):
-    return workon.utils.append_protocol(url)
+def external_url(url): return workon.utils.append_protocol(url)
 
 @register.filter
-def absolute_static(url):
-    return absolute_url(original_static(url))
+def absolute_static(url): return absolute_url(original_static(url))
+
+@register.tag('absolute_static')
+def absolute_static_tag(parser, token): return absolute_url(original_do_static(parser, token))
 
 @register.filter
 def static_image(url):

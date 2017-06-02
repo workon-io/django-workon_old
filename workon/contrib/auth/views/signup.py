@@ -50,10 +50,10 @@ class Signup(generic.FormView):
             username = form.cleaned_data["username"],
             first_name = form.cleaned_data["first_name"],
             last_name = form.cleaned_data["last_name"],
-            is_active = False,
             expiration_date = timezone.now(),
             password = form.cleaned_data.get("password"),
             phone_number = form.cleaned_data.get("phone_number"),
+            is_active = False,
             save = True
         )
         self.after_form_valid(form, user)
