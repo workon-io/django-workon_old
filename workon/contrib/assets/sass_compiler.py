@@ -118,6 +118,7 @@ class Watcher(object):
                     if c[-1] == "*":
                         for file in glob.glob(c):
                             if file.endswith('.scss'):
+                                print(file)
                                 files.append(file)
                     else:
                         files.append(f'{c}')
