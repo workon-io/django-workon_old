@@ -6,12 +6,12 @@ from django.contrib import auth, messages
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from workon.contrib.auth import conf
-from workon.contrib.auth.models import ActivationToken
 import workon.auth
 
 class Activate(generic.View):
 
     def get(self, request, token, *args, **kwargs):
+        from workon.contrib.auth.models import ActivationToken
         token = workon.auth.get_activation_token(token)
         if token:
             user = token.activate_user()

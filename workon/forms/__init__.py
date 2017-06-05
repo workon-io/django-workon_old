@@ -14,5 +14,5 @@ from .info import InfoField
 from .code import CodeField, CodeInput
 from .embed import EmbedField, EmbedInput
 
-from contrib.select2.forms import *
+# from contrib.select2.forms import *
 # from ..contrib.auth.forms import *

@@ -1,5 +1,5 @@
 import json
-import six
+from django.utils import six
 import django
 
 __all__ = []

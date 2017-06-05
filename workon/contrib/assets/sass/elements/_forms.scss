@@ -1,0 +1,39 @@
+.field {
+    // padding-bottom: 15px;
+    // line-height: 3rem;
+    position: relative;
+    label {
+        //top: 0px;
+        &.active {
+            //opacity: 0;
+            // @include tf(translateY(-100%));
+            // background: white;
+            // @extend .z-depth-1;
+        }
+    }
+    input {
+        //margin: 0px;
+        //display: block;
+    }
+    .field-help {
+        margin-top: -20px;
+        font-style: italic;
+        font-size: 75%;
+    }
+    .field-error {
+        margin-top: -20px;
+        font-style: italic;
+        font-size: 75%;
+        color: red;
+    }
+    // .character-counter {
+    //     position: absolute;
+    //     top: -15px;
+    //     left: 50%;
+    //     background: white;
+    //     padding: 5px;
+    //     border-radius: 5px;
+    //     border: 1px solid $secondary-color;
+    // }
+
+}

@@ -1,15 +1,12 @@
-# encoding: utf-8
-
 from django.conf import settings
 from django.views import generic
 from django.contrib import auth
 from django.shortcuts import redirect
-
 import workon.utils
 
 class Logout(generic.base.TemplateResponseMixin, generic.View):
 
-    template_name = "auth/logout.html"
+    template_name = "workon/auth/logout.html"
     redirect_field_name = "next"
 
     def get(self, *args, **kwargs):

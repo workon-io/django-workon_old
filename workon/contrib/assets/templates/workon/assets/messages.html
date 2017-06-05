@@ -1,0 +1,13 @@
+{% if messages %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            {% for message in messages %}
+                $.fn.notice({
+                    content: '{{message|escapejs}}',
+                    delay: 3000,
+                    classes: "{{message.tags}}"
+                });
+            {% endfor %}
+        });
+    </script>
+{% endif %}

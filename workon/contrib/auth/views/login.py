@@ -1,19 +1,16 @@
-# encoding: utf-8
-
 from django import forms
 from django.conf import settings
 from django.views import generic
 from django.contrib import auth
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
-
-import workon.forms
+from workon.contrib.auth.forms import Login as LoginForm
 import workon.utils
 
 class Login(generic.FormView):
-    template_name = "auth/login.html"
-    template_name_ajax = "auth/_login.html"
-    # form_class = workon.forms.Login
+    template_name = "workon/contrib/auth/login.html"
+    template_name_ajax = "workon/contrib/auth/_login.html"
+    form_class = LoginForm
     form_kwargs = {}
     redirect_field_name = "next"
 

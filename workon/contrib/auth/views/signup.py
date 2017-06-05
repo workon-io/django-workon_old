@@ -16,7 +16,7 @@ import workon.forms
 
 class Signup(generic.FormView):
 
-    template_name = "auth/signup.html"
+    template_name = "workon/contrib/auth/signup.html"
     #template_name_ajax = "auth/_signup.html"
     form_class = workon.forms.Signup
 

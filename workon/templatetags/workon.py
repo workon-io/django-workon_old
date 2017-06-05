@@ -11,9 +11,16 @@ from urllib.parse import urlparse, urlencode, parse_qs, urlsplit, urlunsplit
 from django.utils.safestring import mark_safe
 from django.templatetags.static import static as original_static, do_static as original_do_static
 from django.core.files.storage import get_storage_class, FileSystemStorage
+from workon.template import Library
 import workon.utils
 
-register = template.Library()
+
+register = Library()
+
+if 'workon.contrib.assets' in settings.INSTALLED_APPS:
+    from workon.contrib.assets.templatetags import lazy_register
+    lazy_register(register)
+
 
 
 @register.filter(name='range')
@@ -57,92 +64,6 @@ def settings_value(name):
 
 
 
-
-
-
-
-PACKAGES_JS = {
-    'materialize': [
-        'workon/js/jquery.js',
-        'workon/js/materialize/materialize.js',
-        'workon/js/materialize/nav.js',
-        'workon/js/materialize/modal.js',
-        'workon/js/materialize/scroll.js',
-        'workon/js/materialize/carousel.js',
-        'workon/js/materialize/form.js',
-        'workon/js/materialize/search.js',
-        'workon/js/materialize/tree.js',
-        'workon/js/materialize/tabs.js',
-    ],
-    'workon': [
-        'workon/js/jquery.js',
-    ] + [
-        f'workon/js/workon/date_picker/{name}' for name in sorted(os.listdir(os.path.join(os.path.dirname(__file__), '../static/workon/js/workon/date_picker/'))) if name.endswith('.js')
-    ] + [
-        f'workon/js/workon/{name}' for name in sorted(os.listdir(os.path.join(os.path.dirname(__file__), '../static/workon/js/workon/'))) if name.endswith('.js')
-    ],
-}
-
-@register.inclusion_tag('workon/js.html')
-def workon_js(*names, **kwargs):
-    global_async = kwargs.get('async', False)
-    internals = ''
-    externals = ''
-    if not names:
-        names = PACKAGES_JS.keys()
-    packages = []
-    for name in names:
-        paths = PACKAGES_JS.get(name)
-        if paths:
-            if isinstance(paths, list):
-                packages += paths
-            else:
-                packages.append(paths)
-        else:
-            packages.append(name)
-    for path in packages:
-        async = False
-        if path.startswith('http') or path.startswith('//'):
-            externals += f'<script type="text/javascript" src="{path}"" {"async" if async or global_async else ""}></script>'
-        else:
-            internals += f'<script type="text/javascript" src="{original_static(path)}" {"async" if async or global_async else ""}></script>'
-    return {
-        'externals': mark_safe(externals),
-        'internals': mark_safe(internals)
-    }
-
-
-PACKAGES_CSS = {
-    'materialize-icons': [
-        'https://fonts.googleapis.com/icon?family=Material+Icons',
-    ],
-}
-
-@register.inclusion_tag('workon/css.html')
-def workon_css(*names):
-    internals = ''
-    externals = ''
-    if not names:
-        names = PACKAGES_CSS.keys()
-    packages = []
-    for name in names:
-        paths = PACKAGES_CSS.get(name)
-        if paths:
-            if isinstance(paths, list):
-                packages += paths
-            else:
-                packages.append(paths)
-        else:
-            packages.append(name)
-    for path in packages:
-        if path.startswith('http') or path.startswith('//'):
-            externals += f'<link type="text/css" rel="stylesheet"  href="{path}" media="screen,projection" />'
-        else:
-            internals += f'<link type="text/css" rel="stylesheet"  href="{original_static(path)}" media="screen,projection" />'
-    return {
-        'externals': mark_safe(externals),
-        'internals': mark_safe(internals)
-    }
 
 
 
@@ -417,7 +338,7 @@ def form(field, **kwargs):
     return render_form(field, **kwargs)
 
 def add_input_classes(field, **kwargs):
-    widget_classes = f"field {kwargs.pop('classes', '')}"
+    widget_classes = f"field field_{field.name} {kwargs.pop('classes', '')}"
     if not is_checkbox(field) and not is_multiple_checkbox(field) and not is_radio(field) \
         and not is_file(field):
         classes = ""

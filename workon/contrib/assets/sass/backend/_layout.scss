@@ -1,0 +1,21 @@
+.workon-backend {
+    padding-left: 300px;
+    .navbar-fixed nav {
+        width: auto;
+        left: 300px;
+        right: 0px;
+    }
+    @media #{$medium-and-down} {
+
+        padding-left: 0px;
+        .navbar-fixed nav {
+            left: 0;
+        }
+    }
+    @media #{$large-and-up} {
+        .container {
+            width: 85%;
+        }
+    }
+}
+
