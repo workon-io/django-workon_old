@@ -39,16 +39,16 @@ class ActivationToken(models.Model):
     def save(self, **kwargs):
         if self.user or self.email:
             if not self.token:
-                self.token = workon.utils.random_token(extra=[self.email])
+                self.token = workon.utils.random_token(extra=[self.user_id])
             super(ActivationToken, self).save(**kwargs)
 
     def activate_user(self, **kwargs):
         self.user.is_active = True
         self.user.save()
-        self.is_used = user.has_usable_password()
+        self.is_used = self.user.has_usable_password()
         self.actived_at = timezone.now()
         self.save()
-        return user
+        return self.user
 
     def authenticate_user(self, request, user, remember=False, backend=None):
         return workon.utils.authenticate_user(request, user, remember=remember, backend=backend)
