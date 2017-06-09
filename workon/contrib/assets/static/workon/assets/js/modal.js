@@ -9,7 +9,7 @@
     {
         body = $('body');
         if(!modalo) {
-            modalo = $('<div class="modalo"></div>').appendTo(body).click(function(e)
+            modalo = $('<div class="modal-back"></div>').appendTo(body).click(function(e)
             {
                 if($(e.target).is(modalo))
                 {
@@ -24,7 +24,7 @@
             oldContainer = content.parent();
             if( !content.find('>[data-modal-close]').length )
             {
-                content.prepend('<a class="modalc" data-modal-close><i class="icon">close</i></a>');
+                content.prepend('<a class="modal-close" data-modal-close><i class="icon">close</i></a>');
             }
             modalo.empty().append(content);
             body.addClass('has-modal');
@@ -33,7 +33,7 @@
         else if(target_lower.endsWith('.png') || target_lower.endsWith('.jpg') || target_lower.endsWith('.gif'))
         {
 
-            modalo.empty().append('<img class="modal lg" src="'+target+'"/>');
+            modalo.empty().append('<img class="modal large" src="'+target+'"/>');
             body.addClass('has-modal');
             //$('body').addClass('has-modal')
             // $(trigger).modal({ complete: complete,ready: ready });
@@ -47,7 +47,7 @@
             $.get(target, function(data)
             {
                 content = $(data);
-                content.prepend('<a class="modalc" data-modal-close><i class="icon">close</i></a>');
+                content.prepend('<a class="modal-close" data-modal-close><i class="icon">close</i></a>');
                 modalo.html(content);
                 body.addClass('has-modal').removeClass('loading');
                 Materialize.updateTextFields();

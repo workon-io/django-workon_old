@@ -145,7 +145,8 @@ class HtmlInput(forms.Textarea):
         return config_json
 
     def get_tinymce_config(self, name, attrs):
-        config = copy.deepcopy(DEFAULT_CONFIG)
+        config = getattr(settings, 'WORKON_TINYMCE_DEFAULT_CONFIG', DEFAULT_CONFIG)
+        config = copy.deepcopy(config)
         config.update(self.tinymce)
         # if mce_config['mode'] == 'exact':
         #

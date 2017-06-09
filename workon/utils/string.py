@@ -63,6 +63,7 @@ def normalize_hard(string):
     if not string: return ""
     if not isinstance(string, six.string_types): string = forceunicode(string)
     string = normalize(string)
+    string = str(string, 'utf-8')
     string = string.replace(u'"', '')
     string = string.replace(u"'", '')
     string = string.replace(u'-', '')

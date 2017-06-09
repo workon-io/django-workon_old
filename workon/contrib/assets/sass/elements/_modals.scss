@@ -1,80 +1,77 @@
-@mixin modals($class:'modal', $overlay-class:'modalo')
-{
-    .#{$overlay-class} {
-        visibility: hidden;
-        opacity: 0;
-        cursor: pointer;
-        overflow-y: scroll;
-        cursor: pointer;
+
+.modal-back {
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+    overflow-y: scroll;
+    cursor: pointer;
+    position: fixed;
+    left: 0;
+    top:  0;
+    right: -15px;
+    bottom: 0;
+    z-index: 1001;
+    background: rgba($secondary-color, 0.5);
+    @extend .tr-250;
+    &.loading:before {
         position: fixed;
-        left: 0;
-        top:  0;
-        right: -15px;
-        bottom: 0;
-        z-index: 1001;
-        background: rgba($secondary-color, 0.5);
-        @extend .tr-250;
-        &.loading:before {
-            position: fixed;
-            top: 10%;
-            background: transparent !important;
-        }
-        will-change: opacity;
-    }
-    body.has-modal {
-        .modalo {
-            visibility: visible;
-            opacity: 1;
-            @extend .tr-250;
-            &.loading:after {
-              opacity: 0;
-            }
-        }
-    }
-    .#{$class} {
-        z-index: 1003;
-        background: white;
-        animation: fadeIn 0.25s linear;
-        position: absolute;
-        margin: auto;
         top: 10%;
-        margin-bottom: 30px;
-        left: 0;
-        right: 0px;
-        width: 800px;
-        .modalh {
-            padding: 15px;
-        }
-        .modalb {
-            padding: 15px;
-        }
-        .modalf {
-            padding: 15px;
-        }
-        .modalc {
-            position: absolute;
-            top: -55px;
-            right: -55px;
-            opacity: 0.8;
-            @extend .tr-250;
-            i {
-                font-weight: bold;
-                font-size: 60px;
-                color: $primary-color;
-            }
-            &:hover {
-                opacity: 1;
-            }
-        }
-        &.xs {width: 300px;}
-        &.sm {width: 400px;}
-        &.md {width: 600px;}
-        &.lg {width: 1000px;}
-        &.xl {width: 1200px;}
-        @media #{$medium-and-down} {
-            width: 80%;
-            &.sm, &.lg, &.md, &.lg { width: 80%; }
+        background: transparent !important;
+    }
+    will-change: opacity;
+}
+body.has-modal {
+    .modal-back {
+        visibility: visible;
+        opacity: 1;
+        @extend .tr-250;
+        &.loading:after {
+          opacity: 0;
         }
     }
 }
-
+.modal {
+    z-index: 1003;
+    background: white;
+    animation: fadeIn 0.25s linear;
+    position: absolute;
+    margin: auto;
+    top: 10%;
+    margin-bottom: 30px;
+    left: 0;
+    right: 0px;
+    width: 800px;
+    .modal-head {
+        padding: 15px;
+    }
+    .modal-body {
+        padding: 15px;
+    }
+    .modal-footer {
+        padding: 15px;
+    }
+    .modal-close {
+        position: absolute;
+        top: -55px;
+        right: -55px;
+        opacity: 0.8;
+        @extend .tr-250;
+        i {
+            font-weight: bold;
+            font-size: 60px;
+            color: $primary-color;
+        }
+        &:hover {
+            opacity: 1;
+        }
+    }
+    &.xs {width: 300px;}
+    &.sm {width: 400px;}
+    &.md {width: 600px;}
+    &.lg {width: 1000px;}
+    &.xl {width: 1200px;}
+    @media #{$medium-and-down} {
+        width: 80%;
+        &.sm, &.lg, &.md, &.lg { width: 80%; }
+    }
+}

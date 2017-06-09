@@ -51,6 +51,19 @@
     top: 50%; left: 50%;
     @include tf(translateY(-50%) translateX(-50%));
 }
+.center {
+    position: absolute;
+    top: 50%; left: 50%;
+    @include tf(translateY(-50%) translateX(-50%));
+}
+.ovr {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+
+}
 .fix {
     position: fixed;
     &.top { top: 15px; }

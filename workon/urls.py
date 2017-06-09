@@ -18,6 +18,8 @@ if 'workon.contrib.auth' in settings.INSTALLED_APPS:
 if 'workon.contrib.stripe' in settings.INSTALLED_APPS:
     includes.append(url(r'^stripe/', include("workon.contrib.stripe.urls")))
 
+if 'workon.contrib.tinymce' in settings.INSTALLED_APPS:
+    includes.append(url(r'^tinymce/', include("workon.contrib.tinymce.urls")))
 # includes.append(url(r'^css/materialize/theme/', include("workon.contrib.stripe.urls")))
 
 urlpatterns = [

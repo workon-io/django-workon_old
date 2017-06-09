@@ -55,18 +55,18 @@
 
     &:hover { background-color: rgba(0,0,0,.05);}
 
-    &.btn, &.btn-large, &.btn-flat, &.btn-floating {
+    &.button, &.button-large, &.button-flat, &.button-floating {
       margin: 10px 15px;
     }
 
-    &.btn,
-    &.btn-large,
-    &.btn-floating { color: $button-raised-color; }
-    &.btn-flat { color: $button-flat-color; }
+    &.button,
+    &.button-large,
+    &.button-floating { color: $button-raised-color; }
+    &.button-flat { color: $button-flat-color; }
 
-    &.btn:hover,
-    &.btn-large:hover { background-color: lighten($button-raised-background, 5%); }
-    &.btn-floating:hover { background-color: $button-raised-background; }
+    &.button:hover,
+    &.button-large:hover { background-color: lighten($button-raised-background, 5%); }
+    &.button-floating:hover { background-color: $button-raised-background; }
 
     & > i,
     & > [class^="mdi-"], li > a > [class*="mdi-"],

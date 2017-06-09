@@ -19,10 +19,10 @@ $(document).ready(function(body, pushins, backgrounds, scrolled)
         self._offsetTop = $(self).css('top', '').offset().top;
     });
 
-    $('[data-nav-collapse]').each(function(i, self)
-    {
-        $(self).sideNav($.extend({ edge: 'left', draggable: true }, $(self).data('nav-collapse')));
-    });
+    // $('[data-sidenav]').each(function(i, self)
+    // {
+    //     $(self).sideNav($.extend({ edge: 'left', draggable: true }, $(self).data('sidenav')));
+    // });
     $(document).on('click', '[data-nav-top]', function(i, self)
     {
         $('body').stop().animate({ scrollTop: 0 }, 500);

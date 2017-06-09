@@ -24,7 +24,7 @@
             };
             var body = $('body');
             if(!noticec) {
-                noticec = $('<div class="noticec"></div>').appendTo(body);
+                noticec = $('<div class="notice-wrapper"></div>').appendTo(body);
             }
             if(typeof options == "object")
             {
