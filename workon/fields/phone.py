@@ -12,7 +12,9 @@ from phonenumber_field.phonenumber import PhoneNumber, to_python, string_types
 def validate_international_phonenumber(value):
     phone_number = to_python(value)
     if phone_number and not phone_number.is_valid():
-        raise ValidationError(_('The phone number entered is not valid.'))
+        raise ValidationError(
+            _('The phone number entered is not valid.'),
+            code='invalid_phone_number')
 
 class PhoneNumberDescriptor(object):
     """
@@ -38,6 +40,22 @@ class PhoneNumberDescriptor(object):
     def __set__(self, instance, value):
         instance.__dict__[self.field.name] = to_python(value)
 
+
+class PhoneNumberField(CharField):
+    default_error_messages = {
+        'invalid': _('Enter a valid phone number.'),
+    }
+    default_validators = [validate_international_phonenumber]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.widget.input_type = 'tel'
+
+    def to_python(self, value):
+        phone_number = to_python(value)
+        if phone_number and not phone_number.is_valid():
+            raise ValidationError(self.error_messages['invalid'])
+        return phone_number
 
 class PhoneNumberField(models.Field):
     attr_class = PhoneNumber

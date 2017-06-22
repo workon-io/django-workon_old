@@ -21,7 +21,12 @@ if 'workon.contrib.assets' in settings.INSTALLED_APPS:
     from workon.contrib.assets.templatetags import lazy_register
     lazy_register(register)
 
-
+@register.filter(name='divide_by')
+def divide_by(value, arg):
+    try:
+        return int(int(value) / int(arg))
+    except (ValueError, ZeroDivisionError):
+        return None
 
 @register.filter(name='range')
 def range_filter(x):
@@ -53,6 +58,9 @@ def from_settings(name):
 def settings_value(name):
     return getattr(settings, name, "")
 
+@register.simple_tag
+def settings_value(name):
+    return getattr(settings, name, "")
 
 
 

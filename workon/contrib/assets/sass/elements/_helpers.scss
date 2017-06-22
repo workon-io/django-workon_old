@@ -37,6 +37,14 @@
     transition: $n;
 }
 
+.rl { position: relative; }
+.ab {
+    position: absolute !important;
+    &.top { top: 15px; }
+    &.right { right: 15px; }
+    &.left { left: 15px; }
+    &.bottom { bottom: 15px; }
+}
 .nm { margin: 0px !important; }
 .np { padding: 0px !important; }
 .dn { display:none !important; }

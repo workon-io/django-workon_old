@@ -26,14 +26,29 @@
           }
           if(data.replace)
           {
+              console.log(Object.prototype.toString.call( data.replace ))
               if(typeof(data.replace) == "object")
               {
-                  for(var id in data.replace)
-                  {
-                      var old = $('#'+id);
-                      if(old.length)
+                  if( Object.prototype.toString.call( data.replace ) === '[object Array]' ) {
+                      for(var i in data.replace)
                       {
-                          old.replaceWith($(data.replace[id]));
+                          var elm = $(data.replace[i]);
+                          var old = $('#'+elm.attr('id'));
+                          if(old.length)
+                          {
+                              old.replaceWith(elm);
+                          }
+                      }
+                  }
+                  else
+                  {
+                      for(var id in data.replace)
+                      {
+                          var old = $('#'+id);
+                          if(old.length)
+                          {
+                              old.replaceWith($(data.replace[id]));
+                          }
                       }
                   }
               }
@@ -52,14 +67,17 @@
               document.location.href = data.redirect;
               return;
           }
-          $(modalFormSelector).modal('close');
+          if(!data.leaveModal)
+          {
+              $(modalFormSelector).modal('close');
+          }
       }
       else
       {
           var $data = $(data);
           if($data.is(modalFormSelector))
           {
-              $(modalFormSelector).html($data.html());
+              $(modalFormSelector).prepend($data.html());
           }
           else if($data.is(formSelector) && form)
           {
@@ -89,6 +107,24 @@
     $.ajax(options);
     e.stopPropagation();
     return false;
+  });
+  $(document).ready(function()
+  {
+    $('[data-ajax-loadin]').each(function(i, self)
+    {
+        console.log(self)
+        self = $(this);
+        var target = self.data('ajax-loadin');
+        var options = {
+            type: "GET",
+            url: target,
+            success: function(data) {
+              self.prepend(data);
+              self.removeClass('loading');
+            }
+        };
+        $.ajax(options);
+    });
   });
 
   $(document).on('submit', formSelector + ', '+modalFormSelector, function(e, form)
@@ -125,9 +161,34 @@
 
 
 
+  $(document).on('change', '[data-search-form] input, [data-search-form] select, [data-search-form] textarea', function(e, form)
+  {
+      $(this.form).submit();
+  });
+  $(document).on('submit', '[data-search-form]', function(e, form, target)
+  {
+      form = $(this);
+      target = $('#'+form.data('search-form'))
+      var data = $(this).serializeArray();
+      // data['csrfmiddlewaretoken'] = null;
 
+      query = $(this).serialize();
 
-
+      History.pushState({}, null, "?"+query);
+      // if (history.pushState) {
+      //     var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + $(this).serialize();
+      //     window.history.pushState({path:newurl},'',newurl);
+      // };
+      //form.addLoading();
+      //data.push({ name:"ajax", value:"1", name:"page", value:page });
+      $.get(form.attr('action'), data, function(data)
+      {
+          data = $(data);
+          target.replaceWith(data);
+      });
+      e.stopPropagation();
+      return false;
+  });
 
 
 
