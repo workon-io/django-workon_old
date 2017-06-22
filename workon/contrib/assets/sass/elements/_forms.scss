@@ -20,6 +20,10 @@
         font-style: italic;
         font-size: 75%;
     }
+    .field-error + .field-help {
+        margin-top: -10px;
+
+    }
     .checkbox {
         .field-help {
             margin-top: 20px;
