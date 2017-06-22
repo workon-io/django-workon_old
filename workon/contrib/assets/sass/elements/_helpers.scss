@@ -95,3 +95,6 @@
 .tr-200 { @include tr(all 0.20s ease-out); }
 .tr-250 { @include tr(all 0.25s ease-out); }
 .tr-500 { @include tr(all 0.50s ease-out); }
+
+.w100 { width:100%; }
+.h100 { height:100%; }

@@ -1,161 +1,161 @@
 
-.slick-slider {
-    position: relative;
-    display: block;
-    box-sizing: border-box;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -ms-touch-action: pan-y;
-    touch-action: pan-y;
-    -webkit-tap-highlight-color: transparent;
-}
-.slick-list {
-    position: relative;
-    overflow: hidden;
-    display: block;
-    margin: 0;
-    padding: 0;
+// .slick-slider {
+//     position: relative;
+//     display: block;
+//     box-sizing: border-box;
+//     -webkit-touch-callout: none;
+//     -webkit-user-select: none;
+//     -khtml-user-select: none;
+//     -moz-user-select: none;
+//     -ms-user-select: none;
+//     user-select: none;
+//     -ms-touch-action: pan-y;
+//     touch-action: pan-y;
+//     -webkit-tap-highlight-color: transparent;
+// }
+// .slick-list {
+//     position: relative;
+//     overflow: hidden;
+//     display: block;
+//     margin: 0;
+//     padding: 0;
 
-    &:focus {
-        outline: none;
-    }
+//     &:focus {
+//         outline: none;
+//     }
 
-    &.dragging {
-        cursor: pointer;
-        cursor: hand;
-    }
-}
-.slick-slider .slick-track,
-.slick-slider .slick-list {
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    -o-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-}
+//     &.dragging {
+//         cursor: pointer;
+//         cursor: hand;
+//     }
+// }
+// .slick-slider .slick-track,
+// .slick-slider .slick-list {
+//     -webkit-transform: translate3d(0, 0, 0);
+//     -moz-transform: translate3d(0, 0, 0);
+//     -ms-transform: translate3d(0, 0, 0);
+//     -o-transform: translate3d(0, 0, 0);
+//     transform: translate3d(0, 0, 0);
+// }
 
-.slick-track {
-    position: relative;
-    left: 0;
-    top: 0;
-    display: block;
+// .slick-track {
+//     position: relative;
+//     left: 0;
+//     top: 0;
+//     display: block;
 
-    &:before,
-    &:after {
-        content: "";
-        display: table;
-    }
+//     &:before,
+//     &:after {
+//         content: "";
+//         display: table;
+//     }
 
-    &:after {
-        clear: both;
-    }
+//     &:after {
+//         clear: both;
+//     }
 
-    .slick-loading & {
-        visibility: hidden;
-    }
-}
-.slick-slide {
-    float: left;
-    height: 100%;
-    min-height: 1px;
-    outline: none;
-    [dir="rtl"] & {
-        float: right;
-    }
-    img {
-        display: block;
-    }
-    &.slick-loading img {
-        display: none;
-    }
+//     .slick-loading & {
+//         visibility: hidden;
+//     }
+// }
+// .slick-slide {
+//     float: left;
+//     height: 100%;
+//     min-height: 1px;
+//     outline: none;
+//     [dir="rtl"] & {
+//         float: right;
+//     }
+//     img {
+//         display: block;
+//     }
+//     &.slick-loading img {
+//         display: none;
+//     }
 
-    display: none;
+//     display: none;
 
-    &.dragging img {
-        pointer-events: none;
-    }
+//     &.dragging img {
+//         pointer-events: none;
+//     }
 
-    .slick-initialized & {
-        display: block;
-    }
+//     .slick-initialized & {
+//         display: block;
+//     }
 
-    .slick-loading & {
-        visibility: hidden;
-    }
+//     .slick-loading & {
+//         visibility: hidden;
+//     }
 
-    .slick-vertical & {
-        display: block;
-        height: auto;
-        border: 1px solid transparent;
-    }
-}
-.slick-arrow.slick-hidden {
-    display: none;
-}
+//     .slick-vertical & {
+//         display: block;
+//         height: auto;
+//         border: 1px solid transparent;
+//     }
+// }
+// .slick-arrow.slick-hidden {
+//     display: none;
+// }
 
-.slick-prev, .slick-next {
-    display: inline-block;
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    font-size: 30px;
-    width: $button-floating-large-size;
-    height: $button-floating-large-size;
-    line-height: $button-floating-size;
-    overflow: visible;
-    padding: 0;
-    @include tf(translateY(-50%));
-    background: $primary-color;
-    border-radius: 50%;
-    &.slick-disabled {
-        opacity: 0.5;
-    }
-    i {
-        width: inherit;
-        display: inline-block;
-        text-align: center;
-        color: $button-floating-color;
-        font-size: $button-large-icon-font-size;
-        line-height: $button-floating-large-size;
-    }
-    &:hover {
-        background-color: $button-floating-background-hover;
-        @extend .z-depth-1-half;
-    }
-}
-.slick-prev {
-    left: 0px;
-}
-.slick-next {
-    right: 0px;
-}
-.slick-dots {
-    position: absolute;
-    bottom: 15px;
-    left: 0px;
-    right: 0px;
-    text-align: center;
-    > li {
-        position: relative;
-        display: inline-block;
-        height: 20px;
-        width: 20px;
-        margin: 0 5px;
-        padding: 0;
-        cursor: pointer;
-        border-radius: 50%;
-        background: white;
-        > a {
-            line-height: 0px;
-            font-size: 0px;
-            color: transparent;
-        }
-        &.slick-active {
-            background: $primary-color;
-        }
-    }
-}
+// .slick-prev, .slick-next {
+//     display: inline-block;
+//     position: absolute;
+//     z-index: 1;
+//     top: 50%;
+//     font-size: 30px;
+//     width: $button-floating-large-size;
+//     height: $button-floating-large-size;
+//     line-height: $button-floating-size;
+//     overflow: visible;
+//     padding: 0;
+//     @include tf(translateY(-50%));
+//     background: $primary-color;
+//     border-radius: 50%;
+//     &.slick-disabled {
+//         opacity: 0.5;
+//     }
+//     i {
+//         width: inherit;
+//         display: inline-block;
+//         text-align: center;
+//         color: $button-floating-color;
+//         font-size: $button-large-icon-font-size;
+//         line-height: $button-floating-large-size;
+//     }
+//     &:hover {
+//         background-color: $button-floating-background-hover;
+//         @extend .z-depth-1-half;
+//     }
+// }
+// .slick-prev {
+//     left: 0px;
+// }
+// .slick-next {
+//     right: 0px;
+// }
+// .slick-dots {
+//     position: absolute;
+//     bottom: 15px;
+//     left: 0px;
+//     right: 0px;
+//     text-align: center;
+//     > li {
+//         position: relative;
+//         display: inline-block;
+//         height: 20px;
+//         width: 20px;
+//         margin: 0 5px;
+//         padding: 0;
+//         cursor: pointer;
+//         border-radius: 50%;
+//         background: white;
+//         > a {
+//             line-height: 0px;
+//             font-size: 0px;
+//             color: transparent;
+//         }
+//         &.slick-active {
+//             background: $primary-color;
+//         }
+//     }
+// }
