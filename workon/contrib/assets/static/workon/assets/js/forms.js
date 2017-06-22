@@ -77,7 +77,7 @@
           var $data = $(data);
           if($data.is(modalFormSelector))
           {
-              $(modalFormSelector).prepend($data.html());
+              $(modalFormSelector).html($data.html());
           }
           else if($data.is(formSelector) && form)
           {

@@ -362,6 +362,10 @@ def add_input_classes(field, **kwargs):
         if hasattr(field.field, 'max_length'):
             field.field.widget.attrs['data-length'] = field.field.max_length
 
+    if hasattr(field.field.widget, 'clear_checkbox_label'):
+        field.checkbox_name = field.field.widget.clear_checkbox_name(field.name)
+        field.checkbox_id = field.field.widget.clear_checkbox_id(field.checkbox_name)
+
     if is_select(field):
         field.field.widget.attrs['data-select'] = '-'
     field.label = kwargs.get('label', field.label)
@@ -430,7 +434,8 @@ def is_date_input(field):
 
 @register.filter
 def is_file(field):
-    return isinstance(field.field.widget, forms.FileInput)
+    return isinstance(field.field.widget, forms.FileInput) or \
+            isinstance(field.field.widget, forms.FileInput)
 
 
 @register.filter
