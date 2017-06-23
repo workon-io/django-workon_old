@@ -51,6 +51,8 @@
                 modalo.html(content);
                 body.addClass('has-modal').removeClass('loading');
                 Materialize.updateTextFields();
+                $('select').material_select();
+                $('textarea').autoGrow();
             });
         }
     }
