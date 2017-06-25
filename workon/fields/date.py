@@ -18,7 +18,7 @@ class DateTimeField(models.DateTimeField):
     """
 
     def formfield(self, *args, **kwargs):
-        kwargs['form_class'] = DateTimeField
+        kwargs['form_class'] = DateTimeFormField
         #kwargs['widget'] = DateTimeFormField
 
         return super().formfield(*args, **kwargs)

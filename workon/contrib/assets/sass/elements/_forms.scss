@@ -36,6 +36,9 @@
         font-size: 75%;
         color: red;
     }
+    [type="checkbox"]+label {
+        top: 0px;
+    }
     // .character-counter {
     //     position: absolute;
     //     top: -15px;

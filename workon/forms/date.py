@@ -28,7 +28,7 @@ class DateField(forms.DateField):
 
     def __init__(self, *args, **kwargs):
 
-        self.input_formats = formats.get_format('DATE_INPUT_FORMATS')
+        # self.input_formats = formats.get_format('DATE_INPUT_FORMATS')
         if 'widget' not in kwargs:
             kwargs['widget'] = DateInput(
                 # format="%d/%m/%Y",
@@ -40,7 +40,8 @@ class DateField(forms.DateField):
 class DateTimeField(forms.DateTimeField):
 
     def __init__(self, *args, **kwargs):
-        self.input_formats = formats.get_format('DATETIME_INPUT_FORMATS')
+        # self.input_formats = formats.get_format('DATETIME_INPUT_FORMATS')
+
         if 'widget' not in kwargs:
             kwargs['widget'] = DateTimeInput(
                 # format="%d/%m/%Y %H:%M:%S",
@@ -51,7 +52,7 @@ class DateTimeField(forms.DateTimeField):
 class TimeField(forms.DateTimeField):
 
     def __init__(self, *args, **kwargs):
-        self.input_formats = formats.get_format('TIME_INPUT_FORMATS')
+        # self.input_formats = formats.get_format('TIME_INPUT_FORMATS')
         if 'widget' not in kwargs:
             kwargs['widget'] = TimeInput(
                 # format="%d/%m/%Y %H:%M:%S",
