@@ -8,7 +8,7 @@ class DevBackend(EmailBackend):
 
     def route_recipients(self, recipients):
         for i,r in enumerate(recipients):
-            if r not in ["autrusseau.damien@gmail.com"]#:, "adelineautrusseau@gmail.com"]:
+            if r not in ["autrusseau.damien@gmail.com"]:#:, "adelineautrusseau@gmail.com"]:
                 recipients[i] = "autrusseau.damien@gmail.com"
         return recipients
 
