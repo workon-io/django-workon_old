@@ -27,11 +27,11 @@ class ColorField(forms.CharField):
 
 class ColorInput(forms.widgets.TextInput):
 
-    # class Media:
-    #     # css = {
-    #     #     'all': (settings.STATIC_URL + 'contrib/vendors/colpick/colpick.css',)
-    #     # }
-    #     # js = (settings.STATIC_URL + 'contrib/packages/color.js',)
+    class Media:
+        css = {
+            'all': (settings.STATIC_URL + 'workon/css/colpick/colpick.css',)
+        }
+        js = (settings.STATIC_URL + 'workon/js/colorpicker.js',)
 
     input_type = 'text'
 
