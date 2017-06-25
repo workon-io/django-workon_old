@@ -47,11 +47,11 @@ class Login(generic.FormView):
             key = "email"
         username = form.data.get(key, None)
 
-        workon.signals.user_login_attempt.send(
-            sender=Login,
-            username=username,
-            result=form.is_valid()
-        )
+        # workon.signals.user_login_attempt.send(
+        #     sender=Login,
+        #     username=username,
+        #     result=form.is_valid()
+        # )
         return super(Login, self).form_invalid(form)
 
 
