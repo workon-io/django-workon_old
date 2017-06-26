@@ -38,12 +38,12 @@
 }
 
 .rl { position: relative; }
-.ab {
+.ab, .abs {
     position: absolute !important;
-    &.top { top: 15px; }
-    &.right { right: 15px; }
-    &.left { left: 15px; }
-    &.bottom { bottom: 15px; }
+    &.top { top: 15px; bottom:auto; }
+    &.right { right: 15px; left:auto; }
+    &.left { left: 15px; right:auto; }
+    &.bottom { top:auto; bottom: 15px; }
 }
 .nm { margin: 0px !important; }
 .np { padding: 0px !important; }
