@@ -1,7 +1,7 @@
 <div class="{{ field.classes }}">
     {{ field }}
     {% if field.auto_id and field.label %}
-        <label class="{{ classes.label }} {% if field.field.required %}{{ form.required_css_class }}{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
+        <label class="{{ field.label_classes }} {% if field.field.required %}{{ form.required_css_class }}{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
     {% endif %}
     {% for error in field.errors %}
         <p class="{{ field.error_classes }}">{{ error }}</p>

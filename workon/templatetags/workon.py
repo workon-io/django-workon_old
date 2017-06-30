@@ -14,7 +14,6 @@ from django.core.files.storage import get_storage_class, FileSystemStorage
 from workon.template import Library
 import workon.utils
 
-
 register = Library()
 
 if 'workon.contrib.assets' in settings.INSTALLED_APPS:
@@ -27,6 +26,10 @@ def divide_by(value, arg):
         return int(int(value) / int(arg))
     except (ValueError, ZeroDivisionError):
         return None
+
+@register.filter
+def sanitize(html):
+    workon.utils.sanitize(html)
 
 @register.filter(name='range')
 def range_filter(x):
@@ -379,6 +382,7 @@ def add_input_classes(field, **kwargs):
     field.classes = widget_classes
     field.error_classes = "field-error"
     field.help_classes = "field-help"
+    field.label_classes = "active" if field.value else ""
     field.template = get_template(f'workon/forms/fields/_{field.field.widget.__class__.__name__.lower()}.html')
 
 

@@ -20,7 +20,7 @@ def base64image_iter(text, uploaded_file=False):
         image_type = m.group(2).lower()
         base64img = m.group(3)
         if image_type in ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'ico']:
-            image = base64.decodestring(base64img)
+            image = base64.decodestring(bytes(base64img, 'utf-8'))
             if uploaded_file:
                 image = SimpleUploadedFile('%s.png' % str(uuid.uuid4()), image, content_type='image/%s' % image_type)
             yield src, image

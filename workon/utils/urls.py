@@ -1,11 +1,15 @@
 # encoding: utf-8
 
 import re, os, functools
-
+import sys
 from urllib.parse import urlparse, urlunparse
+from django.conf.urls import url
+from django.apps import apps
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import urlresolvers
+from django.urls import reverse
+from django.http.request import HttpRequest
 from django.core.exceptions import SuspiciousOperation
 from workon.utils.cache import memoize
 
@@ -28,8 +32,104 @@ __all__ = [
     'absolute_url',
     'url_signature',
     'default_redirect',
-    'ensure_safe_url'
+    'ensure_safe_url',
+    'route'
 ]
+
+# def route(arg, query=''):
+
+#     def class_rebuilder(cls):
+#         return cls
+
+#     if isinstance(arg, tuple):
+#         name = arg[0]
+#         args = arg[1]
+#         kwargs = arg[2]
+
+#     method_name = name.replace('-', '_').replace(':', '_')
+#     def method(self):
+#         return reverse(name, args, kwargs)
+
+#     setattr(HttpRequest, method_name, method)
+#     return class_rebuilder
+
+
+
+
+
+
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+def route(pattern,
+        name,
+        attach=HttpRequest,
+        attach_attr=None,
+        login_required=False,
+        passes_test=None,
+        view=None,
+        view_kwargs={},
+        args=(),
+        kwargs={},
+    ):
+    # workon_conf = apps.get_conf('workon')
+    caller_filename = sys._getframe(1).f_code.co_filename
+
+    splitted = caller_filename.rsplit('/views/')
+    if len(splitted) > 1:
+        caller_filename = f'{splitted[0]}/views/__init__.py'
+
+    pattern = pattern
+    url_name  = name.split(':')[-1]
+    module = None
+    for m in sys.modules.values():
+        if m and '__file__' in m.__dict__ and m.__file__.startswith(caller_filename):
+            module = m
+            break
+    if attach:
+        def reversor(attached):
+            return reverse(
+                name,
+                args=( method(attached) for method in args ),
+                kwargs={ attr:method(attached) for attr, method in kwargs.items() }
+            )
+        attach_attr = name.replace('-', '_').replace(':', '_') if not attach_attr else attach_attr
+        setattr(attach, f'{attach_attr}_url' , reversor)
+
+    def _wrapper(class_or_method):
+
+
+        if module:
+            if 'urlpatterns' not in module.__dict__:
+                module.urlpatterns = []
+
+            if hasattr(class_or_method, 'as_view'):
+                view = class_or_method.as_view()
+            else:
+                view = class_or_method
+
+            # if passes_test:
+            #     view = user_passes_test(passes_test)(view)
+
+            # print(pattern, view, url_name)
+
+            module.urlpatterns += [ url(pattern, view, name=url_name ) ]
+
+            # print('PATTERNS', module, module.__dict__.get('urlpatterns'))
+            # print('\n')
+
+        return class_or_method
+    return _wrapper
+
+
+
+
+
+
+
+
+
+
+
 
 def append_protocol(url):
     if url:
@@ -109,7 +209,10 @@ def get_current_site(request=None):
         return get_current_site(request)
     else:
         from django.contrib.sites.models import Site
-        return Site.objects.get(id=settings.SITE_ID)
+        if not hasattr(settings, 'SITE_ID'):
+            return Site.objects.first()
+        else:
+            return Site.objects.get(id=settings.SITE_ID)
 
 def external_url(url):
     if not url.startswith('http://') or not url.startswith('https://'):

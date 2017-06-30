@@ -79,7 +79,7 @@ $(document).on('focus', 'textarea', function () {
     $(this).autoGrow();
 });
 $(document).ready(function() {
-    $('textarea').autoGrow();
+    $('.field textarea').autoGrow();
 })
 
 // // Textarea Auto Resize

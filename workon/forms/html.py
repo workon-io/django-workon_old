@@ -15,6 +15,9 @@ from django.utils.html import strip_tags, escape
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_text
 
+
+
+
 DEFAULT_TINYMCE_URL = getattr(settings, 'TINYMCE_URL', "workon/js/tinymce/tinymce.min.js")
 DEFAULT_CONFIG = {
     'plugins': [
@@ -85,6 +88,9 @@ DEFAULT_CONFIG = {
         ]},
     ],
 }
+TINYMCE_CONFIG = getattr(
+    settings, 'WORKON', {}
+).get('TINYMCE', {}).get('DEFAULT_CONFIG', getattr(settings, 'WORKON_TINYMCE_DEFAULT_CONFIG', DEFAULT_CONFIG))
 
 def is_absolute(url):
     return bool(urlparse(url).netloc)
@@ -145,8 +151,7 @@ class HtmlInput(forms.Textarea):
         return config_json
 
     def get_tinymce_config(self, name, attrs):
-        config = getattr(settings, 'WORKON_TINYMCE_DEFAULT_CONFIG', DEFAULT_CONFIG)
-        config = copy.deepcopy(config)
+        config = copy.deepcopy(TINYMCE_CONFIG)
         config.update(self.tinymce)
         # if mce_config['mode'] == 'exact':
         #

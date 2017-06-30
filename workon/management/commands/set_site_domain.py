@@ -12,7 +12,12 @@ class Command(BaseCommand):
 
     def handle(self, domain, *args, **options):
 
-        site = Site.objects.get(id=settings.SITE_ID)
+        if not hasattr(settings, 'SITE_ID'):
+            site = Site.objects.first()
+            if not site:
+                sie =  Site()
+        else:
+            site = Site.objects.get(id=settings.SITE_ID)
         site.domain = domain
         site.name = domain
         site.save()

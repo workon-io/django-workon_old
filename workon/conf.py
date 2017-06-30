@@ -6,6 +6,12 @@ class WorkonConfig(AppConfig):
 
     name = 'workon'
 
+    # def ready(self, *args, **kwargs):
+
+    #     print('WORKON READY')
+    #     from django.urls import get_resolver
+    #     for p in get_resolver().url_patterns: print('PATTERN', p)
+
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
 
