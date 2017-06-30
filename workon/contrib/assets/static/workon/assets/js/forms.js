@@ -102,6 +102,8 @@
             }
         }
         Materialize.updateTextFields();
+        $('[data-slick]').trigger('mouseenter');
+        $('[data-select]').material_select();
     }
     $(document).on('click', '[data-ajax-href]', function(e)
     {
@@ -651,6 +653,8 @@
         var multiple = $select.attr('multiple') ? true : false,
             lastID = $select.data('select-id'); // Tear down structure if Select needs to be rebuilt
 
+        var lazy = typeof $select.data("select-lazy") !== 'undefined';
+
         if (lastID) {
           $select.parent().find('span.caret').remove();
           $select.parent().find('input').remove();
@@ -801,7 +805,8 @@
         });
 
         $newSelect.on('blur', function() {
-          if (!multiple) {
+          console.log(multiple, lazy, !multiple && !lazy)
+          if (!multiple && !lazy) {
             $(this).trigger('close');
           }
           options.find('li.selected').removeClass('selected');

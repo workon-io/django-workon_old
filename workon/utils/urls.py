@@ -8,7 +8,7 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core import urlresolvers
-from django.urls import reverse
+from django.urls import reverse, exceptions
 from django.http.request import HttpRequest
 from django.core.exceptions import SuspiciousOperation
 from workon.utils.cache import memoize
@@ -60,6 +60,7 @@ __all__ = [
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 
+_previous_route_url = None
 def route(pattern,
         name,
         attach=HttpRequest,
@@ -70,8 +71,10 @@ def route(pattern,
         view_kwargs={},
         args=(),
         kwargs={},
+        fail_as_previous=False
     ):
-    # workon_conf = apps.get_conf('workon')
+    global _previous_route_url
+
     caller_filename = sys._getframe(1).f_code.co_filename
 
     splitted = caller_filename.rsplit('/views/')
@@ -87,16 +90,26 @@ def route(pattern,
             break
     if attach:
         def reversor(attached):
-            return reverse(
-                name,
-                args=( method(attached) for method in args ),
-                kwargs={ attr:method(attached) for attr, method in kwargs.items() }
-            )
+            future_args = ( method(attached) for method in args )
+            future_kwargs = { attr:method(attached) for attr, method in kwargs.items() }
+            if _previous_route_url:
+                try:
+                    return reverse(name, args=future_args, kwargs=future_kwargs)
+                except exceptions.NoReverseMatch:
+                    previous = getattr(attached, f'{attach_attr}_url_previous')
+                    future_args = ( method(attached) for method in previous[1] )
+                    future_kwargs = { attr:method(attached) for attr, method in previous[2].items() }
+                    return reverse(previous[0], args=future_args, kwargs=future_kwargs)
+            else:
+                return reverse(name, args=future_args, kwargs=future_kwargs)
+
         attach_attr = name.replace('-', '_').replace(':', '_') if not attach_attr else attach_attr
         setattr(attach, f'{attach_attr}_url' , reversor)
+        setattr(attach, f'{attach_attr}_url_previous' , _previous_route_url)
+
+        _previous_route_url = (name, args, kwargs)
 
     def _wrapper(class_or_method):
-
 
         if module:
             if 'urlpatterns' not in module.__dict__:
@@ -118,6 +131,7 @@ def route(pattern,
             # print('\n')
 
         return class_or_method
+
     return _wrapper
 
 

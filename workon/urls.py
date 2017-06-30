@@ -24,7 +24,7 @@ if 'workon.contrib.tinymce' in settings.INSTALLED_APPS:
 # includes.append(url(r'^css/materialize/theme/', include("workon.contrib.stripe.urls")))
 
 urlpatterns = [
-    url(r'^', include(includes, namespace="workon"))
+    url(r'', include(includes, namespace="workon"))
 ]
 # urlpatterns.append(
 #     url(r'^', include(include_urls, namespace="workon"))

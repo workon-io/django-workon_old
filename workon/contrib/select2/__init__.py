@@ -1,0 +1,1 @@
+default_app_config = 'workon.contrib.select2.apps.Select2Config'

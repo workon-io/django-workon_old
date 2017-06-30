@@ -157,7 +157,7 @@
 
         // });
 
-    $('select').material_select();
+    $('.field select').material_select();
 
 
     // Function to update labels of text fields

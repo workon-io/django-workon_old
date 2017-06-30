@@ -383,7 +383,10 @@ def add_input_classes(field, **kwargs):
     field.error_classes = "field-error"
     field.help_classes = "field-help"
     field.label_classes = "active" if field.value else ""
-    field.template = get_template(f'workon/forms/fields/_{field.field.widget.__class__.__name__.lower()}.html')
+    try:
+        field.template = get_template(f'workon/forms/fields/_{field.field.widget.__class__.__name__.lower()}.html')
+    except:
+        field.template = get_template('workon/forms/fields/_unknow.html')
 
 
 

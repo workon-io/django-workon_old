@@ -72,6 +72,14 @@
     bottom: 0px;
 
 }
+.row {
+    &.row0 {
+        > .col {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
+}
 .fix {
     position: fixed;
     &.top { top: 15px; }
