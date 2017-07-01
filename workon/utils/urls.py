@@ -94,7 +94,6 @@ def route(pattern,
         def reversor(attached):
             future_args = ( method(attached) for method in args )
             future_kwargs = { attr:method(attached) for attr, method in kwargs.items() }
-            print(getattr(attached, f'{attach_attr}_url_previous'))
             if hasattr(attached, f'{attach_attr}_url_previous'):
                 try:
                     return reverse(name, args=future_args, kwargs=future_kwargs)
@@ -110,7 +109,6 @@ def route(pattern,
         setattr(attach, f'{attach_attr}_url' , reversor)
         setattr(attach, f'{attach_attr}_url_previous' , _previous_route_url)
 
-        print('ATTACH ROUTE', f'{attach_attr}_url', name, attach, pattern )
         _previous_route_url = (name, args, kwargs)
 
     def _wrapper(class_or_method):
