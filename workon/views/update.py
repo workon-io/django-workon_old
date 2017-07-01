@@ -17,7 +17,7 @@ class Save(generic.UpdateView):
             return getattr(self, '_object')
         self.created = False
         try:
-            self.object = super(Save, self).get_object()
+            self.object = super().get_object()
         except AttributeError:
             self.object = self.model()
             self.created = True

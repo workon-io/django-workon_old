@@ -20,10 +20,7 @@ class Login(generic.FormView):
         return super(Login, self).get(*args, **kwargs)
 
     def get_template_names(self):
-        if self.request.is_ajax():
-            return [self.template_name_ajax]
-        else:
-            return [self.template_name]
+        return [self.template_name_ajax] if self.request.is_ajax() else [self.template_name]
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(Login, self).get_context_data(*args, **kwargs)

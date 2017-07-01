@@ -1,5 +1,11 @@
-(function ($, modalFormSelector, formSelector)
+(function ($, modalFormSelector, formSelector, isDict, isArray)
 {
+    isArray = function(obj) {
+        return typeof(obj) == "object" && Object.prototype.toString.call( obj ) === '[object Array]'
+    }
+    isDict = function(obj) {
+        return typeof(obj) == "object" && Object.prototype.toString.call( obj ) !== '[object Array]'
+    }
 
     modalFormSelector = '[data-modal-form]'
     formSelector = '[data-form]'
@@ -16,39 +22,32 @@
             }
             if(data.remove)
             {
-                if(typeof(data.remove) == "object")
-                {
-                    for(var id in data.remove) { $(id).remove(); }
-                }
-                else {
-                    $(data.remove).remove();
-                }
+                if(isArray(data.remove)) { for(var i in data.remove) { $(data.remove[i]).remove(); } }
+                if(isDict(data.remove)) { for(var id in data.remove) { $(id).remove(); } }
+                else { $(data.remove).remove(); }
             }
             if(data.replace)
             {
-                console.log(Object.prototype.toString.call( data.replace ))
-                if(typeof(data.replace) == "object")
+                if(isArray(data.replace))
                 {
-                    if( Object.prototype.toString.call( data.replace ) === '[object Array]' ) {
-                        for(var i in data.replace)
+                    for(var i in data.replace)
+                    {
+                        var elm = $(data.replace[i]);
+                        var old = $('#'+elm.attr('id'));
+                        if(old.length)
                         {
-                            var elm = $(data.replace[i]);
-                            var old = $('#'+elm.attr('id'));
-                            if(old.length)
-                            {
-                                old.replaceWith(elm);
-                            }
+                            old.replaceWith(elm);
                         }
                     }
-                    else
+                }
+                else if(isDict(data.replace))
+                {
+                    for(var id in data.replace)
                     {
-                        for(var id in data.replace)
+                        var old = $('#'+id);
+                        if(old.length)
                         {
-                            var old = $('#'+id);
-                            if(old.length)
-                            {
-                                old.replaceWith($(data.replace[id]));
-                            }
+                            old.replaceWith($(data.replace[id]));
                         }
                     }
                 }
@@ -60,14 +59,16 @@
                     }
                 }
             }
-            if(data.permanotice) {
+            if(data.permanotice)
+            {
 
-                if(typeof(data.permanotice) == "object") { $.fn.notice(data.permanotice, { delay:0 }); }
-                else { for(var id in data.permanotice) { $.fn.notice(data.permanotice[id], { delay:0 });  } }
+                if(isDict(data.permanotice)) { $.fn.notice(data.permanotice, { delay:0 }); }
+                else if(isArray(data.permanotice)) { for(var id in data.permanotice) { $.fn.notice(data.permanotice[id], { delay:0 });  } }
             }
-            if(data.notice) {
-                if(typeof(data.notice) == "object") { $.fn.notice(data.notice); }
-                else { for(var id in data.notice) { $.fn.notice(data.notice[id]); } }
+            if(data.notice)
+            {
+                if(isDict(data.notice)) { $.fn.notice(data.notice); }
+                else if(isArray(data.notice)) { for(var i in data.notice) { $.fn.notice(data.notice[i]); } }
             }
             if(data.redirect)
             {

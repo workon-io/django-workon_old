@@ -9,6 +9,9 @@ class Logout(generic.base.TemplateResponseMixin, generic.View):
     template_name = "workon/auth/logout.html"
     redirect_field_name = "next"
 
+    def get_template_names(self):
+        return [self.template_name_ajax] if self.request.is_ajax() else [self.template_name]
+
     def get(self, *args, **kwargs):
         if not self.request.user.is_authenticated():
             return redirect(self.get_redirect_url())
