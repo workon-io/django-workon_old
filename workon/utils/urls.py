@@ -58,20 +58,25 @@ __all__ = [
 
 
 
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required as login_required_statement, user_passes_test
+
+staff_required_statement = user_passes_test(lambda u: u.is_staff)
+superuser_required_statement = user_passes_test(lambda u: u.is_superuser)
 
 _previous_route_url = None
 def route(pattern,
         name,
         attach=HttpRequest,
         attach_attr=None,
-        login_required=False,
-        passes_test=None,
         view=None,
         view_kwargs={},
         args=(),
         kwargs={},
-        fail_as_previous=False
+        fail_as_previous=False,
+        login_required=False,
+        staff_required=False,
+        superuser_required=False,
+        custom_required=None,
     ):
     global _previous_route_url
 
@@ -122,10 +127,14 @@ def route(pattern,
             else:
                 view = class_or_method
 
-            # if passes_test:
-            #     view = user_passes_test(passes_test)(view)
-
-            # print(pattern, view, url_name)
+            if login_required:
+                view = login_required_statement(view)
+            if staff_required:
+                view = staff_required_statement(view)
+            if superuser_required:
+                view = superuser_required_statement(view)
+            if custom_required:
+                view = user_passes_test(custom_required)(view)
 
             module.urlpatterns += [ url(pattern, view, name=url_name ) ]
 
