@@ -193,7 +193,7 @@ class BaseUser(AbstractBaseUser, PermissionsMixin):
         if self.first_name and self.last_name:
             return self.first_name[0]+self.last_name[0]
         else:
-            return self.username[0:1]
+            return self.username[0:1] if self.username else None
     @property
     def name_initials(self):
         return self.get_name_initials()

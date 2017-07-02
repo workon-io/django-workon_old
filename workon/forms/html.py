@@ -14,12 +14,14 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags, escape
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_text
+from django.templatetags.static import static
 
 
 
 
 DEFAULT_TINYMCE_URL = getattr(settings, 'TINYMCE_URL', "workon/js/tinymce/tinymce.min.js")
 DEFAULT_CONFIG = {
+
     'plugins': [
         "advlist autolink lists link image charmap print preview anchor \
         searchreplace visualblocks code fullscreen textcolor \
@@ -155,6 +157,7 @@ class HtmlInput(forms.Textarea):
         config.update(self.tinymce)
         # if mce_config['mode'] == 'exact':
         #
+        config['tinymce_url'] = static(DEFAULT_TINYMCE_URL)
         config['mode'] = 'exact'
         config['elements'] = attrs['id']
         if not config.get('placeholder_disabled') == True:

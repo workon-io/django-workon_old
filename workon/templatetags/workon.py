@@ -361,6 +361,7 @@ def add_input_classes(field, **kwargs):
         if field.errors:
             field_classes+= ' invalid'
         field.field.widget.attrs['class'] = field_classes
+        print(field.name)
 
         if hasattr(field.field, 'max_length'):
             field.field.widget.attrs['data-length'] = field.field.max_length

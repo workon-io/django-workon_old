@@ -112,7 +112,8 @@ def route(pattern,
 
         attach_attr = name.replace('-', '_').replace(':', '_') if not attach_attr else attach_attr
         setattr(attach, f'{attach_attr}_url' , reversor)
-        setattr(attach, f'{attach_attr}_url_previous' , _previous_route_url)
+        if fail_as_previous:
+            setattr(attach, f'{attach_attr}_url_previous' , _previous_route_url)
 
         _previous_route_url = (name, args, kwargs)
 

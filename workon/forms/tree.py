@@ -14,10 +14,17 @@ class TreeSelect(forms.SelectMultiple):
     def get_context(self, name, value, attrs):
         by_ids = {}
         print(value)
+        test_selected = lambda o: None
+        if value:
+            if isinstance(value, list):
+                test_selected = lambda o: o in value
+            else:
+                test_selected = lambda o: o == value
+
         for choice in self.choices:
             by_ids[choice[0]] = {
                 'items': [],
-                'is_selected': choice[0] in value,
+                'is_selected': test_selected(choice[0]),
                 'label': choice[1],
                 'parent_id': choice[2],
                 'level': choice[3],

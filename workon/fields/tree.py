@@ -7,12 +7,12 @@ class TreeManyToManyField(models.ManyToManyField):
         defaults = {
             'form_class': TreeModelChoiceField
         }
-        return super(TreeManyToManyField, self).formfield(**defaults)
+        return super().formfield(**defaults)
 
 class TreeForeignKey(models.ForeignKey):
 
     def formfield(self, **kwargs):
-        defaults = {
-            'form_class': TreeModelChoiceField
-        }
-        return super(TreeForeignKey, self).formfield(**defaults)
+        # defaults = {
+        #     'form_class': TreeModelChoiceField
+        # }
+        return super().formfield(**kwargs)
