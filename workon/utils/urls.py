@@ -87,8 +87,8 @@ def route(pattern,
         caller_filename = f'{splitted[0]}/views/__init__.py'
 
     pattern = pattern
-    if not pattern.endswith('$'):
-        pattern = f'{pattern}$'
+    # if not pattern.endswith('$'):
+    #     pattern = f'{pattern}$'
     url_name  = name.split(':')[-1]
     module = None
     for m in sys.modules.values():
