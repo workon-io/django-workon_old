@@ -42,7 +42,7 @@ def get_or_create_user(expiration_date=None, set_names_from_email=False,
             if set_names_from_email:
 
                 if attr_name == "email" and not user.username:
-                    user.username = email.split('@')[0][0:254]
+                    user.username = unique_field.split('@')[0][0:254]
 
                 if not user.first_name and not user.last_name:
                     user_names = user.username.split('.', 2)
