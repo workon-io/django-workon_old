@@ -23,7 +23,7 @@
         </div>
 
     {% else %}
-        {{field}}
+        {{ field }}
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         {% for error in field.errors %}
             <span class="help-block {{ form.error_css_class }}">{{ error }}</span>

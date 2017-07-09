@@ -101,6 +101,7 @@
 .ts-r90 { @include tf(rotate(90deg)); }
 .tr-050 { @include tr(all 0.05s ease-out); }
 .tr-100 { @include tr(all 0.10s ease-out); }
+.tr-150 { @include tr(all 0.15s ease-out); }
 .tr-200 { @include tr(all 0.20s ease-out); }
 .tr-250 { @include tr(all 0.25s ease-out); }
 .tr-500 { @include tr(all 0.50s ease-out); }

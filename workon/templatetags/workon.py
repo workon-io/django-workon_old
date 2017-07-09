@@ -65,9 +65,14 @@ def settings_value(name):
 def settings_value(name):
     return getattr(settings, name, "")
 
+@register.filter
+def get(object, name, default=None):
+    return object.get(name, default)
 
 
-
+@register.filter(name="getattr")
+def get_attr(object, name, default=None):
+    return getattr(object, name, default)
 
 
 
@@ -387,6 +392,7 @@ def add_input_classes(field, **kwargs):
     template_name = f'workon/forms/fields/_{field.field.widget.__class__.__name__.lower()}.html'
     try:
         field.template = get_template(template_name)
+        print(f" {template_name} form widget template")
     except:
         print(f"Unknow {template_name} form widget template")
         field.template = get_template('workon/forms/fields/_unknow.html')

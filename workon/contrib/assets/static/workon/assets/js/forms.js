@@ -85,7 +85,7 @@
             var $data = $(data);
             if($data.is(modalFormSelector))
             {
-                $(modalFormSelector).html($data.html());
+                $(modalFormSelector).html($data.html()).modalAddClose();
             }
             else if($data.is(formSelector) && form)
             {
@@ -741,6 +741,7 @@
               } else {
                 options.find('li').removeClass('active');
                 $(this).toggleClass('active');
+                console.log($newSelect, $(this).text())
                 $newSelect.val($(this).text());
               }
 
@@ -806,7 +807,7 @@
         });
 
         $newSelect.on('blur', function() {
-          console.log(multiple, lazy, !multiple && !lazy)
+          // console.log(multiple, lazy, !multiple && !lazy)
           if (!multiple && !lazy) {
             $(this).trigger('close');
           }

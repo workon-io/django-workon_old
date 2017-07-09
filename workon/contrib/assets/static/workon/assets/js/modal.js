@@ -1,9 +1,20 @@
-(function($, modal, open, modalo, content, oldContainer)
+(function($, modal, open, modalo, content, oldContainer, addClose)
 {
     // $(document).ready(function(){
     //         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     //         $('[data-modal]').modal();
     //     });
+
+    $.fn.modalDefaults = {
+        closeOnClick: true
+    }
+
+    $.fn.modalAddClose = function() {
+        if( !this.find('>[data-modal-close]').length )
+        {
+            this.prepend('<a class="modal-close" data-modal-close><i class="icon">close</i></a>');
+        }
+    }
 
     open = function(options, trigger, target, content, body)
     {
@@ -11,7 +22,8 @@
         if(!modalo) {
             modalo = $('<div class="modal-back"></div>').appendTo(body).click(function(e)
             {
-                if($(e.target).is(modalo))
+                console.log($.fn.modalDefaults)
+                if($.fn.modalDefaults.closeOnClick && $(e.target).is(modalo))
                 {
                     body.removeClass('has-modal loading');
                 }
@@ -22,10 +34,7 @@
         {
             content = $(target);
             oldContainer = content.parent();
-            if( !content.find('>[data-modal-close]').length )
-            {
-                content.prepend('<a class="modal-close" data-modal-close><i class="icon">close</i></a>');
-            }
+            content.modalAddClose();
             modalo.empty().append(content);
             body.addClass('has-modal');
             Materialize.updateTextFields();
@@ -47,7 +56,7 @@
             $.get(target, function(data)
             {
                 content = $(data);
-                content.prepend('<a class="modal-close" data-modal-close><i class="icon">close</i></a>');
+                content.modalAddClose();
                 modalo.html(content);
                 body.addClass('has-modal').removeClass('loading');
                 Materialize.updateTextFields();
