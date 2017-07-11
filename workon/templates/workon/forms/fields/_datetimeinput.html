@@ -1,6 +1,14 @@
 <div class="{{ field.classes }} {{ classes.label }}">
     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-    {{ field }}
+    <input type="text" id="{{ field.auto_id }}" name="{{ field.name }}" class="datepicker" value="{{ field.real_value|date:'d/m/Y H\:i' }}"
+        data-datetime-widget='{
+            "lang": "fr",
+            "timepicker": true,
+            "datepicker": true,
+            "mask": false,
+            "format": "d/m/Y H:i"
+        }'>
+    <!-- {{ field }} -->
     <!-- <input type="date" id="{{ field.auto_id }}" name="{{ field.name }}" class="datepicker" value="{% if field.value %}{{ field.value }}{% endif %}"> -->
     {% for error in field.errors %}
         <p class="{{ field.error_classes }}">{{ error }}</p>

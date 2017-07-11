@@ -6,10 +6,5 @@
     {% if field.auto_id %}
         <label class="{{ field.label_classes }} {% if field.field.required %}{{ form.required_css_class }}{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
     {% endif %}
-    {% for error in field.errors %}
-        <p class="{{ field.error_classes }}">{{ error }}</p>
-    {% endfor %}
-    {% if field.help_text %}
-        <p class="{{ field.help_classes }}">{{ field.help_text|safe }}</p>
-    {% endif %}
+    {% include 'workon/forms/fields/__help_and_errors.html' %}
 </div>

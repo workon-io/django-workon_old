@@ -110,7 +110,7 @@ class HtmlField(forms.CharField):
             inline=kwargs.pop('inline', False),
             attrs=kwargs.get('attrs', attrs)
         )
-        super(HtmlField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class HtmlInput(forms.Textarea):
@@ -125,7 +125,7 @@ class HtmlInput(forms.Textarea):
         }
 
     def __init__(self, attrs=None, tinymce=None, inline=False):
-        super(HtmlInput, self).__init__(attrs=attrs)
+        super().__init__(attrs=attrs)
         tinymce = tinymce or {}
         self.tinymce = tinymce
         self.inline = inline

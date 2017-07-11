@@ -355,6 +355,8 @@ def form(field, **kwargs):
 
 def add_input_classes(field, **kwargs):
     widget_classes = f"field field_{field.name} {kwargs.pop('classes', '')}"
+
+
     if not is_checkbox(field) and not is_multiple_checkbox(field) and not is_radio(field) \
         and not is_file(field):
         classes = ""
@@ -384,6 +386,9 @@ def add_input_classes(field, **kwargs):
         field.field.widget.attrs['placeholder'] = placeholder
     for name, value in kwargs.items():
         field.field.widget.attrs[name] = value
+
+    field.real_value = field.value()
+    print(field.value(), type(field.real_value))
 
     field.classes = widget_classes
     field.error_classes = "field-error"

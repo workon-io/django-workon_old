@@ -38,3 +38,63 @@
     {% endif %}
 
 </div>
+
+
+{% comment %}
+<!--
+
+<div class="{{ field.classes }} field-select {{ classes.label }}" data-select=''>
+    {% if field|is_checkbox_select_multiple %}
+        <input id="{{ field.id_for_label }}"/>
+        {% include 'workon/forms/fields/__label.html' %}
+        <div class="{{ classes.value }}">
+            {% for choice in field %}
+                  <p>
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                  </p>
+            {% endfor %}
+            {% include '__help_and_errors/html' %}
+        </div>
+
+    {% else %}
+        <input type="text" id="trigger__{{ field.id_for_label }}" {% if field.value %}value="{{ field.choive_label }}"{% endif %} />
+        {% include 'workon/forms/fields/__label.html' with id_prefix="trigger__" %}
+        <div class="field-select-choices">
+            <ul>
+                {% for choice in field %}
+                <li>
+                    {% if is_multiple %}
+                    <a class="field field-field-checkbox" onmousedown="
+                        values = [];
+                        for(var i in $(this).parent().parent().parent().find(''))
+                        $('#{{ field.id_for_label }}').val('{{ choice.data.value }}');
+                        $('#trigger__{{ field.id_for_label }}').val('{{ choice.data.label }}').focus();
+
+                        return false;
+                    " for="{{ choice.id_for_label }}">
+                        <input id="{{ choice.id_for_label }}" type="checkbox" />
+                        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                    </a>
+                    {% else %}
+                    <a onmousedown="
+                        $('#{{ field.id_for_label }}').val('{{ choice.data.value }}');
+                        $('#trigger__{{ field.id_for_label }}').val('{{ choice.data.label }}');
+                    " for="{{ choice.id_for_label }}">
+                        {{ choice.choice_label }}
+                    </a>
+                    {% endif %}
+                    {% if field.is_tree %}
+
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% include 'workon/forms/fields/__help_and_errors.html' %}
+        <input type="hidden" id="{{ field.id_for_label }}" {% if field.value != None %} value="{{ field.value }}"{% endif %}  />
+
+    {% endif %}
+
+</div> -->
+{% endcomment %}

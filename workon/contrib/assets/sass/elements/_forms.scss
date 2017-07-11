@@ -28,7 +28,6 @@
         .field-help {
             margin-top: 20px;
         }
-
     }
     .field-error {
         margin-top: -20px;
@@ -38,6 +37,38 @@
     }
     [type="checkbox"]+label {
         top: 0px;
+    }
+
+    &.field-select {
+        position: relative;
+        >select {
+            display: block;
+        }
+        >.field-select-choices {
+            position: relative;
+            z-index: 1;
+            >ul {
+                margin: 0px;
+                position: absolute;
+                background: white;
+                top: 0px;
+                left: 0px;
+                right: 0px;
+                max-height: 0px;
+                overflow: hidden;
+                > li {
+                    > a {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        >input:focus ~ .field-select-choices {
+            >ul {
+                max-height: 300px;
+                overflow: auto;
+            }
+        }
     }
     // .character-counter {
     //     position: absolute;
