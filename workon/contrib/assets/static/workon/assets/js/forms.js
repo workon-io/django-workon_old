@@ -64,11 +64,13 @@
 
                 if(isDict(data.permanotice)) { $.fn.notice(data.permanotice, { delay:0 }); }
                 else if(isArray(data.permanotice)) { for(var id in data.permanotice) { $.fn.notice(data.permanotice[id], { delay:0 });  } }
+                else { $.fn.notice(data.notice, { delay:0 }); }
             }
             if(data.notice)
             {
                 if(isDict(data.notice)) { $.fn.notice(data.notice); }
                 else if(isArray(data.notice)) { for(var i in data.notice) { $.fn.notice(data.notice[i]); } }
+                else { $.fn.notice(data.notice); }
             }
             if(data.redirect)
             {
@@ -105,6 +107,7 @@
         Materialize.updateTextFields();
         $('[data-slick]').trigger('mouseenter');
         $('[data-select]').material_select();
+        $('[data-tree]').workonTree();
     }
     $(document).on('click', '[data-ajax-href]', function(e)
     {

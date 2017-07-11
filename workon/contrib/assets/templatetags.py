@@ -9,6 +9,7 @@ def lazy_register(register):
     PACKAGES_JS = {
         'materialize': [
             'workon/js/jquery.js',
+            'workon/js/jquery-ui.js',
             'workon/js/materialize/materialize.js',
             'workon/js/materialize/nav.js',
             'workon/js/materialize/modal.js',
@@ -21,6 +22,7 @@ def lazy_register(register):
         ],
         'workon': [
             'workon/assets/js/vendors/jquery.js',
+            'workon/assets/js/vendors/jquery-ui.js',
         ] + [
             f'workon/assets/js/{name}' for name in sorted(os.listdir(os.path.join(os.path.dirname(__file__), 'static/workon/assets/js/'))) if name.endswith('.js')
         ],
