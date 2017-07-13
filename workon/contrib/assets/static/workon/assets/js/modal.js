@@ -22,7 +22,6 @@
         if(!modalo) {
             modalo = $('<div class="modal-back"></div>').appendTo(body).click(function(e)
             {
-                console.log($.fn.modalDefaults)
                 if($.fn.modalDefaults.closeOnClick && $(e.target).is(modalo))
                 {
                     body.removeClass('has-modal loading');
