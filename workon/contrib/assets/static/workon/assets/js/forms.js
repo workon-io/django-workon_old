@@ -72,6 +72,20 @@
                 else if(isArray(data.notice)) { for(var i in data.notice) { $.fn.notice(data.notice[i]); } }
                 else { $.fn.notice(data.notice); }
             }
+            if(data.replaceModal)
+            {
+                data.leaveModal = true;
+                $(modalFormSelector).replaceWith(data.replaceModal).modalAddClose();
+            }
+            if(data.redirectModal)
+            {
+                $(modalFormSelector).addClass('loading')
+                data.leaveModal = true;
+                $.get(data.redirectModal, function(data)
+                {
+                    $(modalFormSelector).replaceWith(data).modalAddClose();
+                })
+            }
             if(data.redirect)
             {
                 document.location.href = data.redirect;

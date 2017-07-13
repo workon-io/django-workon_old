@@ -13,11 +13,12 @@ class Login(generic.FormView):
     form_class = LoginForm
     form_kwargs = {}
     redirect_field_name = "next"
+    redirect_authenticated = True
 
     def get(self, *args, **kwargs):
-        if self.request.user.is_authenticated():
+        if self.redirect_authenticated and self.request.user.is_authenticated():
             return redirect(self.get_success_url())
-        return super(Login, self).get(*args, **kwargs)
+        return super().get(*args, **kwargs)
 
     def get_template_names(self):
         return [self.template_name_ajax] if self.request.is_ajax() else [self.template_name]
