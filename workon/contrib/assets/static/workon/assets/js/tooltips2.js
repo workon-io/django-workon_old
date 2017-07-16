@@ -4,10 +4,7 @@ $(document).ready(function(apply)
 {
     apply = function(e, options, self)
     {
-        if(this.workon_tooltip === true)
-        {
-            return
-        }
+        if(this.workon_tooltip === true) { return }
         this.workon_tooltip = true;
         self = $(this);
         var data = self.data('tooltip');
@@ -34,6 +31,7 @@ $(document).ready(function(apply)
         if(options.content && options.content[0] == '#' && $(options.content).length)
         {
             options.content = $(options.content);
+            options.contentAsHTML = true;
         }
         self.tooltipster(options);
         if(e.originalEvent && (!options.trigger || options.trigger == "hover"))

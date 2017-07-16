@@ -20,6 +20,9 @@ if 'workon.contrib.assets' in settings.INSTALLED_APPS:
     from workon.contrib.assets.templatetags import lazy_register
     lazy_register(register)
 
+from workon.utils.hashtag import lazy_register
+lazy_register(register)
+
 @register.filter(name='divide_by')
 def divide_by(value, arg):
     try:

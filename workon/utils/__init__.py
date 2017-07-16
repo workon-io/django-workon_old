@@ -7,6 +7,7 @@ from workon.utils.email import *
 from workon.utils.embed import *
 from workon.utils.geo import *
 from workon.utils.html import *
+from workon.utils.hashtag import *
 from workon.utils.image import *
 from workon.utils.price import *
 from workon.utils.file import *
