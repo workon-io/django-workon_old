@@ -65,7 +65,7 @@ superuser_required_statement = user_passes_test(lambda u: u.is_superuser)
 
 _previous_route_url = None
 def route(pattern,
-        name,
+        name=None,
         attach=HttpRequest,
         attach_attr=None,
         view=None,
@@ -89,13 +89,16 @@ def route(pattern,
     pattern = pattern
     # if not pattern.endswith('$'):
     #     pattern = f'{pattern}$'
-    url_name  = name.split(':')[-1]
+    if name:
+        url_name  = name.split(':')[-1]
+    else:
+        url_name = None
     module = None
     for m in sys.modules.values():
         if m and '__file__' in m.__dict__ and m.__file__.startswith(caller_filename):
             module = m
             break
-    if attach:
+    if name and attach:
         def reversor(attached):
             future_args = ( method(attached) for method in args )
             future_kwargs = { attr:method(attached) for attr, method in kwargs.items() }
