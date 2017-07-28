@@ -13,12 +13,16 @@ from django.contrib.auth.tokens import default_token_generator
 
 import workon.utils
 import workon.forms
+from workon.contrib.auth.forms.password import (
+    PasswordReset as PasswordResetForm, 
+    PasswordResetToken as PasswordResetTokenForm
+)
 
 class PasswordResetToken(generic.FormView):
 
     template_name = "auth/password_reset_token.html"
     template_name_fail = "auth/password_reset_token_fail.html"
-    form_class = workon.forms.PasswordResetToken
+    form_class = PasswordResetTokenForm
     token_generator = default_token_generator
     redirect_field_name = "next"
     messages = {
@@ -124,7 +128,7 @@ class PasswordReset(generic.FormView):
 
     template_name = "auth/password_reset.html"
     template_name_sent = "auth/password_reset_sent.html"
-    form_class = workon.forms.PasswordReset
+    form_class = PasswordResetForm
     token_generator = default_token_generator
 
     def get_context_data(self, *args, **kwargs):

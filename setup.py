@@ -63,6 +63,9 @@ setup(
         'colour==0.1.4',
         'premailer==3.0.1',
         'python-gmaps==0.3.1',
-        "babel==2.4.0"
+        "babel==2.4.0",
+        "aioredis==0.3.0",
+        "hiredis==0.2.0",
+        "websockets==3.2"
     ],
 )
