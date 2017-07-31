@@ -60,6 +60,7 @@ setup(
     install_requires=[
         'django>=1.11,<=1.12',
         'psutil==5.2.2',
+        'bleach==2.0.0',
         'colour==0.1.4',
         'premailer==3.0.1',
         'python-gmaps==0.3.1',

@@ -64,9 +64,6 @@ def from_settings(name):
 def settings_value(name):
     return getattr(settings, name, "")
 
-@register.simple_tag
-def settings_value(name):
-    return getattr(settings, name, "")
 
 @register.filter
 def get(object, name, default=None):
