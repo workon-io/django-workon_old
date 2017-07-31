@@ -1,15 +1,9 @@
 from django.shortcuts import render
-import logging
+from workon.contrib.html import html2text
+from bs4 import BeautifulSoup
 
-try:
-    import bleach
-    has_bleach = True
-except:
-    has_bleach = False
+__all__ = ['render_content', 'sanitize', 'html2text']
 
-logger = logging.getLogger()
-
-__all__ = ['render_content', 'sanitize']
 
 def render_content(request, template, context):
     return str(render(request, template, context).content, 'utf-8')
@@ -20,3 +14,15 @@ def sanitize(html):
         return html
     else:
         return bleach.clean(html)
+
+def html2text(html):
+    soup = BeautifulSoup(html, "lxml")
+    return soup.get_text()
+
+# def strip_tags(value):
+#     "Returns the given HTML with all tags stripped"
+#     return re.sub(r'<[^>]*?>', '', value)
+
+# def strip_entities(value):
+#     "Returns the given HTML with all entities (&something;) stripped"
+#     return re.sub(r'&(?:\w+|#\d);', '', value)

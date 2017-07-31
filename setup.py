@@ -59,6 +59,7 @@ setup(
     # test_suite='runtests.runtests',
     install_requires=[
         'django>=1.11,<=1.12',
+        'beautifulsoup4==4.6.0',
         'psutil==5.2.2',
         'bleach==2.0.0',
         'colour==0.1.4',
