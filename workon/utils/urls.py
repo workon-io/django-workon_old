@@ -244,7 +244,7 @@ def get_current_site(request=None):
             return Site.objects.get(id=settings.SITE_ID)
 
 def external_url(url):
-    if not url.startswith('http') or not url.startswith('//'):
+    if not url.startswith('http') and not url.startswith('//'):
         return f"http://{url}"
     return url
 
@@ -256,15 +256,16 @@ def canonical_url(url, domain_check=False):
     """
 
     current_site = get_current_site()
-    if not url.startswith('http') or not url.startswith('//'):
-        domain = current_site.domain
-        if not domain.startswith('http') or not url.startswith('//'):
-            domain = f"http://{domain}"
+    domain = current_site.domain
+    if not domain.startswith('http') and not domain.startswith('//'):
+        domain = f"http://{domain}"
+
+    if not url.startswith('http') and not url.startswith('//'):
         url = os.path.join(domain, url.lstrip('/'))
 
     if domain_check:
         url_parts = URL(url)
-        current_site_parts = URL(URL().domain(current_site.domain).as_string())
+        current_site_parts = URL(URL().domain(domain).as_string())
         if url_parts.subdomains()[-2:] != current_site_parts.subdomains()[-2:]:
             raise ValueError("Suspicious domain '%s' that differs from the "
                 "current Site one '%s'" % (url_parts.domain(), current_site_parts.domain()))
