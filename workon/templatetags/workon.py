@@ -58,11 +58,11 @@ else:
 
 @register.filter
 def from_settings(name):
-    return getattr(settings, name, "")
+    return getattr(settings, name, os.environ.get(name, ''))
 
 @register.simple_tag
 def settings_value(name):
-    return getattr(settings, name, "")
+    return getattr(settings, name, os.environ.get(name, ''))
 
 
 @register.filter
