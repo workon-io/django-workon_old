@@ -244,8 +244,8 @@ def get_current_site(request=None):
             return Site.objects.get(id=settings.SITE_ID)
 
 def external_url(url):
-    if not url.startswith('http://') or not url.startswith('https://'):
-        return "http://%s" % url
+    if not url.startswith('http') or not url.startswith('//'):
+        return f"http://{url}"
     return url
 
 
@@ -256,8 +256,11 @@ def canonical_url(url, domain_check=False):
     """
 
     current_site = get_current_site()
-    if not url.startswith('http'):
-        url = "http://%s" % os.path.join(current_site.domain, url.lstrip('/'))
+    if not url.startswith('http') or not url.startswith('//'):
+        domain = current_site.domain
+        if not domain.startswith('http') or not url.startswith('//'):
+            domain = f"http://{domain}"
+        url = os.path.join(domain, url.lstrip('/'))
 
     if domain_check:
         url_parts = URL(url)
@@ -276,7 +279,7 @@ def canonical_url_static(url, domain_check=False):# False because of S3
     Ensure that the url contains the `http://mysite.com/STATIC_URL` part,
     particularly for requests made on the local dev server
     """
-    if url.startswith('http'):
+    if url.startswith('http') or url.startswith('//'):
         return url
     return canonical_url( os.path.join(settings.STATIC_URL, url), domain_check)
 
