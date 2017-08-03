@@ -7,6 +7,7 @@ UserModel = get_user_model()
 class EmailOrUsernameModelBackend(ModelBackend):
 
     def authenticate(self, request, username=None, password=None, **kwargs):
+        user = None
         if '@' in username:
             kwargs = {'email__exact': username}
         else:
@@ -18,7 +19,7 @@ class EmailOrUsernameModelBackend(ModelBackend):
             # difference between an existing and a non-existing user (#20760).
             UserModel().set_password(password)
         else:
-            if user.check_password(password) and self.user_can_authenticate(user):
+            if user and user.check_password(password) and self.user_can_authenticate(user):
                 return user
 
 
