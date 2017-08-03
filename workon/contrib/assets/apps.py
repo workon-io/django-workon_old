@@ -19,7 +19,7 @@ class AssetsConfig(AppConfig):
 
         self.app_path = workon.utils.get_project_root()
         self.cache_path = os.path.join(self.app_path, self.path_name)
-        self.is_runserver = (len(sys.argv) > 1 and sys.argv[1] == 'runserver')
+        self.is_runserver = (len(sys.argv) > 1 and sys.argv[1] in ['runserver', 'runsslserver'])
 
 
     def ready(self, *args, **kwargs):

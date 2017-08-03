@@ -13,8 +13,9 @@ def replace_hashtags_with_hrefs(text, href='#{hastag}', label='#{hastag}'):
 
 
 def iter_hashtags(text):
-    for full_hashtag, hashtag in HASTAG_RE.findall(text):
-        yield hashtag
+    if text:
+        for full_hashtag, hashtag in HASTAG_RE.findall(text):
+            yield hashtag
 
 
 def lazy_register(register):
