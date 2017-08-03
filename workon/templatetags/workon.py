@@ -368,7 +368,6 @@ def add_input_classes(field, **kwargs):
         if field.errors:
             field_classes+= ' invalid'
         field.field.widget.attrs['class'] = field_classes
-        print(field.name)
 
         if hasattr(field.field, 'max_length'):
             field.field.widget.attrs['data-length'] = field.field.max_length
@@ -388,7 +387,6 @@ def add_input_classes(field, **kwargs):
         field.field.widget.attrs[name] = value
 
     field.real_value = field.value()
-    print(field.value(), type(field.real_value))
 
     field.classes = widget_classes
     field.error_classes = "field-error"
@@ -397,7 +395,7 @@ def add_input_classes(field, **kwargs):
     template_name = f'workon/forms/fields/_{field.field.widget.__class__.__name__.lower()}.html'
     try:
         field.template = get_template(template_name)
-        print(f" {template_name} form widget template")
+        # print(f" {template_name} form widget template")
     except:
         print(f"Unknow {template_name} form widget template")
         field.template = get_template('workon/forms/fields/_unknow.html')
