@@ -29,6 +29,11 @@
     -o-transform: $n; /* Opera */
     transform: $n; /* Opera */
 }
+@mixin blur($n:5px) {
+    -ms-filter: blur($n);
+    -webkit-filter: blur($n);
+    filter: blur($n);
+}
 @mixin tr($n...) {
     -ms-transition: $n;
     -moz-transition: $n;
@@ -51,9 +56,9 @@
 .tac { text-align: center; }
 .tal { text-align: left; }
 .tar { text-align: right; }
-.vam { vertical-align: middle; }
-.vat { vertical-align: top; }
-.vab { vertical-align: bottom; }
+.vam { vertical-align: middle  !important; }
+.vat { vertical-align: top  !important; }
+.vab { vertical-align: bottom !important; }
 .cen {
     position: absolute;
     top: 50%; left: 50%;

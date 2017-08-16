@@ -14,12 +14,6 @@
     {
         if(typeof(data) == "object")
         {
-            if(data.callback)
-            {
-                window[data.callback](data);
-                $(modalFormSelector).modal('close');
-                return;
-            }
             if(data.remove)
             {
                 if(isArray(data.remove)) { for(var i in data.remove) { $(data.remove[i]).remove(); } }
@@ -95,6 +89,12 @@
             {
                 $(modalFormSelector).modal('close');
             }
+            if(data.callback)
+            {
+                window[data.callback](data);
+                $(modalFormSelector).modal('close');
+                return;
+            }
         }
         else
         {
@@ -158,8 +158,9 @@
     {
         form = $(this);
         form.addClass('loading');
+        method = form.attr('method')
         var options = {
-            type: "POST",
+            type: method ? method : 'POST',
             url: form.attr('action'),
             success: function(data)
             {

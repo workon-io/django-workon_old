@@ -4,6 +4,7 @@ import unicodedata, re, json
 
 from django.utils.encoding import force_str, force_text
 from django.utils.text import slugify as django_slugify
+from django.utils.encoding import force_text
 from django.utils import six
 
 # space_chars = re.compile(r"[\.\'\"\_\-\,\?\(\)\[\]]")
@@ -49,28 +50,20 @@ def jsonify(obj):
         except:
             return json.loads(json.dumps(obj))
 
-def normalize(string):
-    if not string: return ""
-    if not isinstance(string, six.string_types): string = forceunicode(string)
-    string = string.replace(u'“', '"')
-    string = string.replace(u'”', '"')
-    string = string.replace(u'’', "'")
-    string = string.replace(u'–', "-")
-    return unicodedata.normalize('NFKD',string).encode('ascii','ignore').lower().strip()
-
-
-def normalize_hard(string):
-    if not string: return ""
-    if not isinstance(string, six.string_types): string = forceunicode(string)
-    string = normalize(string)
-    string = str(string, 'utf-8')
-    string = string.replace(u'"', '')
-    string = string.replace(u"'", '')
-    string = string.replace(u'-', '')
-    return unicodedata.normalize('NFKD',string).encode('ascii','ignore').lower().strip()
+def strip_accents(string, accents=('COMBINING ACUTE ACCENT', 'COMBINING GRAVE ACCENT', 'COMBINING TILDE')):
+    accents = set(map(unicodedata.lookup, accents))
+    chars = [c for c in unicodedata.normalize('NFD', string) if c not in accents]
+    return unicodedata.normalize('NFC', ''.join(chars))
 
 def slugify(string, allow_unicode=False):
     return django_slugify(string)
+
+def normalize(value):
+    return slugify(value)
+
+def normalize_hard(value):
+    value = normalize(value)
+    return value
 
 def prepare_for_search(string, default=""):
     if not string: return default

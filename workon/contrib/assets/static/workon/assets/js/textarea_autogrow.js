@@ -63,7 +63,7 @@ jQuery.fn.autoGrow = function(options)
 
         // Style the textarea
         this.style.overflow = "hidden";
-        this.style.minHeight = this.rows+"em";
+        // this.style.minHeight = this.rows+"em";
 
         // Bind the textarea's event
         this.onkeyup = growTextarea;
