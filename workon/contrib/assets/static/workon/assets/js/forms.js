@@ -174,16 +174,41 @@
             options.data = formData;
             options.contentType = false;
             options.processData = false;
+
+            if(form[0].additionnalFormData) {
+                for(var i in form[0].additionnalFormData) 
+                {                    
+                    options.data.append(i, form[0].additionnalFormData[i]);
+                }
+                form[0].additionnalFormData = null;
+            }
         }
         else
         {
             options.data = form.serializeArray();
+            if(form[0].additionnalFormData) {
+                for(var i in form[0].additionnalFormData) 
+                {                    
+                    options.data.push({ 'name': i, 'value': form[0].additionnalFormData[i] });
+                }
+                form[0].additionnalFormData = null;
+            }
         }
+        console.log(options);
         $.ajax(options);
         e.stopPropagation();
         return false;
     });
 
+    $(document).on('click', 
+      formSelector + ' [type="submit"][name], '+modalFormSelector + ' [type="submit"][name]', 
+      function(e, form)
+    {
+        data = {}
+        data[$(this).attr('name')] = $(this).val();
+        this.form.additionnalFormData = data
+        // $(this.form).submit();
+    });
 
 
 
