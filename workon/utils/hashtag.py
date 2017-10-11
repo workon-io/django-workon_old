@@ -13,6 +13,9 @@ __all__ = [
 HASTAG_RE = re.compile(r'''[^&](\#([\'\"\w\-\_\d]+))''')
 HASTAG_AT_RE = re.compile(r'''[^&](\@([\'\"\w\-\_\d]+))''')
 
+HASTAG_RE_SEARCH = re.compile(r'''(\#([\'\"\w\-\_\d]+))''')
+HASTAG_AT_RE_SEARCH = re.compile(r'''(\@([\'\"\w\-\_\d]+))''')
+
 def replace_hashtags_with_hrefs(text, href='#{hastag}', label='#{hastag}'):
     text = unescape(text)
     href = href.format(hastag='\\2')
@@ -23,12 +26,12 @@ def replace_hashtags_with_hrefs(text, href='#{hastag}', label='#{hastag}'):
 
 def iter_hashtags(text):
     if text:
-        for full_hashtag, hashtag in HASTAG_RE.findall(text):
+        for full_hashtag, hashtag in HASTAG_RE_SEARCH.findall(text):
             yield hashtag
 
 def iter_hashtags_at(text):
     if text:
-        for full_hashtag, hashtag in HASTAG_AT_RE.findall(text):
+        for full_hashtag, hashtag in HASTAG_AT_RE_SEARCH.findall(text):
             yield hashtag
 
 def lazy_register(register):

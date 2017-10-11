@@ -53,6 +53,39 @@
                     }
                 }
             }
+            if(data.replaceInner)
+            {
+                if(isArray(data.replaceInner))
+                {
+                    for(var i in data.replaceInner)
+                    {
+                        var elm = $(data.replaceInner[i]);
+                        var old = $('#'+elm.attr('id'));
+                        if(old.length)
+                        {
+                            old.html(elm.html());
+                        }
+                    }
+                }
+                else if(isDict(data.replaceInner))
+                {
+                    for(var id in data.replaceInner)
+                    {
+                        var old = $('#'+id);
+                        if(old.length)
+                        {
+                            old.html($(data.replaceInner[id]).html());
+                        }
+                    }
+                }
+                else {
+                    var $elm = $(data.replaceInner)
+                    if($elm.attr('id'))
+                    {
+                        $('#'+$elm.attr('id')).html($elm.html());
+                    }
+                }
+            }
             if(data.permanotice)
             {
 
@@ -140,7 +173,7 @@
       var target = $(this).data('post-href');
       var options = {
           type: "POST",
-          data: $.param( decodeURIComponent(target) ),
+          data: $(this).data('post-data'),
           url: target,
           success: function(data) { $.fn.ajaxResponse(data); }
       };
