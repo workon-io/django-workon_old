@@ -1,5 +1,7 @@
 import re
 from django.utils.safestring import mark_safe
+from django.utils.html import escape
+from html import unescape
 
 __all__ = [
     'HASTAG_RE', 
@@ -8,13 +10,14 @@ __all__ = [
     'iter_hashtags_at'
 ]
 
-HASTAG_RE = re.compile(r'(\#([\w\-\_\d]+))')
-HASTAG_AT_RE = re.compile(r'(\@([\w\-\_\d]+))')
+HASTAG_RE = re.compile(r'''[^&](\#([\'\"\w\-\_\d]+))''')
+HASTAG_AT_RE = re.compile(r'''[^&](\@([\'\"\w\-\_\d]+))''')
 
 def replace_hashtags_with_hrefs(text, href='#{hastag}', label='#{hastag}'):
+    text = unescape(text)
     href = href.format(hastag='\\2')
     label = label.format(hastag='\\2')
-    html = HASTAG_RE.sub(f'<a href="{href}">{label}</a>', text)
+    html = HASTAG_RE.sub(f' <a href="{href}">{label}</a>', text)
     return mark_safe(html)
 
 
