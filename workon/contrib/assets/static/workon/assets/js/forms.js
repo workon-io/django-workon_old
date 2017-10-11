@@ -135,6 +135,19 @@
       e.stopPropagation();
       return false;
     });
+    $(document).on('click', '[data-post-href]', function(e)
+    {
+      var target = $(this).data('post-href');
+      var options = {
+          type: "POST",
+          data: $.param( decodeURIComponent(target) ),
+          url: target,
+          success: function(data) { $.fn.ajaxResponse(data); }
+      };
+      $.ajax(options);
+      e.stopPropagation();
+      return false;
+    });
     $(document).ready(function()
     {
       $('[data-ajax-loadin]').each(function(i, self)
