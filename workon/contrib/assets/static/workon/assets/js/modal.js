@@ -6,7 +6,7 @@
     //     });
 
     $.fn.modalDefaults = {
-        closeOnClick: true
+        closeOnClick: false
     }
 
     $.fn.modalAddClose = function() {
